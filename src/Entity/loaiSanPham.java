@@ -10,9 +10,20 @@ package Entity;
  * @author nguye
  */
 public class loaiSanPham {
-    int maLoaiSP;
-    String tenLoaiSP;
-    String mauSac;
+    private int maLoaiSP;
+    private String tenLoaiSP;
+    private String mauSac;
+
+    public loaiSanPham() {
+    }
+
+    public loaiSanPham(int maLoaiSP, String tenLoaiSP, String mauSac) {
+        this.maLoaiSP = maLoaiSP;
+        this.tenLoaiSP = tenLoaiSP;
+        this.mauSac = mauSac;
+    }
+    
+    
 
     public int getMaLoaiSP() {
         return maLoaiSP;
