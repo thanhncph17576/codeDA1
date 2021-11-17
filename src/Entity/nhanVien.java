@@ -10,10 +10,10 @@ package Entity;
  * @author DANG HOANG
  */
 public class nhanVien {
-    int ID;
-    String UserName;
-    String Pass;
-    String Loai;
+    private int ID;
+    private String UserName;
+    private String Pass;
+    private String Loai;
 
     public nhanVien() {
     }
@@ -61,6 +61,10 @@ public class nhanVien {
     public String toString() {
         return "nhanVien{" + "ID=" + ID + ", UserName=" + UserName + ", Pass=" + Pass + ", Loai=" + Loai + '}';
     }
+    
+    
+
+    
     
     
     
