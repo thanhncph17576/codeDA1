@@ -9,6 +9,6 @@ package DAO;
  *
  * @author nguye
  */
-public class banDAO {
+public class banDAO extends DAO<ban, Object>{
     
 }

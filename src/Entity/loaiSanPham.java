@@ -13,7 +13,7 @@ public class loaiSanPham {
     private int maLoaiSP;
     private String tenLoaiSP;
     private String mauSac;
-
+    
     public loaiSanPham() {
     }
 
