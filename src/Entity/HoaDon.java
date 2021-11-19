@@ -5,6 +5,8 @@
  */
 package Entity;
 
+import java.sql.Date;
+
 /**
  *
  * @author ADMIN
@@ -12,15 +14,15 @@ package Entity;
 public class HoaDon {
     private int maHoaDon;
     private int maBan;
-    private String giamGia;
+    private int giamGia;
     private int tongTien;
-    private String trangThai;
-    private int gioDen;
+    private int trangThai;
+    private Date gioDen;
 
     public HoaDon() {
     }
 
-    public HoaDon(int maHoaDon, int maBan, String giamGia, int tongTien, String trangThai, int gioDen) {
+    public HoaDon(int maHoaDon, int maBan, int giamGia, int tongTien, int trangThai, Date gioDen) {
         this.maHoaDon = maHoaDon;
         this.maBan = maBan;
         this.giamGia = giamGia;
@@ -45,11 +47,11 @@ public class HoaDon {
         this.maBan = maBan;
     }
 
-    public String getGiamGia() {
+    public int getGiamGia() {
         return giamGia;
     }
 
-    public void setGiamGia(String giamGia) {
+    public void setGiamGia(int giamGia) {
         this.giamGia = giamGia;
     }
 
@@ -61,19 +63,19 @@ public class HoaDon {
         this.tongTien = tongTien;
     }
 
-    public String getTrangThai() {
+    public int getTrangThai() {
         return trangThai;
     }
 
-    public void setTrangThai(String trangThai) {
+    public void setTrangThai(int trangThai) {
         this.trangThai = trangThai;
     }
 
-    public int getGioDen() {
+    public Date getGioDen() {
         return gioDen;
     }
 
-    public void setGioDen(int gioDen) {
+    public void setGioDen(Date gioDen) {
         this.gioDen = gioDen;
     }
     
