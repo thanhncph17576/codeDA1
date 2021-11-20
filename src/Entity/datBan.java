@@ -11,20 +11,19 @@ package Entity;
  */
 public class datBan {
     private int maDatBan;
-    private int datBan;
+    private int maBan;
     private String tenKhach;
     private String SDT;
-    private String date;
+    private String gioDat;
 
     public datBan() {
     }
 
-    public datBan(int maDatBan, int datBan, String tenKhach, String SDT, String date) {
+    public datBan(int maDatBan, int maBan, String tenKhach, String gioDat) {
         this.maDatBan = maDatBan;
-        this.datBan = datBan;
+        this.maBan = maBan;
         this.tenKhach = tenKhach;
-        this.SDT = SDT;
-        this.date = date;
+        this.gioDat = gioDat;
     }
 
     public int getMaDatBan() {
@@ -35,12 +34,12 @@ public class datBan {
         this.maDatBan = maDatBan;
     }
 
-    public int getDatBan() {
-        return datBan;
+    public int getMaBan() {
+        return maBan;
     }
 
-    public void setDatBan(int datBan) {
-        this.datBan = datBan;
+    public void setMaBan(int maBan) {
+        this.maBan = maBan;
     }
 
     public String getTenKhach() {
@@ -59,19 +58,17 @@ public class datBan {
         this.SDT = SDT;
     }
 
-    public String getDate() {
-        return date;
+    public String getGioDat() {
+        return gioDat;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setGioDat(String gioDat) {
+        this.gioDat = gioDat;
     }
 
     @Override
     public String toString() {
-        return "datBan{" + "maDatBan=" + maDatBan + ", datBan=" + datBan + ", tenKhach=" + tenKhach + ", SDT=" + SDT + ", date=" + date + '}';
+        return "datBan{" + "maDatBan=" + maDatBan + ", maBan=" + maBan + ", tenKhach=" + tenKhach + ", SDT=" + SDT + ", gioDat=" + gioDat + '}';
     }
-    
-    
     
 }
