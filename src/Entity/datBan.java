@@ -5,6 +5,8 @@
  */
 package Entity;
 
+import java.sql.Date;
+
 /**
  *
  * @author ADMIN
@@ -14,17 +16,17 @@ public class datBan {
     private int datBan;
     private String tenKhach;
     private String SDT;
-    private String date;
+    private Date giodat;
 
     public datBan() {
     }
 
-    public datBan(int maDatBan, int datBan, String tenKhach, String SDT, String date) {
+    public datBan(int maDatBan, int datBan, String tenKhach, String SDT, Date giodat) {
         this.maDatBan = maDatBan;
         this.datBan = datBan;
         this.tenKhach = tenKhach;
         this.SDT = SDT;
-        this.date = date;
+        this.giodat = giodat;
     }
 
     public int getMaDatBan() {
@@ -59,18 +61,22 @@ public class datBan {
         this.SDT = SDT;
     }
 
-    public String getDate() {
-        return date;
+    public Date getGiodat() {
+        return giodat;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setGiodat(Date giodat) {
+        this.giodat = giodat;
     }
 
     @Override
     public String toString() {
-        return "datBan{" + "maDatBan=" + maDatBan + ", datBan=" + datBan + ", tenKhach=" + tenKhach + ", SDT=" + SDT + ", date=" + date + '}';
+        return "datBan{" + "maDatBan=" + maDatBan + ", datBan=" + datBan + ", tenKhach=" + tenKhach + ", SDT=" + SDT + ", giodat=" + giodat + '}';
     }
+
+    
+
+    
     
     
     
