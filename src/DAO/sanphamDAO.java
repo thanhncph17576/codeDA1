@@ -36,12 +36,13 @@ public class sanphamDAO extends DAO<SanPham, String> {
 
     @Override
     public void update(SanPham entity) {
-        JDBC.update(UPDATE_SQL,
-                entity.getMaSanPham(),
+        JDBC.update(UPDATE_SQL,              
                 entity.getMaLoaiSanPham(),
                 entity.getTenSanPham(),
                 entity.getDonVi(),
-                entity.getDonViTinh());
+                entity.getDonViTinh(),
+                entity.getMaSanPham()
+        );
     }
 
     @Override
