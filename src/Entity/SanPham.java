@@ -14,19 +14,18 @@ public class SanPham {
     private int maLoaiSanPham;
     private String tenSanPham;
     private int donVi;
-    private int donViTinh;
+    private String donViTinh;
 
-    public SanPham(int maSanPham, int maLoaiSanPham, String tenSanPham, int donVi, int donViTinh) {
+    public SanPham() {
+    }
+
+    public SanPham(int maSanPham, int maLoaiSanPham, String tenSanPham, int donVi, String donViTinh) {
         this.maSanPham = maSanPham;
         this.maLoaiSanPham = maLoaiSanPham;
         this.tenSanPham = tenSanPham;
         this.donVi = donVi;
         this.donViTinh = donViTinh;
     }
-
-    public SanPham() {
-    }
-    
 
     public int getMaSanPham() {
         return maSanPham;
@@ -60,13 +59,20 @@ public class SanPham {
         this.donVi = donVi;
     }
 
-    public int getDonViTinh() {
+    public String getDonViTinh() {
         return donViTinh;
     }
 
-    public void setDonViTinh(int donViTinh) {
+    public void setDonViTinh(String donViTinh) {
         this.donViTinh = donViTinh;
     }
+
+    @Override
+    public String toString() {
+        return "SanPham{" + "maSanPham=" + maSanPham + ", maLoaiSanPham=" + maLoaiSanPham + ", tenSanPham=" + tenSanPham + ", donVi=" + donVi + ", donViTinh=" + donViTinh + '}';
+    }
+
+    
     
     
 }
