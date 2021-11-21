@@ -10,37 +10,36 @@ package Entity;
  * @author ADMIN
  */
 public class datBan {
-    private int maDatBan;
-    private int datBan;
+    private int maBanDat;
+    private int MaBan;
     private String tenKhach;
     private String SDT;
-    private String date;
-
+    private String gioDat;
     public datBan() {
     }
 
-    public datBan(int maDatBan, int datBan, String tenKhach, String SDT, String date) {
-        this.maDatBan = maDatBan;
-        this.datBan = datBan;
+    public datBan(int maBanDat, int MaBan, String tenKhach, String SDT, String gioDat) {
+        this.maBanDat = maBanDat;
+        this.MaBan = MaBan;
         this.tenKhach = tenKhach;
         this.SDT = SDT;
-        this.date = date;
+        this.gioDat = gioDat;
     }
 
-    public int getMaDatBan() {
-        return maDatBan;
+    public int getMaBanDat() {
+        return maBanDat;
     }
 
-    public void setMaDatBan(int maDatBan) {
-        this.maDatBan = maDatBan;
+    public void setMaBanDat(int maBanDat) {
+        this.maBanDat = maBanDat;
     }
 
-    public int getDatBan() {
-        return datBan;
+    public int getMaBan() {
+        return MaBan;
     }
 
-    public void setDatBan(int datBan) {
-        this.datBan = datBan;
+    public void setMaBan(int MaBan) {
+        this.MaBan = MaBan;
     }
 
     public String getTenKhach() {
@@ -59,18 +58,22 @@ public class datBan {
         this.SDT = SDT;
     }
 
-    public String getDate() {
-        return date;
+    public String getGioDat() {
+        return gioDat;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setGioDat(String gioDat) {
+        this.gioDat = gioDat;
     }
 
     @Override
     public String toString() {
-        return "datBan{" + "maDatBan=" + maDatBan + ", datBan=" + datBan + ", tenKhach=" + tenKhach + ", SDT=" + SDT + ", date=" + date + '}';
+        return "datBan{" + "maBanDat=" + maBanDat + ", MaBan=" + MaBan + ", tenKhach=" + tenKhach + ", SDT=" + SDT + ", gioDat=" + gioDat + '}';
     }
+
+   
+
+    
     
     
     
