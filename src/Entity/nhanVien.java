@@ -61,6 +61,10 @@ public class nhanVien {
     public String toString() {
         return "nhanVien{" + "ID=" + ID + ", UserName=" + UserName + ", Pass=" + Pass + ", Loai=" + Loai + '}';
     }
+
+    public boolean isLoai() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
 
