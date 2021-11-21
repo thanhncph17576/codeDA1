@@ -5,6 +5,8 @@
  */
 package UI;
 
+import java.awt.Color;
+
 
 public class JFthucDon extends javax.swing.JPanel {
     
