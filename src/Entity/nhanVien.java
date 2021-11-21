@@ -13,12 +13,12 @@ public class nhanVien {
     private int ID;
     private String UserName;
     private String Pass;
-    private String Loai;
+    private int Loai;
 
     public nhanVien() {
     }
 
-    public nhanVien(int ID, String UserName, String Pass, String Loai) {
+    public nhanVien(int ID, String UserName, String Pass, int Loai) {
         this.ID = ID;
         this.UserName = UserName;
         this.Pass = Pass;
@@ -49,11 +49,11 @@ public class nhanVien {
         this.Pass = Pass;
     }
 
-    public String getLoai() {
+    public int getLoai() {
         return Loai;
     }
 
-    public void setLoai(String Loai) {
+    public void setLoai(int Loai) {
         this.Loai = Loai;
     }
 
