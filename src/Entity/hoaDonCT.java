@@ -5,62 +5,78 @@
  */
 package Entity;
 
+import java.sql.Date;
+
 /**
  *
  * @author ADMIN
  */
 public class hoaDonCT {
-    private int maHoaDonCT;
-    private int maSP;
-    private int soLuong;
-    private  int gia;
+    private int maChiTietHD;
+    private int maHoaDon;
+    private int maMon;
+    private  int soLong;
+    private  Date gia;
 
     public hoaDonCT() {
     }
 
-    public hoaDonCT(int maHoaDonCT, int maSP, int soLuong, int gia) {
-        this.maHoaDonCT = maHoaDonCT;
-        this.maSP = maSP;
-        this.soLuong = soLuong;
+    public hoaDonCT(int maChiTietHD, int maHoaDon, int maMon, int soLong, Date gia) {
+        this.maChiTietHD = maChiTietHD;
+        this.maHoaDon = maHoaDon;
+        this.maMon = maMon;
+        this.soLong = soLong;
         this.gia = gia;
     }
 
-    public int getMaHoaDonCT() {
-        return maHoaDonCT;
+    public int getMaChiTietHD() {
+        return maChiTietHD;
     }
 
-    public void setMaHoaDonCT(int maHoaDonCT) {
-        this.maHoaDonCT = maHoaDonCT;
+    public void setMaChiTietHD(int maChiTietHD) {
+        this.maChiTietHD = maChiTietHD;
     }
 
-    public int getMaSP() {
-        return maSP;
+    public int getMaHoaDon() {
+        return maHoaDon;
     }
 
-    public void setMaSP(int maSP) {
-        this.maSP = maSP;
+    public void setMaHoaDon(int maHoaDon) {
+        this.maHoaDon = maHoaDon;
     }
 
-    public int getSoLuong() {
-        return soLuong;
+    public int getMaMon() {
+        return maMon;
     }
 
-    public void setSoLuong(int soLuong) {
-        this.soLuong = soLuong;
+    public void setMaMon(int maMon) {
+        this.maMon = maMon;
     }
 
-    public int getGia() {
+    public int getSoLong() {
+        return soLong;
+    }
+
+    public void setSoLong(int soLong) {
+        this.soLong = soLong;
+    }
+
+    public Date getGia() {
         return gia;
     }
 
-    public void setGia(int gia) {
+    public void setGia(Date gia) {
         this.gia = gia;
     }
 
     @Override
     public String toString() {
-        return "hoaDonCT{" + "maHoaDonCT=" + maHoaDonCT + ", maSP=" + maSP + ", soLuong=" + soLuong + ", gia=" + gia + '}';
+        return "hoaDonCT{" + "maChiTietHD=" + maChiTietHD + ", maHoaDon=" + maHoaDon + ", maMon=" + maMon + ", soLong=" + soLong + ", gia=" + gia + '}';
     }
+
+    
+
+    
     
     
 }
