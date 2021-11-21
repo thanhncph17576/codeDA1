@@ -12,15 +12,17 @@ package Entity;
 public class hoaDonCT {
     private int maHoaDonCT;
     private int maSP;
+    private int maMon;
     private int soLuong;
     private  int gia;
 
     public hoaDonCT() {
     }
 
-    public hoaDonCT(int maHoaDonCT, int maSP, int soLuong, int gia) {
+    public hoaDonCT(int maHoaDonCT, int maSP, int maMon, int soLuong, int gia) {
         this.maHoaDonCT = maHoaDonCT;
         this.maSP = maSP;
+        this.maMon = maMon;
         this.soLuong = soLuong;
         this.gia = gia;
     }
@@ -41,6 +43,14 @@ public class hoaDonCT {
         this.maSP = maSP;
     }
 
+    public int getMaMon() {
+        return maMon;
+    }
+
+    public void setMaMon(int maMon) {
+        this.maMon = maMon;
+    }
+
     public int getSoLuong() {
         return soLuong;
     }
@@ -59,8 +69,10 @@ public class hoaDonCT {
 
     @Override
     public String toString() {
-        return "hoaDonCT{" + "maHoaDonCT=" + maHoaDonCT + ", maSP=" + maSP + ", soLuong=" + soLuong + ", gia=" + gia + '}';
+        return "hoaDonCT{" + "maHoaDonCT=" + maHoaDonCT + ", maSP=" + maSP + ", maMon=" + maMon + ", soLuong=" + soLuong + ", gia=" + gia + '}';
     }
+
+   
     
     
 }
