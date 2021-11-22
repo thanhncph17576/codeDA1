@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,18 +18,18 @@ import java.sql.SQLException;
  */
 public class JDBC {
     static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    static String dburl = "jdbc:sqlserver://localhost\\DESKTOP-V982F9E\\SQLEXPRESS:1433;databaseName=QuanLyTraSua2";
+    static String dburl = "jdbc:sqlserver://localhost\\LAPTOP-RHM7ROFR\\SQLEXPRESS:1433;databaseName=QuanLyTraSua2";
     static String user = "sa";
-    static String pass = "123";
+    static String pass = "123456";
 
     //Nap Driver
-    static {
-        try {
-            Class.forName(driver);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    static {
+//        try {
+//            Class.forName(driver);
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
     //Xjdbc.GETSTMT()
     public static PreparedStatement getStmt(String sql, Object... args) throws SQLException {

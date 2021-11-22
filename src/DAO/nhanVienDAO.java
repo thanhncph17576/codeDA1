@@ -13,7 +13,7 @@ public class nhanVienDAO extends DAO<nhanVien, String>{
     String UPDATE_SQL = "update nhanVien set username = ? , password = ?, lv = ? where id = ?";
     String DELETE_SQL = "delete from nhanVien where id = ?";
     String SELECT_ALL_SQL = "select * from nhanVien";
-    String SELECT_BY_ID_SQL = "select * from nhanVien where id = ?";
+    String SELECT_BY_ID_SQL = "select * from nhanVien where username = ?";
     
 
     @Override
@@ -62,8 +62,8 @@ public class nhanVienDAO extends DAO<nhanVien, String>{
                 nhanVien nv = new nhanVien();
                 nv.setID(rs.getInt("ID"));
                 nv.setUserName(rs.getString("UserName"));
-                nv.setPass(rs.getString("Pass"));
-                nv.setLoai(rs.getInt("Loai"));
+                nv.setPass(rs.getString("password"));
+                nv.setLoai(rs.getInt("lv"));
                 list.add(nv);
             }
             rs.getStatement().getConnection().close();
@@ -72,5 +72,5 @@ public class nhanVienDAO extends DAO<nhanVien, String>{
             throw new RuntimeException(e);
         }
     }
-    
+       
 }
