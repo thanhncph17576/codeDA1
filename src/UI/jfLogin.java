@@ -5,6 +5,10 @@
  */
 package UI;
 
+import DAO.nhanVienDAO;
+import Entity.nhanVien;
+import Helper.Messages;
+
 
 /**
  *
@@ -16,6 +20,24 @@ public class jfLogin extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
 
+    }
+    
+    nhanVienDAO dao = new nhanVienDAO();
+    void login(){
+        String manv = txtUsername.getText();
+        String pass = new String(txtpass.getPassword());
+        
+        nhanVien nv = dao.selectByID(new String("a"));
+        if (nv == null) {
+            Messages.alert(this, "Sai tên đăng nhập!");
+            txtUsername.requestFocus();
+        } else if (!pass.equals(nv.getPass())) {
+            Messages.alert(this, "Sai mật khẩu!");          
+            txtpass.requestFocus();
+        } else {
+            Messages.alert(this, "Đăng nhập thành công.");
+            this.dispose();
+        }
     }
 
     /**
@@ -132,7 +154,7 @@ public class jfLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
   
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
-
+        login();
     }//GEN-LAST:event_btnDangNhapActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
