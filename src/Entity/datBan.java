@@ -21,9 +21,9 @@ public class datBan {
     public datBan() {
     }
 
-    public datBan(int maDatBan, int datBan, String tenKhach, String SDT, Date giodat) {
+    public datBan(int maDatBan, int maBan, String tenKhach, String SDT, Date giodat) {
         this.maDatBan = maDatBan;
-        this.maBan = datBan;
+        this.maBan = maBan;
         this.tenKhach = tenKhach;
         this.SDT = SDT;
         this.giodat = giodat;
@@ -37,12 +37,12 @@ public class datBan {
         this.maDatBan = maDatBan;
     }
 
-    public int getDatBan() {
+    public int getMaBan() {
         return maBan;
     }
 
-    public void setDatBan(int datBan) {
-        this.maBan = datBan;
+    public void setMaBan(int maBan) {
+        this.maBan = maBan;
     }
 
     public String getTenKhach() {
@@ -68,6 +68,8 @@ public class datBan {
     public void setGiodat(Date giodat) {
         this.giodat = giodat;
     }
+
+    
 
     @Override
     public String toString() {
