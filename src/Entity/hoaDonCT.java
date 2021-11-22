@@ -71,7 +71,7 @@ public class hoaDonCT {
 
     @Override
     public String toString() {
-        return "hoaDonCT{" + "maHoaDonCT=" + maHoaDonCT + ", maSP=" + maSP + ", maMon=" + maMon + ", soLuong=" + soLuong + ", gia=" + gia + '}';
+        return "hoaDonCT{" + "maHoaDonCT=" + maHoaDonCT + ", maSP=" + maHoaDon + ", maMon=" + maMon + ", soLuong=" + soLuong + ", gia=" + gia + '}';
     }
 
    
