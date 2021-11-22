@@ -13,7 +13,7 @@ import java.sql.Date;
  */
 public class datBan {
     private int maDatBan;
-    private int datBan;
+    private int maBan;
     private String tenKhach;
     private String SDT;
     private Date giodat;
@@ -23,7 +23,7 @@ public class datBan {
 
     public datBan(int maDatBan, int datBan, String tenKhach, String SDT, Date giodat) {
         this.maDatBan = maDatBan;
-        this.datBan = datBan;
+        this.maBan = datBan;
         this.tenKhach = tenKhach;
         this.SDT = SDT;
         this.giodat = giodat;
@@ -38,11 +38,11 @@ public class datBan {
     }
 
     public int getDatBan() {
-        return datBan;
+        return maBan;
     }
 
     public void setDatBan(int datBan) {
-        this.datBan = datBan;
+        this.maBan = datBan;
     }
 
     public String getTenKhach() {
@@ -71,7 +71,7 @@ public class datBan {
 
     @Override
     public String toString() {
-        return "datBan{" + "maDatBan=" + maDatBan + ", datBan=" + datBan + ", tenKhach=" + tenKhach + ", SDT=" + SDT + ", giodat=" + giodat + '}';
+        return "datBan{" + "maDatBan=" + maDatBan + ", maBan=" + maBan + ", tenKhach=" + tenKhach + ", SDT=" + SDT + ", giodat=" + giodat + '}';
     }
 
     
