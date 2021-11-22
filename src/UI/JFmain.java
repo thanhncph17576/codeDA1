@@ -5,6 +5,7 @@
  */
 package UI;
 
+import Helper.Messages;
 import java.awt.Color;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -317,6 +318,10 @@ public final class JFmain extends javax.swing.JFrame {
     
     private void btnthoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthoatActionPerformed
         // TODO add your handling code here:
+        if (Messages.confirm(this, "Bạn muốn đăng xuất")) {
+            this.setVisible(false);
+            new jfLogin().setVisible(true);
+        }
         
         
     }//GEN-LAST:event_btnthoatActionPerformed
