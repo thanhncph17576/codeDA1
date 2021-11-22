@@ -27,7 +27,7 @@ public class jfLogin extends javax.swing.JFrame {
         String manv = txtUsername.getText();
         String pass = new String(txtpass.getPassword());
         
-        nhanVien nv = dao.selectByID(new String("a"));
+        nhanVien nv = dao.selectByID(manv);
         if (nv == null) {
             Messages.alert(this, "Sai tên đăng nhập!");
             txtUsername.requestFocus();
@@ -37,6 +37,13 @@ public class jfLogin extends javax.swing.JFrame {
         } else {
             Messages.alert(this, "Đăng nhập thành công.");
             this.dispose();
+            new JFmain().setVisible(true);
+        }
+    }
+    
+    void ketThuc() {
+        if (Messages.confirm(this, "Bạn muốn kết thúc ứng dụng?")) {
+            System.exit(0);
         }
     }
 
@@ -154,12 +161,21 @@ public class jfLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
   
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
-        login();
+        if (txtUsername.getText().length() == 0) {
+            Messages.alert(this, "Không được để trống Tên Đăng Nhập!");
+            txtUsername.requestFocus();
+        } else if (txtpass.getText().length() == 0) {
+            Messages.alert(this, "Không được để trống Mật Khẩu!");
+            txtpass.requestFocus();
+        } else {
+            login();
+        }       
     }//GEN-LAST:event_btnDangNhapActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-
+        
+        ketThuc();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
