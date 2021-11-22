@@ -11,7 +11,7 @@ package Entity;
  */
 public class hoaDonCT {
     private int maHoaDonCT;
-    private int maSP;
+    private int maHoaDon;
     private int maMon;
     private int soLuong;
     private  int gia;
@@ -19,9 +19,9 @@ public class hoaDonCT {
     public hoaDonCT() {
     }
 
-    public hoaDonCT(int maHoaDonCT, int maSP, int maMon, int soLuong, int gia) {
+    public hoaDonCT(int maHoaDonCT, int maHoaDon, int maMon, int soLuong, int gia) {
         this.maHoaDonCT = maHoaDonCT;
-        this.maSP = maSP;
+        this.maHoaDon = maHoaDon;
         this.maMon = maMon;
         this.soLuong = soLuong;
         this.gia = gia;
@@ -35,12 +35,12 @@ public class hoaDonCT {
         this.maHoaDonCT = maHoaDonCT;
     }
 
-    public int getMaSP() {
-        return maSP;
+    public int getMaHoaDon() {
+        return maHoaDon;
     }
 
-    public void setMaSP(int maSP) {
-        this.maSP = maSP;
+    public void setMaHoaDon(int maHoaDon) {
+        this.maHoaDon = maHoaDon;
     }
 
     public int getMaMon() {
@@ -66,6 +66,8 @@ public class hoaDonCT {
     public void setGia(int gia) {
         this.gia = gia;
     }
+
+    
 
     @Override
     public String toString() {
