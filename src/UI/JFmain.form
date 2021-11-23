@@ -111,7 +111,7 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="btnThongKe" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="btnKho" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnDS" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="btnThietLap" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -165,7 +165,7 @@
                               </Group>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="btnThongKe" alignment="3" max="32767" attributes="0"/>
-                                  <Component id="btnKho" alignment="3" max="32767" attributes="0"/>
+                                  <Component id="btnDS" alignment="3" max="32767" attributes="0"/>
                                   <Component id="btnThietLap" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="lblpv" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -265,7 +265,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThongKeActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnKho">
+        <Component class="javax.swing.JButton" name="btnDS">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="11" style="1"/>
@@ -282,7 +282,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnKhoActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDSActionPerformed"/>
           </Events>
         </Component>
         <Container class="javax.swing.JPanel" name="jpLayout">
@@ -344,11 +344,11 @@
           </Properties>
           <Events>
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="btnTrangChuFocusGained"/>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnTrangChuMouseClicked"/>
             <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnTrangChuMouseEntered"/>
             <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnTrangChuMouseExited"/>
             <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnTrangChuMousePressed"/>
             <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnTrangChuMouseReleased"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnTrangChuMouseClicked"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTrangChuActionPerformed"/>
           </Events>
         </Component>

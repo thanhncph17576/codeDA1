@@ -32,7 +32,7 @@ public class JFquanLy extends javax.swing.JPanel {
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
-        jpql = new javax.swing.JPanel();
+        jpQuanLy = new javax.swing.JPanel();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.setPreferredSize(new java.awt.Dimension(1051, 486));
@@ -126,7 +126,7 @@ public class JFquanLy extends javax.swing.JPanel {
                 .addContainerGap(294, Short.MAX_VALUE))
         );
 
-        jpql.setLayout(new java.awt.BorderLayout());
+        jpQuanLy.setLayout(new java.awt.BorderLayout());
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -135,11 +135,11 @@ public class JFquanLy extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jpql, javax.swing.GroupLayout.DEFAULT_SIZE, 806, Short.MAX_VALUE))
+                .addComponent(jpQuanLy, javax.swing.GroupLayout.DEFAULT_SIZE, 806, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpql, javax.swing.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE)
+            .addComponent(jpQuanLy, javax.swing.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE)
             .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -154,21 +154,70 @@ public class JFquanLy extends javax.swing.JPanel {
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
+    JFquanLy_SP sp;
+    JFquanLy_ban ban;
+    JFquanLy_user user;
+    JFquanLy_loaiSP loai;
+    
+    public void reloadPanel(int i) {
+        jpQuanLy.removeAll();
+        switch (i) {
+            case 1:
+                if (sp == null) {
+                    sp = new JFquanLy_SP();
+                }
+                //btnTrangChu.setPressedIcon(new ImageIcon("down.png"));
+                jpQuanLy.add(sp);
+                break;
+                
+            case 2:
+                if (loai == null) {
+                    loai = new JFquanLy_loaiSP();
+                } 
+                //btnBanHang.setPressedIcon(new ImageIcon("down.png"));
 
+                jpQuanLy.add(loai);
+                break;
+            case 3:
+                if(ban == null){
+                    ban = new JFquanLy_ban();
+                }
+                //btnQuanLy.setPressedIcon(new ImageIcon("down.png"));
+                jpQuanLy.add(ban);
+                break;
+            case 4:
+                if(user == null){
+                   user = new JFquanLy_user();
+                }
+                //btnQuanLy.setPressedIcon(new ImageIcon("down.png"));
+                jpQuanLy.add(user);
+                break;
+                           
+            default:
+                break;
+        }
+        jpQuanLy.updateUI();
+    
+    }
+    
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
+        reloadPanel(1);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
+        reloadPanel(3);
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        reloadPanel(2);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
+        reloadPanel(4);
     }//GEN-LAST:event_jButton8ActionPerformed
 
 
@@ -179,6 +228,6 @@ public class JFquanLy extends javax.swing.JPanel {
     private javax.swing.JButton jButton8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jpql;
+    private javax.swing.JPanel jpQuanLy;
     // End of variables declaration//GEN-END:variables
 }

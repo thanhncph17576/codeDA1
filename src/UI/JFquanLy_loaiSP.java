@@ -31,7 +31,6 @@ public class JFquanLy_loaiSP extends javax.swing.JPanel {
         bntThem = new javax.swing.JButton();
         bntSua = new javax.swing.JButton();
         bntXoa = new javax.swing.JButton();
-        jLabel10 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         lblthongtin = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -98,8 +97,6 @@ public class JFquanLy_loaiSP extends javax.swing.JPanel {
             }
         });
 
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interface/Images/cooltext171088793851573.png"))); // NOI18N
-
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(102, 0, 0));
         jLabel3.setText("Quản lý Loại sản phẩm");
@@ -142,9 +139,7 @@ public class JFquanLy_loaiSP extends javax.swing.JPanel {
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblthongtin)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))))
+                        .addGap(18, 249, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(77, 77, 77)
                 .addComponent(jLabel1)
@@ -173,9 +168,8 @@ public class JFquanLy_loaiSP extends javax.swing.JPanel {
                     .addComponent(jLabel3)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
-                        .addComponent(lblthongtin))
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                        .addComponent(lblthongtin)))
+                .addGap(64, 64, 64))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -205,7 +199,6 @@ public class JFquanLy_loaiSP extends javax.swing.JPanel {
     private javax.swing.JButton bntThem;
     private javax.swing.JButton bntXoa;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;

@@ -71,7 +71,8 @@ public final class JFbanHang extends javax.swing.JPanel {
 
         jpBan.setBackground(Color.decode("#e6e6e6"));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interface/Images/cooltext171088793851573.png"))); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/logo3.png"))); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("Free");
