@@ -9,6 +9,7 @@ import Helper.Messages;
 import java.awt.Color;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -18,6 +19,7 @@ public final class JFmain extends javax.swing.JFrame {
     /**
      * Creates new form frmMain
      */   
+
     public JFmain() {
         initComponents();
 
@@ -44,8 +46,68 @@ public final class JFmain extends javax.swing.JFrame {
       } 
     }
     }
+    JFsetting set;
+    JFbanHang ban;
+    JFhome home;
+    JFquanLy quanLy;
+    JFthongKe tk;
+    JFdatBan datBan;
     
+    
+    public void reloadPanel(int i) {
+        jpLayout.removeAll();
+        switch (i) {
+            case 1:
+                if (home == null) {
+                    home = new JFhome();
+                }
+                //btnTrangChu.setPressedIcon(new ImageIcon("down.png"));
+                jpLayout.add(home);
+                break;
+                
+            case 2:
+                if (ban == null) {
+                    ban = new JFbanHang();
+                } 
+                //btnBanHang.setPressedIcon(new ImageIcon("down.png"));
 
+                jpLayout.add(ban);
+                break;
+            case 3:
+                if(quanLy == null){
+                    quanLy = new JFquanLy();
+                }
+                //btnQuanLy.setPressedIcon(new ImageIcon("down.png"));
+                jpLayout.add(quanLy);
+                break;
+            case 4:
+                if(tk == null){
+                   tk = new JFthongKe();
+                }
+                //btnQuanLy.setPressedIcon(new ImageIcon("down.png"));
+                jpLayout.add(tk);
+                break;
+            case 5:
+                if(datBan == null){
+                   datBan = new JFdatBan();
+                }
+                //btnQuanLy.setPressedIcon(new ImageIcon("down.png"));
+                jpLayout.add(datBan);
+                break;
+
+            case 6:
+                if (set == null) {
+                    set = new JFsetting();
+                } 
+                //btnThietLap.setPressedIcon(new ImageIcon("down.png"));
+                jpLayout.add(set);
+                break;                
+            default:
+                break;
+        }
+        jpLayout.updateUI();
+    
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -61,7 +123,7 @@ public final class JFmain extends javax.swing.JFrame {
         btnQuanLy = new javax.swing.JButton();
         btnBanHang = new javax.swing.JButton();
         btnThongKe = new javax.swing.JButton();
-        btnKho = new javax.swing.JButton();
+        btnDS = new javax.swing.JButton();
         jpLayout = new javax.swing.JPanel();
         btnthoat = new javax.swing.JButton();
         btnTrangChu = new javax.swing.JButton();
@@ -139,14 +201,14 @@ public final class JFmain extends javax.swing.JFrame {
             }
         });
 
-        btnKho.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnKho.setForeground(new java.awt.Color(51, 51, 51));
-        btnKho.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ico-Table.png"))); // NOI18N
-        btnKho.setText("DANH SÁCH ĐẶT BÀN");
-        btnKho.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnKho.addActionListener(new java.awt.event.ActionListener() {
+        btnDS.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnDS.setForeground(new java.awt.Color(51, 51, 51));
+        btnDS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ico-Table.png"))); // NOI18N
+        btnDS.setText("DANH SÁCH ĐẶT BÀN");
+        btnDS.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnKhoActionPerformed(evt);
+                btnDSActionPerformed(evt);
             }
         });
 
@@ -181,9 +243,6 @@ public final class JFmain extends javax.swing.JFrame {
             }
         });
         btnTrangChu.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnTrangChuMouseClicked(evt);
-            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnTrangChuMouseEntered(evt);
             }
@@ -195,6 +254,9 @@ public final class JFmain extends javax.swing.JFrame {
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 btnTrangChuMouseReleased(evt);
+            }
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnTrangChuMouseClicked(evt);
             }
         });
         btnTrangChu.addActionListener(new java.awt.event.ActionListener() {
@@ -237,7 +299,7 @@ public final class JFmain extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btnThongKe)
                         .addGap(18, 18, 18)
-                        .addComponent(btnKho)
+                        .addComponent(btnDS)
                         .addGap(18, 18, 18)
                         .addComponent(btnThietLap)
                         .addGap(18, 18, 18)
@@ -279,7 +341,7 @@ public final class JFmain extends javax.swing.JFrame {
                                 .addGap(3, 3, 3))
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(btnThongKe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnKho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnDS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnThietLap)
                                 .addComponent(lblpv)))
                         .addGap(8, 8, 8)))
@@ -313,7 +375,7 @@ public final class JFmain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBanHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBanHangActionPerformed
-
+        reloadPanel(2);
     }//GEN-LAST:event_btnBanHangActionPerformed
     
     private void btnthoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthoatActionPerformed
@@ -328,10 +390,12 @@ public final class JFmain extends javax.swing.JFrame {
 
     private void btnTrangChuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTrangChuActionPerformed
         // TODO add your handling code here:
+        reloadPanel(1);
     }//GEN-LAST:event_btnTrangChuActionPerformed
 
     private void btnThietLapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThietLapActionPerformed
         // TODO add your handling code here:
+        reloadPanel(6);
     }//GEN-LAST:event_btnThietLapActionPerformed
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
@@ -339,12 +403,12 @@ public final class JFmain extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_formMouseClicked
 
-    private void btnKhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKhoActionPerformed
-
-    }//GEN-LAST:event_btnKhoActionPerformed
+    private void btnDSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDSActionPerformed
+        reloadPanel(5);
+    }//GEN-LAST:event_btnDSActionPerformed
 
     private void btnThongKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongKeActionPerformed
-
+        reloadPanel(4);
     }//GEN-LAST:event_btnThongKeActionPerformed
 
     private void btnTrangChuFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btnTrangChuFocusGained
@@ -378,7 +442,7 @@ public final class JFmain extends javax.swing.JFrame {
 
     private void btnQuanLyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuanLyActionPerformed
         // TODO add your handling code here:
-        
+        reloadPanel(3);
         
     }//GEN-LAST:event_btnQuanLyActionPerformed
 
@@ -389,7 +453,7 @@ public final class JFmain extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBanHang;
-    private javax.swing.JButton btnKho;
+    private javax.swing.JButton btnDS;
     private javax.swing.JButton btnQuanLy;
     private javax.swing.JButton btnThietLap;
     private javax.swing.JButton btnThongKe;

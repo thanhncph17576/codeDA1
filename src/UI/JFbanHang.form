@@ -166,8 +166,9 @@
         </Container>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Interface/Images/cooltext171088793851573.png"/>
+              <Image iconType="3" name="/Images/logo3.png"/>
             </Property>
           </Properties>
         </Component>
