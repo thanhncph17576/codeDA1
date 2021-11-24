@@ -7,9 +7,15 @@ package UI;
 
 import Helper.Messages;
 import java.awt.Color;
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import static java.lang.Thread.sleep;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.swing.ImageIcon;
+import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.Player;
 
 /**
  *
@@ -25,9 +31,16 @@ public final class JFmain extends javax.swing.JFrame {
 
         Clock clock= new Clock(); 
         clock.start(); 
-
-             
+        
+        txtqtv.setText(RUN.nv.getUserName());
+        if(RUN.nv.getLoai()!= 1)
+        {
+            btnQuanLy.setEnabled(false);
+            btnThongKe.setEnabled(false);
+       }
     }
+             
+    
     SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss_a");
     public class Clock extends Thread{ 
     public Clock(){    } 
@@ -46,6 +59,7 @@ public final class JFmain extends javax.swing.JFrame {
       } 
     }
     }
+    JFmain.MP3 mp3;
     JFsetting set;
     JFbanHang ban;
     JFhome home;
@@ -62,6 +76,8 @@ public final class JFmain extends javax.swing.JFrame {
                     home = new JFhome();
                 }
                 //btnTrangChu.setPressedIcon(new ImageIcon("down.png"));
+                mp3 = new JFmain.MP3 ("src/Sound/kasya.MP3");
+                mp3.play();
                 jpLayout.add(home);
                 break;
                 
@@ -70,7 +86,8 @@ public final class JFmain extends javax.swing.JFrame {
                     ban = new JFbanHang();
                 } 
                 //btnBanHang.setPressedIcon(new ImageIcon("down.png"));
-
+                mp3 = new JFmain.MP3 ("src/Sound/kasya.MP3");
+                mp3.play();
                 jpLayout.add(ban);
                 break;
             case 3:
@@ -78,6 +95,8 @@ public final class JFmain extends javax.swing.JFrame {
                     quanLy = new JFquanLy();
                 }
                 //btnQuanLy.setPressedIcon(new ImageIcon("down.png"));
+                                mp3 = new JFmain.MP3 ("src/Sound/kasya.MP3");
+                mp3.play();
                 jpLayout.add(quanLy);
                 break;
             case 4:
@@ -85,6 +104,8 @@ public final class JFmain extends javax.swing.JFrame {
                    tk = new JFthongKe();
                 }
                 //btnQuanLy.setPressedIcon(new ImageIcon("down.png"));
+                mp3 = new JFmain.MP3 ("src/Sound/kasya.MP3");
+                mp3.play();               
                 jpLayout.add(tk);
                 break;
             case 5:
@@ -92,6 +113,8 @@ public final class JFmain extends javax.swing.JFrame {
                    datBan = new JFdatBan();
                 }
                 //btnQuanLy.setPressedIcon(new ImageIcon("down.png"));
+                mp3 = new JFmain.MP3 ("src/Sound/kasya.MP3");
+                mp3.play();
                 jpLayout.add(datBan);
                 break;
 
@@ -100,6 +123,8 @@ public final class JFmain extends javax.swing.JFrame {
                     set = new JFsetting();
                 } 
                 //btnThietLap.setPressedIcon(new ImageIcon("down.png"));
+                mp3 = new JFmain.MP3 ("src/Sound/kasya.MP3");
+                mp3.play();
                 jpLayout.add(set);
                 break;                
             default:
@@ -132,6 +157,8 @@ public final class JFmain extends javax.swing.JFrame {
         lbldat = new javax.swing.JLabel();
         txtqtv = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        btnSound = new javax.swing.JButton();
+        btnmute = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Trung Hòa Coffee Music");
@@ -282,6 +309,20 @@ public final class JFmain extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(51, 51, 0));
         jLabel1.setText("QTV:");
 
+        btnSound.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Sound.png"))); // NOI18N
+        btnSound.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSoundActionPerformed(evt);
+            }
+        });
+
+        btnmute.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/mute.png"))); // NOI18N
+        btnmute.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnmuteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -289,29 +330,34 @@ public final class JFmain extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jpLayout, javax.swing.GroupLayout.PREFERRED_SIZE, 1254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jpLayout, javax.swing.GroupLayout.PREFERRED_SIZE, 1238, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btnTrangChu)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnBanHang)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnQuanLy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnThongKe)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnDS)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnThietLap)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblpv)
                             .addComponent(lbltime)
-                            .addComponent(lbldat)
-                            .addComponent(lblpv))
-                        .addGap(37, 37, 37)
+                            .addComponent(lbldat))
+                        .addGap(38, 38, 38)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnmute, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnSound, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(13, 13, 13)
                                 .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtqtv))
                             .addComponent(btnthoat))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -319,34 +365,38 @@ public final class JFmain extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtqtv)
-                            .addComponent(lbltime)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(btnQuanLy, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnTrangChu)
                                 .addComponent(btnBanHang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnTrangChu))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(lbldat)
-                                    .addComponent(btnthoat))
-                                .addGap(3, 3, 3))
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnQuanLy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(btnThongKe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnDS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnThietLap)
-                                .addComponent(lblpv)))
-                        .addGap(8, 8, 8)))
-                .addComponent(jpLayout, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                                .addComponent(btnThietLap))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(lbltime)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblpv)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lbldat)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnmute, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel1)
+                                .addComponent(txtqtv)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnSound)
+                            .addComponent(btnthoat))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jpLayout, javax.swing.GroupLayout.PREFERRED_SIZE, 561, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -356,24 +406,53 @@ public final class JFmain extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(1241, 1241, 1241)
                 .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1266, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(266, 266, 266)
                 .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 610, Short.MAX_VALUE)
+                .addContainerGap(387, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 653, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+class MP3 {
+    private Player player;
+    private String filename;
+    
+    public MP3(String filename) {
+        this.filename = filename;
+    }
+    
+    public void stop() {
+        if (player != null)
+            player.close();
+    }
+public void play() {
+        try {
+            BufferedInputStream bis = new BufferedInputStream(new FileInputStream(filename));
+            player = new Player(bis);
+        } catch (FileNotFoundException | JavaLayerException ex) {
+            System.out.println(ex);
+        }
+        
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    player.play();
+                } catch (Exception ex) {
+                    System.out.println(ex);
+                }
+            }
+        }).start();
+    }
+}
     private void btnBanHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBanHangActionPerformed
         reloadPanel(2);
     }//GEN-LAST:event_btnBanHangActionPerformed
@@ -381,8 +460,9 @@ public final class JFmain extends javax.swing.JFrame {
     private void btnthoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthoatActionPerformed
         // TODO add your handling code here:
         if (Messages.confirm(this, "Bạn muốn đăng xuất")) {
+            RUN.login.setVisible(true);
             this.setVisible(false);
-            new jfLogin().setVisible(true);
+            new frmLogIn().setVisible(true);
         }
         
         
@@ -445,6 +525,21 @@ public final class JFmain extends javax.swing.JFrame {
         reloadPanel(3);
         
     }//GEN-LAST:event_btnQuanLyActionPerformed
+        MP3 nhacnen;
+    private void btnSoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSoundActionPerformed
+        // TODO add your handling code here:
+        nhacnen = new MP3 ("src/Sound/Fur Elise - Richard Clayderman.MP3");
+        nhacnen.play();
+        btnSound.setVisible(false);
+        btnmute.setVisible(true);
+    }//GEN-LAST:event_btnSoundActionPerformed
+
+    private void btnmuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmuteActionPerformed
+        // TODO add your handling code here:
+        nhacnen.stop();
+        btnSound.setVisible(true);
+        btnmute.setVisible(false);
+    }//GEN-LAST:event_btnmuteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -455,9 +550,11 @@ public final class JFmain extends javax.swing.JFrame {
     private javax.swing.JButton btnBanHang;
     private javax.swing.JButton btnDS;
     private javax.swing.JButton btnQuanLy;
+    private javax.swing.JButton btnSound;
     private javax.swing.JButton btnThietLap;
     private javax.swing.JButton btnThongKe;
     private javax.swing.JButton btnTrangChu;
+    private javax.swing.JButton btnmute;
     private javax.swing.JButton btnthoat;
     private javax.swing.Box.Filler filler1;
     private javax.swing.JLabel jLabel1;
