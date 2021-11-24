@@ -5,6 +5,12 @@
  */
 package UI;
 
+import DAO.nhanVienDAO;
+import Entity.nhanVien;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 
 
 /**
@@ -13,12 +19,14 @@ package UI;
  */
 
 public class JFquanLy_user extends javax.swing.JPanel {
-    
+    public static JFquanLy_user nv;
     public JFquanLy_user() {
         initComponents();
+        nv = this;
+        FillTable();
         
     }
-    
+        nhanVienDAO dao = new nhanVienDAO();  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -169,13 +177,39 @@ public class JFquanLy_user extends javax.swing.JPanel {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+public void FillTable() {
+        DefaultTableModel model = (DefaultTableModel) tbBan.getModel();
+        model.setRowCount(0);
+        List<nhanVien> arrTable = dao.selectAll();
+        DefaultTableModel tbmodel = new DefaultTableModel();
+        tbmodel.addColumn("ID");
+        tbmodel.addColumn("Tên tài khoản");
+        tbmodel.addColumn("Mật khẩu");
+         tbmodel.addColumn("Level");
 
+        if (arrTable != null) {
+            int soban = 0;
+            for (nhanVien b : arrTable) {
+                soban++;
+                tbmodel.addRow(new Object[]{b.getID(), b.getUserName(), b.getPass(), b.getLoai()});
+            }
+            lblthongtin.setText(String.valueOf(soban)+" tài khoản");
+        } else {
+            JOptionPane.showMessageDialog(null, "Không có tài khoản !");
+        }
+        tbBan.setModel(tbmodel);
+        for(int i = 0; i < tbBan.getColumnCount();i++){
+            Class<?> col = tbBan.getColumnClass(i);
+            tbBan.setDefaultEditor(col, null);
+        }
+}
     private void tbBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbBanMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_tbBanMouseClicked
 
     private void bntThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntThemActionPerformed
-        
+        JFquanLy_user_them ban = new JFquanLy_user_them(RUN.QLTS, true);
+        ban.setVisible(true);         
     }//GEN-LAST:event_bntThemActionPerformed
 
     private void bntSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSuaActionPerformed
