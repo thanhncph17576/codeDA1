@@ -20,7 +20,8 @@ public class jfLogin extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
 
-    }
+    } 
+    
     
     nhanVienDAO dao = new nhanVienDAO();
     void login(){
