@@ -25,6 +25,7 @@ public final class JFmain extends javax.swing.JFrame {
 
         Clock clock= new Clock(); 
         clock.start(); 
+        txtqtv.setText(RUN.nv.getUserName());
 
              
     }
@@ -307,13 +308,15 @@ public final class JFmain extends javax.swing.JFrame {
                             .addComponent(lbltime)
                             .addComponent(lbldat)
                             .addComponent(lblpv))
-                        .addGap(37, 37, 37)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(37, 37, 37)
                                 .addComponent(jLabel1)
                                 .addGap(18, 18, 18)
                                 .addComponent(txtqtv))
-                            .addComponent(btnthoat))))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(22, 22, 22)
+                                .addComponent(btnthoat)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(

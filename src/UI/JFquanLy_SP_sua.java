@@ -14,7 +14,8 @@ public class JFquanLy_SP_sua extends javax.swing.JDialog {
     
     public JFquanLy_SP_sua(java.awt.Frame parent, boolean modal, String mamon) {
         super(parent, modal);
-        initComponents();      
+        initComponents();
+        this.setLocationRelativeTo(null);
     }
     
     /**

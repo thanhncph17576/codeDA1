@@ -5,6 +5,20 @@
  */
 package UI;
 
+import DAO.loaiSanPhamDAO;
+import DAO.sanphamDAO;
+import Entity.SanPham;
+import Entity.loaiSanPham;
+import static java.nio.file.Files.list;
+import static java.rmi.Naming.list;
+import java.util.ArrayList;
+import static java.util.Collections.list;
+import java.util.List;
+import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 
 
 /**
@@ -14,8 +28,49 @@ package UI;
 public class JFquanLy_SP extends javax.swing.JPanel {
     
     public JFquanLy_SP() {
-        initComponents();       
+        initComponents();
+        fillCbb();
+        
     }
+    loaiSanPhamDAO daoLoai = new loaiSanPhamDAO();
+    sanphamDAO daoSP = new sanphamDAO();
+    public void fillCbb(){
+        DefaultComboBoxModel model = (DefaultComboBoxModel) cbbNhomMon.getModel();
+        model.removeAllElements();
+//        List<loaiSanPham> list = daoLoai.selectTen();
+        List<loaiSanPham> list = daoLoai.selectAll();
+        System.out.println(list);
+        for(loaiSanPham x : list){
+            model.addElement(x.getTenLoaiSP());
+        }
+        //fillTable();
+    }
+    public void fillTable(){
+        DefaultTableModel model = (DefaultTableModel) tblSP.getModel();
+        model.setColumnCount(0);
+        model.setRowCount(0);
+        model.addColumn("Mã món");
+        model.addColumn("Tên món");
+        model.addColumn("Mã loại");
+        model.addColumn("Đơn giá");
+        model.addColumn("ĐVT");
+        
+        int tenLoai = cbbNhomMon.getSelectedIndex()+1;
+        int soMon = 0;
+        List<SanPham> list = daoSP.selectTheoLoai(tenLoai);
+        for (SanPham x : list){
+            soMon++;
+            model.addRow(new Object[]{
+                x.getMaSanPham(),
+                x.getTenSanPham(),
+                x.getMaLoaiSanPham(),
+                x.getDonVi(),
+                x.getDonViTinh()
+            });
+        }
+        lblthongtin.setText(soMon+"");
+    }
+
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -29,7 +84,7 @@ public class JFquanLy_SP extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         bntXoa = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbBan = new javax.swing.JTable();
+        tblSP = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         bntThem = new javax.swing.JButton();
         cbbNhomMon = new javax.swing.JComboBox<>();
@@ -52,8 +107,8 @@ public class JFquanLy_SP extends javax.swing.JPanel {
             }
         });
 
-        tbBan.setForeground(new java.awt.Color(51, 0, 51));
-        tbBan.setModel(new javax.swing.table.DefaultTableModel(
+        tblSP.setForeground(new java.awt.Color(51, 0, 51));
+        tblSP.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -73,12 +128,12 @@ public class JFquanLy_SP extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tbBan.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblSP.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbBanMouseClicked(evt);
+                tblSPMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tbBan);
+        jScrollPane1.setViewportView(tblSP);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 51, 0));
@@ -100,6 +155,11 @@ public class JFquanLy_SP extends javax.swing.JPanel {
         cbbNhomMon.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbbNhomMonItemStateChanged(evt);
+            }
+        });
+        cbbNhomMon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbNhomMonActionPerformed(evt);
             }
         });
 
@@ -210,16 +270,19 @@ public class JFquanLy_SP extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tbBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbBanMouseClicked
+    private void tblSPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSPMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_tbBanMouseClicked
+    }//GEN-LAST:event_tblSPMouseClicked
 
     private void bntThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntThemActionPerformed
-        
+        JFquanLy_SP_them them = new JFquanLy_SP_them(RUN.main, true);
+        them.setVisible(true);
     }//GEN-LAST:event_bntThemActionPerformed
 
     private void bntSuaMonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSuaMonActionPerformed
         // TODO add your handling code here:
+//        JFquanLy_SP_sua sua = new JFquanLy_SP_sua(RUN.main, true, );
+//        sua.setVisible(true);
     }//GEN-LAST:event_bntSuaMonActionPerformed
 
     private void bntXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntXoaActionPerformed
@@ -234,6 +297,11 @@ public class JFquanLy_SP extends javax.swing.JPanel {
         
     }//GEN-LAST:event_txttimKeyReleased
 
+    private void cbbNhomMonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbNhomMonActionPerformed
+        // TODO add your handling code here:
+        fillTable();
+    }//GEN-LAST:event_cbbNhomMonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bntSuaMon;
@@ -247,7 +315,7 @@ public class JFquanLy_SP extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblthongtin;
-    private javax.swing.JTable tbBan;
+    private javax.swing.JTable tblSP;
     private javax.swing.JTextField txttim;
     // End of variables declaration//GEN-END:variables
 }

@@ -13,6 +13,7 @@ public class JFquanLy_SP_them extends javax.swing.JDialog {
     public JFquanLy_SP_them(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.setLocationRelativeTo(null);
     }
     
 
@@ -41,6 +42,7 @@ public class JFquanLy_SP_them extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
 
+        jPanel1.setBackground(new java.awt.Color(51, 255, 51));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N

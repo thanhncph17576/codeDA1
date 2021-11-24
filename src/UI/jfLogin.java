@@ -36,6 +36,7 @@ public class jfLogin extends javax.swing.JFrame {
             txtpass.requestFocus();
         } else {
             Messages.alert(this, "Đăng nhập thành công.");
+            RUN.nv = nv;
             this.dispose();
             new JFmain().setVisible(true);
         }

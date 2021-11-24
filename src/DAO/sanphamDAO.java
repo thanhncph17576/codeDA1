@@ -71,11 +71,11 @@ public class sanphamDAO extends DAO<SanPham, String> {
             ResultSet rs = JDBC.query(sql, args);
             while(rs.next()){
                 SanPham sp = new SanPham();
-                sp.setMaSanPham(rs.getInt("MaSanPham"));
-                sp.setMaLoaiSanPham(rs.getInt("MaLoaiSanPham"));
-                sp.setTenSanPham(rs.getString("TenSanPham"));
-                sp.setDonVi(rs.getInt("DonVi"));
-                sp.setDonViTinh(rs.getString("DonViTinh"));
+                sp.setMaSanPham(rs.getInt("MaMon"));
+                sp.setMaLoaiSanPham(rs.getInt("MaLoai"));
+                sp.setTenSanPham(rs.getString("TenMon"));
+                sp.setDonVi(rs.getInt("DonGia"));
+                sp.setDonViTinh(rs.getString("DVT"));
                 list.add(sp);
             }
             rs.getStatement().getConnection().close();
@@ -84,4 +84,8 @@ public class sanphamDAO extends DAO<SanPham, String> {
             throw new RuntimeException(e);
         }
     }
+    public List<SanPham> selectTheoLoai(int maLoai){
+       String sql = "select * from SanPham  where MaLoai = ?";
+       return this.selectBySQL(sql,maLoai);
+   } 
 }
