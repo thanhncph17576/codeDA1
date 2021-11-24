@@ -5,13 +5,43 @@
  */
 package UI;
 
-
+import DAO.nhanVienDAO;
+import Helper.Messages;
 
 public class JFdoiMK extends javax.swing.JPanel {
     
     
     public JFdoiMK() {
         initComponents();
+        lblten.setText(RUN.nv.getUserName());
+    }
+    
+    nhanVienDAO dao = new nhanVienDAO();
+    
+    void clear(){
+        txtpassnew.setText("");
+        txtpassold.setText("");
+        txtrepass.setText("");
+    }
+    
+     private void doiMK(){
+        
+        String matkhau = new String(txtpassold.getPassword());
+        String matkhauMoi = new String(txtpassnew.getPassword());
+        String matkhauMoi2 = new String(txtrepass.getPassword());
+        
+         if(!matkhau.equals(RUN.nv.getPass())){
+            Messages.alert(this, "Sai mật khẩu!");
+        }else if(matkhau.equals(matkhauMoi)){
+            Messages.alert(this, "Mật khẩu mới không được trùng với mật khẩu hiện tại!");
+        }else if(!matkhauMoi.equals(matkhauMoi2)){
+            Messages.alert(this, "Xác nhận mật khẩu không đúng!");
+        }else{
+            RUN.nv.setPass(matkhauMoi);
+            dao.update(RUN.nv);
+            Messages.alert(this, "Đổi mật khẩu thành công!");
+            clear();
+        }
     }
 
     /**
@@ -139,6 +169,15 @@ public class JFdoiMK extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        if(txtpassold.getText().length() == 0){
+            Messages.alert(this, "Không được để trống Mật Khẩu!");
+        }else if(txtpassnew.getText().length() == 0){
+            Messages.alert(this, "Bạn phải nhập Mật Khẩu Mới!");
+        }else if(txtrepass.getText().length() == 0){
+            Messages.alert(this, "Bạn phải xác nhận mật khẩu!");
+        }else{
+            doiMK();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     
