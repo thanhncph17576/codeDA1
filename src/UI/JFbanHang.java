@@ -5,7 +5,16 @@
  */
 package UI;
 
+import DAO.banDAO;
+import Entity.Ban;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JButton;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
+import java.util.List;
 
 
 
@@ -21,6 +30,8 @@ public final class JFbanHang extends javax.swing.JPanel {
         
         
     }
+    banDAO dao = new banDAO();
+    List<Ban> ban;
     
 
     /**
@@ -29,7 +40,46 @@ public final class JFbanHang extends javax.swing.JPanel {
     
     
     public void FillBan(){
-      
+      ban = dao.selectAll();
+        if(ban != null){
+            jpBan.removeAll();
+            JButton[] btn = new JButton[ban.size()];
+            for(int i=0;i<ban.size();i++){
+                btn[i] = new JButton();
+                btn[i].setName(String.valueOf(ban.get(i).getMaBan()));
+                String[] mb = ban.get(i).getTenBan().split(" ");
+                btn[i].setText(mb[1]);
+                btn[i].setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ico-Table.png")));
+                Border thickBorder = new LineBorder(Color.WHITE,8);
+                btn[i].setBorder(thickBorder);
+                btn[i].setBackground(Color.decode("#8080ff"));
+                btn[i].setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+                btn[i].setForeground(new java.awt.Color(51, 51, 51));
+                if(ban.get(i).getTrangThai().equals("Đang phục vụ")){
+                    btn[i].setBackground(Color.decode("#66ff66"));
+                }
+                if(ban.get(i).getTrangThai().equals("Đã đặt trước")){
+                    btn[i].setBackground(Color.decode("#ff6699"));
+                }                
+                btn[i].setPreferredSize(new Dimension(90, 70));
+
+                btn[i].addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                            JFgoiMon goimon;
+                            ban = (List<Ban>) dao.selectByID(e.getComponent().getName());
+                            if(ban != null){                            
+                                goimon = new JFgoiMon(ban.get(0).getTrangThai(),ban.get(0).getTenBan(),ban.get(0).getMaBan());
+                                jPanel2.removeAll();
+                                jPanel2.add(goimon);
+                                jPanel2.updateUI();
+                            }
+                        }                    
+                });
+                jpBan.add(btn[i]);
+                jpBan.updateUI();
+            }
+        }
             
     }
     /**
