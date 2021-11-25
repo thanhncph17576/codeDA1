@@ -71,7 +71,7 @@ public final class JFgoiMon extends javax.swing.JPanel {
         jLabel3.setForeground(new java.awt.Color(102, 0, 0));
         jLabel3.setText("Status:");
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interface/Images/logo_goi_mon.png"))); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/waiter.png"))); // NOI18N
 
         lblgioden.setText(".....");
 

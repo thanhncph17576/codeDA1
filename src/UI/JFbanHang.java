@@ -5,7 +5,16 @@
  */
 package UI;
 
+import DAO.banDAO;
+import Entity.Ban;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.List;
+import javax.swing.JButton;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 
 
 
@@ -18,9 +27,15 @@ public final class JFbanHang extends javax.swing.JPanel {
     
     public JFbanHang() {
         initComponents();
-        
+        FillBan();
         
     }
+    
+
+    List<Ban> ban;
+    banDAO dao = new banDAO();
+    Ban moJF;
+    
     
 
     /**
@@ -29,8 +44,46 @@ public final class JFbanHang extends javax.swing.JPanel {
     
     
     public void FillBan(){
-      
-            
+      ban = dao.selectAll();
+      if(ban != null){
+            jpBan.removeAll();
+            JButton[] btn = new JButton[ban.size()];
+            for(int i=0;i<ban.size();i++){
+                btn[i] = new JButton();
+                btn[i].setName(String.valueOf(ban.get(i).getMaBan()));
+                String[] mb = ban.get(i).getTenBan().split(" ");
+                btn[i].setText(mb[1]);
+                btn[i].setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ico-Table.png")));
+                Border thickBorder = new LineBorder(Color.WHITE,8);
+                btn[i].setBorder(thickBorder);
+                btn[i].setBackground(Color.decode("#8080ff"));
+                btn[i].setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+                btn[i].setForeground(new java.awt.Color(51, 51, 51));
+                if(ban.get(i).getTrangThai().equals("Đang phục vụ")){
+                    btn[i].setBackground(Color.decode("#66ff66"));
+                }
+                if(ban.get(i).getTrangThai().equals("Đã đặt trước")){
+                    btn[i].setBackground(Color.decode("#ff6699"));
+                }                
+                btn[i].setPreferredSize(new Dimension(90, 70));
+
+                btn[i].addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                            JFgoiMon goimon;
+                            moJF = dao.selectByID(e.getComponent().getName());
+                            if(ban != null){                            
+                                goimon = new JFgoiMon(ban.get(0).getTrangThai(),ban.get(0).getTenBan(),ban.get(0).getMaBan());
+                                jPanel2.removeAll();
+                                jPanel2.add(goimon);
+                                jPanel2.updateUI();
+                            }
+                        }                    
+                });
+                jpBan.add(btn[i]);
+                jpBan.updateUI();
+            }
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -100,9 +153,6 @@ public final class JFbanHang extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(jpBan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(23, 23, 23))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -111,7 +161,7 @@ public final class JFbanHang extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel4))
                 .addGap(12, 12, 12)
@@ -119,6 +169,9 @@ public final class JFbanHang extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jpBan, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,7 +200,7 @@ public final class JFbanHang extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 759, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 784, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
