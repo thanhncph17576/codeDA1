@@ -66,8 +66,8 @@ public class loaiSanPhamDAO extends DAO<loaiSanPham, String>{
             ResultSet rs = JDBC.query(sql, args);
             while(rs.next()){
                 loaiSanPham L = new loaiSanPham();
-                L.setMaLoaiSP(rs.getInt("MaLoaiSanPham"));
-                L.setTenLoaiSP(rs.getString("TenLoaiSanPham"));
+                L.setMaLoaiSP(rs.getInt("MaLoai"));
+                L.setTenLoaiSP(rs.getString("TenLoai"));
                 L.setMauSac(rs.getString("MauSac"));
                 list.add(L);
             }
