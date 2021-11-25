@@ -5,6 +5,9 @@
  */
 package UI;
 
+import Entity.nhanVien;
+import javax.swing.JOptionPane;
+import DAO.nhanVienDAO;
 
 
 /**
@@ -13,11 +16,15 @@ package UI;
  */
 public class JFquanLy_user_sua extends javax.swing.JDialog {
     
+        int ID;
+        nhanVienDAO dao = new nhanVienDAO();
     public JFquanLy_user_sua(java.awt.Frame parent, boolean modal,int id) {
         super(parent, modal);
-        initComponents();       
-    }
-
+        initComponents();     
+        ID = id;
+        
+        
+            }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -147,14 +154,49 @@ public class JFquanLy_user_sua extends javax.swing.JDialog {
 
     private void txtlvKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtlvKeyReleased
        // TODO add your handling code here:
+        try{
+            Integer.parseInt(txtlv.getText());
+        }catch(Exception e){
+            txtlv.setText("");
+        }
     }//GEN-LAST:event_txtlvKeyReleased
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+                if(txtten.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Tên tài khoản không được trống !");
+            txtten.requestFocus();
+            return;
+        }
+        if(txtpass.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Mật khẩu không được trống !");
+            txtpass.requestFocus();
+            return;
+        }
+        if(txtlv.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Nhâp Level !");
+            txtlv.requestFocus();
+            return;
+        }
+        nhanVien nv = new nhanVien();
+        nv.setID(ID);
+        nv.setUserName(txtten.getText());
+        nv.setPass(txtpass.getText());
+        nv.setLoai(Integer.parseInt(txtlv.getText()));
+
+//        int in = cn.UpdateTK(nv);
+//        if(in > 0){
+            dao.update(nv);
+            JFquanLy_user.nv.FillTable();
+            JFquanLy_user.nv.updateUI();
+//
+            this.dispose();
+//        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+       this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

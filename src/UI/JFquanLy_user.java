@@ -214,6 +214,14 @@ public void FillTable() {
 
     private void bntSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSuaActionPerformed
         // TODO add your handling code here:
+        int select=tbBan.getSelectedRow();
+        if(select<0){
+            JOptionPane.showMessageDialog(null, "Bạn chưa chọn !");
+        }else{
+            int MaBan = (int) tbBan.getValueAt(select, 0);
+            JFquanLy_user_sua sua = new JFquanLy_user_sua(RUN.QLTS, true, MaBan);
+            sua.setVisible(true);
+        }
     }//GEN-LAST:event_bntSuaActionPerformed
 
     private void bntXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntXoaActionPerformed

@@ -14,6 +14,7 @@ import static java.lang.Thread.sleep;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 
@@ -529,7 +530,7 @@ public void play() {
         MP3 nhacnen;
     private void btnSoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSoundActionPerformed
         // TODO add your handling code here:
-        nhacnen = new MP3 ("C:\\CODE_DUAN1\\codeDA1\\Sound");
+        nhacnen = new MP3 ("src/Sound/Fur Elise - Richard Clayderman.MP3");
         nhacnen.play();
         btnSound.setVisible(false);
         btnmute.setVisible(true);
@@ -537,9 +538,9 @@ public void play() {
 
     private void btnmuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmuteActionPerformed
         // TODO add your handling code here:
-        nhacnen.stop();
-        btnSound.setVisible(true);
-        btnmute.setVisible(false);
+       nhacnen.stop();
+       btnSound.setVisible(true);
+       btnmute.setVisible(false);
     }//GEN-LAST:event_btnmuteActionPerformed
 
     /**
