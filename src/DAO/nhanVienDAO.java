@@ -9,7 +9,7 @@ import java.util.List;
 
 public class nhanVienDAO extends DAO<nhanVien, String>{
     
-    String INSERT_SQL = "insert into nhanVien (id , username, password, lv) values (?,?,?,?)";
+    String INSERT_SQL = "insert into nhanVien (username, password, lv) values (?,?,?)";
     String UPDATE_SQL = "update nhanVien set username = ? , password = ?, lv = ? where id = ?";
     String DELETE_SQL = "delete from nhanVien where id = ?";
     String SELECT_ALL_SQL = "select * from nhanVien";
@@ -19,7 +19,6 @@ public class nhanVienDAO extends DAO<nhanVien, String>{
     @Override
     public void insert(nhanVien entity) {
         JDBC.update(INSERT_SQL,
-                entity.getID(),
                 entity.getUserName(),
                 entity.getPass(),
                 entity.getLoai());
