@@ -5,6 +5,13 @@
  */
 package UI;
 
+import DAO.loaiSanPhamDAO;
+import DAO.sanphamDAO;
+import Entity.loaiSanPham;
+import java.util.*;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 
 
 /**
@@ -13,8 +20,48 @@ package UI;
  */
 public class JFquanLy_loaiSP extends javax.swing.JPanel {
     
+         
+    public static JFquanLy_loaiSP loaisp;
     public JFquanLy_loaiSP() {
-        initComponents();      
+        initComponents();     
+        loaisp = this;
+        fillTable();
+    }
+    
+    loaiSanPhamDAO daoLoai = new loaiSanPhamDAO();
+    sanphamDAO daosp = new sanphamDAO();
+        
+    public void fillTable(){
+        DefaultTableModel mol = (DefaultTableModel) tbNhomMon.getModel();
+        mol.setColumnCount(0);
+        mol.setRowCount(0);
+        List<loaiSanPham> arrTable = daoLoai.selectAll();
+        DefaultTableModel tbmodel = new DefaultTableModel();
+        tbmodel.addColumn("Mã loại sản phẩm");
+        tbmodel.addColumn("Tên loại sản phẩm");
+        tbmodel.addColumn("Màu sắc");
+        
+        
+        if(arrTable != null){
+            int soLoai = 0;
+            for(loaiSanPham x : arrTable){
+                soLoai ++;
+                tbmodel.addRow(new Object[]{
+                    x.getMaLoaiSP(),
+                    x.getTenLoaiSP(),
+                    x.getMauSac()
+                });
+            }
+            lblthongtin.setText(String.valueOf(soLoai)+" loại");
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Không có loại nào");
+        }
+        tbNhomMon.setModel(tbmodel);
+        for(int i=0; i < tbNhomMon.getColumnCount(); i++){
+            Class<?> col = tbNhomMon.getColumnClass(i);
+            tbNhomMon.setDefaultEditor(col, null);
+        }
     }
     
     /**

@@ -528,7 +528,7 @@ public void play() {
         MP3 nhacnen;
     private void btnSoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSoundActionPerformed
         // TODO add your handling code here:
-        nhacnen = new MP3 ("src/Sound/Fur Elise - Richard Clayderman.MP3");
+        nhacnen = new MP3 ("C:\\CODE_DUAN1\\codeDA1\\Sound");
         nhacnen.play();
         btnSound.setVisible(false);
         btnmute.setVisible(true);
