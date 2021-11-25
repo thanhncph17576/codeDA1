@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class loaiSanPhamDAO extends DAO<loaiSanPham, String>{
     
-    String INSERT_SQL = "insert into loaiSP (MaLoai, TenLoai,MauSac) values (?,?,?)";
+    String INSERT_SQL = "insert into loaiSP ( TenLoai,MauSac) values (?,?)";
     String UPDATE_SQL = "update loaiSP set TenLoai = ?, MauSac = ? where MaLoai = ?";
     String DELETE_SQL = "delete from loaiSP where MaLoai = ?";
     String SELECT_ALL_SQL = "select * from loaiSP ";
@@ -26,7 +26,6 @@ public class loaiSanPhamDAO extends DAO<loaiSanPham, String>{
     @Override
     public void insert(loaiSanPham entity) {
         JDBC.update(INSERT_SQL,
-                entity.getMaLoaiSP(),
                 entity.getTenLoaiSP(),
                 entity.getMauSac());
     }

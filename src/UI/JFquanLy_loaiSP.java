@@ -225,7 +225,8 @@ public class JFquanLy_loaiSP extends javax.swing.JPanel {
     }//GEN-LAST:event_tbNhomMonMouseClicked
 
     private void bntThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntThemActionPerformed
-        
+        JFquanLy_loaiSP_them loaiSP = new JFquanLy_loaiSP_them(RUN.QLTS, true);
+        loaiSP.setVisible(true);
     }//GEN-LAST:event_bntThemActionPerformed
 
     private void bntSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSuaActionPerformed
