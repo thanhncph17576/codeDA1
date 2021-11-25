@@ -8,6 +8,7 @@ package UI;
 import DAO.nhanVienDAO;
 import Entity.nhanVien;
 import javax.swing.JOptionPane;
+import Helper.Messages;
 
 
 
@@ -148,8 +149,7 @@ public class JFquanLy_user_them extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-                if(txtten.getText().isEmpty()){
+        if(txtten.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Tên tài khoản không được trống !");
             txtten.requestFocus();
             return;
@@ -163,20 +163,21 @@ public class JFquanLy_user_them extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Nhâp Level !");
             txtlv.requestFocus();
             return;
-        }        
+        }  
         nhanVien nv = new nhanVien();
         nv.setUserName(txtten.getText());
         nv.setPass(txtpass.getText());
         nv.setLoai(Integer.parseInt(txtlv.getText()));
         
-//        int kt = new DichVuDAO().them(new DichVu(ma, mave, ten, giaf));
-//        Int a = Integer.parseInt(dao.insert(nv));
-//                dao.insert(nv);
-//        if(a > 0){
-//            JFquanLy_user.nv.FillTable();
-//            JFquanLy_user.nv.updateUI();
-//
-//            this.dispose();            
+//        int in = dao.(tk);
+//        if(in > 0){
+            dao.insert(nv);
+            JFquanLy_user.nv.FillTable();
+            JFquanLy_user.nv.updateUI();
+            JOptionPane.showMessageDialog(null, "Thêm thành công");
+
+            this.dispose(); 
+
 //        }
 
     }//GEN-LAST:event_jButton2ActionPerformed
