@@ -10,69 +10,71 @@ package Entity;
  * @author ADMIN
  */
 public class SanPham {
-    private int maSanPham;
-    private int maLoaiSanPham;
-    private String tenSanPham;
-    private int donVi;
-    private String donViTinh;
+    private int maMon;
+    private String tenMon;
+    private int maLoai;
+    private int donGia;
+    private String DVT;
 
     public SanPham() {
     }
 
-    public SanPham(int maSanPham, int maLoaiSanPham, String tenSanPham, int donVi, String donViTinh) {
-        this.maSanPham = maSanPham;
-        this.maLoaiSanPham = maLoaiSanPham;
-        this.tenSanPham = tenSanPham;
-        this.donVi = donVi;
-        this.donViTinh = donViTinh;
+    public SanPham(int maMon, String tenMon, int maLoai, int donGia, String DVT) {
+        this.maMon = maMon;
+        this.tenMon = tenMon;
+        this.maLoai = maLoai;
+        this.donGia = donGia;
+        this.DVT = DVT;
     }
 
-    public int getMaSanPham() {
-        return maSanPham;
+    public int getMaMon() {
+        return maMon;
     }
 
-    public void setMaSanPham(int maSanPham) {
-        this.maSanPham = maSanPham;
+    public void setMaMon(int maMon) {
+        this.maMon = maMon;
     }
 
-    public int getMaLoaiSanPham() {
-        return maLoaiSanPham;
+    public String getTenMon() {
+        return tenMon;
     }
 
-    public void setMaLoaiSanPham(int maLoaiSanPham) {
-        this.maLoaiSanPham = maLoaiSanPham;
+    public void setTenMon(String tenMon) {
+        this.tenMon = tenMon;
     }
 
-    public String getTenSanPham() {
-        return tenSanPham;
+    public int getMaLoai() {
+        return maLoai;
     }
 
-    public void setTenSanPham(String tenSanPham) {
-        this.tenSanPham = tenSanPham;
+    public void setMaLoai(int maLoai) {
+        this.maLoai = maLoai;
     }
 
-    public int getDonVi() {
-        return donVi;
+    public int getDonGia() {
+        return donGia;
     }
 
-    public void setDonVi(int donVi) {
-        this.donVi = donVi;
+    public void setDonGia(int donGia) {
+        this.donGia = donGia;
     }
 
-    public String getDonViTinh() {
-        return donViTinh;
+    public String getDVT() {
+        return DVT;
     }
 
-    public void setDonViTinh(String donViTinh) {
-        this.donViTinh = donViTinh;
+    public void setDVT(String DVT) {
+        this.DVT = DVT;
     }
 
     @Override
     public String toString() {
-        return "SanPham{" + "maSanPham=" + maSanPham + ", maLoaiSanPham=" + maLoaiSanPham + ", tenSanPham=" + tenSanPham + ", donVi=" + donVi + ", donViTinh=" + donViTinh + '}';
+        return "SanPham{" + "maMon=" + maMon + ", tenMon=" + tenMon + ", maLoai=" + maLoai + ", donGia=" + donGia + ", DVT=" + DVT + '}';
     }
 
-    
+   
+
+   
     
     
 }
