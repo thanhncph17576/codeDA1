@@ -230,6 +230,14 @@ public class JFquanLy_loaiSP extends javax.swing.JPanel {
 
     private void bntSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSuaActionPerformed
         // TODO add your handling code here:
+        int select = tbNhomMon.getSelectedRow();
+        if (select < 0) {
+            JOptionPane.showMessageDialog(null, "Bạn chưa chọn món nào !");
+        } else {
+            int mamon = (int) tbNhomMon.getValueAt(select, 0);
+            JFquanLy_loaiSP_sua sua = new JFquanLy_loaiSP_sua(RUN.QLTS, true, mamon);
+            sua.setVisible(true);
+        }
     }//GEN-LAST:event_bntSuaActionPerformed
 
     private void bntXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntXoaActionPerformed

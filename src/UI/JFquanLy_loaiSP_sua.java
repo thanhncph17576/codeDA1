@@ -5,8 +5,11 @@
  */
 package UI;
 
-
+import DAO.loaiSanPhamDAO;
+import Entity.loaiSanPham;
 import java.awt.Color;
+import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.colorchooser.ColorSelectionModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -16,18 +19,46 @@ import javax.swing.event.ChangeListener;
  * @author ThangIKCU
  */
 public class JFquanLy_loaiSP_sua extends javax.swing.JDialog {
-    public JFquanLy_loaiSP_sua(java.awt.Frame parent, boolean modal, String manhom) {
+    
+    loaiSanPhamDAO daoLoaiSp = new loaiSanPhamDAO();
+    String mausac, MaNhom;
+    int maLoai;
+
+    public JFquanLy_loaiSP_sua(java.awt.Frame parent, boolean modal, int manhom) {
         super(parent, modal);
         initComponents();
+        
+        maLoai = manhom;
+        List<loaiSanPham> l = daoLoaiSp.selectTheoLoai(maLoai);
+        loaiSanPham lspp = daoLoaiSp.selectByID(maLoai+"");
+        mausac = lspp.getMauSac();
+        txtten.setText(lspp.getTenLoaiSP());
+        jpmau.setBackground(Color.decode(mausac));
+        lblten.setText("Sửa loại - " +lspp.getTenLoaiSP());
+        
         ColorSelectionModel model = chonmau.getSelectionModel();
         ChangeListener changeListener = new ChangeListener() {
             public void stateChanged(ChangeEvent changeEvent) {
                 Color cl = chonmau.getColor();
                 String hex = String.format("#%06x", cl.getRGB() & 0x00FFFFFF);
-                jpmau.setBackground(Color.decode(hex));                
+                jpmau.setBackground(Color.decode(hex));
             }
         };
-        model.addChangeListener(changeListener);        
+        model.addChangeListener(changeListener);
+    }
+    
+    public void update(){
+        loaiSanPham lsp = new loaiSanPham();
+        lsp.setMaLoaiSP(maLoai);
+        lsp.setTenLoaiSP(txtten.getText());
+        Color cl = chonmau.getColor();
+        String hex = String.format("#%06x", cl.getRGB() & 0x00FFFFFF);
+        lsp.setMauSac(hex);
+        daoLoaiSp.update(lsp);
+        JFquanLy_loaiSP.loaisp.fillTable();
+        JFquanLy_loaiSP.loaisp.updateUI();
+        this.dispose();
+        
     }
 
     /**
@@ -42,9 +73,9 @@ public class JFquanLy_loaiSP_sua extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lblten = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnHuyBo = new javax.swing.JButton();
         txtten = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        btnXacNhan = new javax.swing.JButton();
         chonmau = new javax.swing.JColorChooser();
         jLabel3 = new javax.swing.JLabel();
         jpmau = new javax.swing.JPanel();
@@ -63,21 +94,21 @@ public class JFquanLy_loaiSP_sua extends javax.swing.JDialog {
         lblten.setForeground(new java.awt.Color(51, 0, 51));
         lblten.setText("Sửa nhóm");
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(51, 0, 51));
-        jButton1.setText("Hủy bỏ");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnHuyBo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnHuyBo.setForeground(new java.awt.Color(51, 0, 51));
+        btnHuyBo.setText("Hủy bỏ");
+        btnHuyBo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnHuyBoActionPerformed(evt);
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(51, 0, 51));
-        jButton2.setText("Xác nhận");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnXacNhan.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnXacNhan.setForeground(new java.awt.Color(51, 0, 51));
+        btnXacNhan.setText("Xác nhận");
+        btnXacNhan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnXacNhanActionPerformed(evt);
             }
         });
 
@@ -140,9 +171,9 @@ public class JFquanLy_loaiSP_sua extends javax.swing.JDialog {
                                 .addComponent(jpmau, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(176, 176, 176)
-                        .addComponent(jButton2)
+                        .addComponent(btnXacNhan)
                         .addGap(44, 44, 44)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnHuyBo, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(22, 22, 22))
         );
         jPanel1Layout.setVerticalGroup(
@@ -163,8 +194,8 @@ public class JFquanLy_loaiSP_sua extends javax.swing.JDialog {
                     .addComponent(jLabel3))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnHuyBo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnXacNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -183,13 +214,26 @@ public class JFquanLy_loaiSP_sua extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnHuyBoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyBoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnHuyBoActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        if (txtten.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Tên loại không được để trống !");
+            txtten.requestFocus();
+            return;
+        }
+        Color cl = chonmau.getColor();
+        String hex = String.format("#%06x", cl.getRGB() & 0x00FFFFFF);
+        if ("#ffffff".equals(hex)) {
+            JOptionPane.showMessageDialog(null, "Bạn cần chọn màu sắc hiển thị!");
+            return;
+        }
+        update();
+    }//GEN-LAST:event_btnXacNhanActionPerformed
 
     private void chonmauMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chonmauMousePressed
 
@@ -197,13 +241,13 @@ public class JFquanLy_loaiSP_sua extends javax.swing.JDialog {
     }//GEN-LAST:event_chonmauMousePressed
 
     private void chonmauPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_chonmauPropertyChange
-          // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_chonmauPropertyChange
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnHuyBo;
+    private javax.swing.JButton btnXacNhan;
     private javax.swing.JColorChooser chonmau;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
