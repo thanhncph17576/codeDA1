@@ -5,15 +5,52 @@
  */
 package UI;
 
+import DAO.banDAO;
+import Entity.Ban;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 
 
 
 public class JFquanLy_ban extends javax.swing.JPanel {
-    
+    banDAO dao =new banDAO();
+    public static JFquanLy_ban B;
     public JFquanLy_ban() {
         initComponents();
+        B = this;
+        FillTable();
+        
     }
-    
+     public void FillTable() {
+        DefaultTableModel model = (DefaultTableModel) tbBan.getModel();
+        model.setRowCount(0);
+        List<Ban> arrTable = dao.selectAll();
+        DefaultTableModel tbmodel = new DefaultTableModel();
+
+        tbmodel.addColumn("Mã Bàn");
+        tbmodel.addColumn("Tên bàn");
+        tbmodel.addColumn("Trạng thái");
+
+        if (arrTable != null) {
+            int soban = 0;
+            for (Ban b : arrTable) {
+                soban++;
+                tbmodel.addRow(new Object[]{b.getMaBan(), b.getTenBan(), b.getTrangThai()});
+            }
+            lblthongtin.setText(String.valueOf(soban)+" bàn");
+        } else {
+            JOptionPane.showMessageDialog(null, "Không có bàn nào");
+        }
+        tbBan.setModel(tbmodel);
+        for(int i = 0; i < tbBan.getColumnCount();i++){
+            Class<?> col = tbBan.getColumnClass(i);
+            tbBan.setDefaultEditor(col, null);
+        }        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -175,19 +212,71 @@ public class JFquanLy_ban extends javax.swing.JPanel {
     }//GEN-LAST:event_tbBanMouseClicked
 
     private void bntThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntThemActionPerformed
-        
+        JFquanLy_ban_them ban = new JFquanLy_ban_them(RUN.QLTS, true);
+        ban.setVisible(true);
     }//GEN-LAST:event_bntThemActionPerformed
 
     private void bntSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSuaActionPerformed
-        // TODO add your handling code here:
+        int select=tbBan.getSelectedRow();
+        if(select<0){
+            JOptionPane.showMessageDialog(null, "Bạn chưa chọn bàn nào !");
+        }else{
+            int MaBan = (int) tbBan.getValueAt(select, 0);
+            JFquanLy_ban_sua sua = new JFquanLy_ban_sua(RUN.QLTS,true, MaBan);
+            sua.setVisible(true);
+        }
     }//GEN-LAST:event_bntSuaActionPerformed
 
     private void bntXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntXoaActionPerformed
-        
+        int[] selectedRows = tbBan.getSelectedRows();
+
+        if (selectedRows.length <= 0) {
+            JOptionPane.showMessageDialog(null, "Bạn chưa chọn bàn nào !");
+        } else {
+            ArrayList<Integer> ListMaBan = new ArrayList<Integer>();
+            String sp = "";
+            for (int i : selectedRows) {
+                int ma = (int) tbBan.getValueAt(i, 0);
+                ListMaBan.add(ma);
+                String tenban = (String) tbBan.getValueAt(i, 1);
+
+                sp += tenban + "\n";
+            }
+        int nutbam = JOptionPane.showConfirmDialog(new JFrame(), "bạn chắc chắn xóa?", "xóA", JOptionPane.YES_NO_OPTION);
+        if (nutbam == JOptionPane.YES_OPTION) {
+            int cacdong[] = tbBan.getSelectedRows();
+            for (int i = 0; i < cacdong.length; i++) {
+                String MaPhong = tbBan.getValueAt(cacdong[i], 0).toString();
+                    dao.delete(MaPhong);
+                    FillTable();
+                
+
+            }
+        }
+        }
     }//GEN-LAST:event_bntXoaActionPerformed
 
     private void txttimKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttimKeyReleased
-        
+//        List<Ban> arrTable = dao.selectByKeyword(txttim.getText());
+//        if(arrTable != null){
+//            DefaultTableModel tbmodel = new DefaultTableModel();
+//
+//            tbmodel.addColumn("Mã Bàn");
+//            tbmodel.addColumn("Tên bàn");
+//            tbmodel.addColumn("Trạng thái");
+//
+//            int soban = 0;
+//            for (Ban b : arrTable) {
+//                soban++;
+//                tbmodel.addRow(new Object[]{b.getMaBan(), b.getTenBan(), b.getTrangThai()});
+//            }
+//            lblthongtin.setText(String.valueOf(soban)+" bàn");
+//            tbBan.setModel(tbmodel);
+//            for(int i = 0; i < tbBan.getColumnCount();i++){
+//                Class<?> col = tbBan.getColumnClass(i);
+//                tbBan.setDefaultEditor(col, null);
+//            }
+//        }
     }//GEN-LAST:event_txttimKeyReleased
 
 
