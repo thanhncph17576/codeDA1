@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class sanphamDAO extends DAO<SanPham, String> {
 
-    String INSERT_SQL = "insert into SanPham(MaMon,TenMon,MaLoai,DonGia,DVT) values (?,?,?,?,?)";
+    String INSERT_SQL = "insert into SanPham(TenMon,MaLoai,DonGia,DVT) values (?,?,?,?)";
     String UPDATE_SQL = "update SanPham set TenMon = ? , MaLoai = ? , DonGia = ? , DVT = ? where MaMon = ?";
     String DELETE_SQL = "delete from SanPham where MaMon = ?";
     String SELECT_ALL_SQL = "select * from SanPham ";
@@ -25,8 +25,7 @@ public class sanphamDAO extends DAO<SanPham, String> {
 
     @Override
     public void insert(SanPham entity) {
-        JDBC.update(INSERT_SQL,
-                entity.getMaMon(),
+        JDBC.update(INSERT_SQL,               
                 entity.getTenMon(),
                 entity.getMaLoai(),
                 entity.getDonGia(),
