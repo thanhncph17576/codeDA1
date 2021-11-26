@@ -402,7 +402,7 @@ public final class JFgoiMon extends javax.swing.JPanel {
     }//GEN-LAST:event_jpThongTinThanhToanMousePressed
 
     private void btnthugonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthugonActionPerformed
-        
+        JFbanHang.bh.fillLb();
     }//GEN-LAST:event_btnthugonActionPerformed
 
 

@@ -27,6 +27,7 @@ public final class JFbanHang extends javax.swing.JPanel {
     public static JFbanHang bh;
     public JFbanHang() {
         initComponents();
+        bh = this;
         FillBan();
         jButton2.setBackground(Color.decode("#8080ff"));
         jButton1.setBackground(Color.decode("#66ff66"));
@@ -44,6 +45,12 @@ public final class JFbanHang extends javax.swing.JPanel {
     /**
      *
      */
+    
+    public void fillLb(){
+        jPanel2.removeAll();
+        jPanel2.add(jLabel1);
+        jPanel2.updateUI();        
+    }
     
     
     public void FillBan(){
