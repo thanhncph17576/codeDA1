@@ -21,7 +21,7 @@ public class hoaDonDAO extends DAO<HoaDon, String> {
     String UPDATE_SQL = "update hoadon set GiamGia = ? where MaHoaDon = ?";
     String DELETE_SQL = "delete from hoadon where MaHoaDon = ?";
     String SELECT_ALL_SQL = "select * from hoadon";
-    String SELECT_BY_ID_SQL = "select * from hoadon where MaHoaDon = ?";
+    String SELECT_BY_ID_SQL = "select * from hoadon where MaBan = ? and TrangThai = 0";//lay danh sach
     
     @Override
     public void insert(HoaDon entity) {

@@ -5,16 +5,33 @@
  */
 package UI;
 
+import DAO.banDAO;
 import java.awt.Color;
+import DAO.hoaDonDAO;
+import Entity.HoaDon;
+import java.awt.Dimension;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import javax.swing.JButton;
+import Entity.Ban;
 
 
 
 public final class JFgoiMon extends javax.swing.JPanel {
     
+    hoaDonDAO dao = new hoaDonDAO();
+    banDAO ao = new banDAO();
+    
+    int MaBan;
+    HoaDon arrhd;
+    int MaHD, tienmon = 0, tongtien = 0;
+    NumberFormat chuyentien = new DecimalFormat("#,###,###");
     public JFgoiMon(String trangthai, String tenban, int maban) {
         initComponents();               
     }
-
+    public static JFgoiMon gm;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -315,9 +332,62 @@ public final class JFgoiMon extends javax.swing.JPanel {
 
         getAccessibleContext().setAccessibleParent(this);
     }// </editor-fold>//GEN-END:initComponents
-   
+       public void fillThongTin(){
+//        arrhd = dao.selectByID(MaBan);
+//        MaHD = arrhd.GetMaHD();
+//        int ck = cn.CheckDsMon(MaHD, MaBan);
+//        btngoi.setVisible(true);
+//        if(ck == 0){
+//            HuyHD();
+//            btngoi.setVisible(false);
+//        }
+//        
+//        if(arrhd.getGiamGia()> 100){
+//            lblgiamgia.setText(chuyentien.format(arrhd.getGiamGia())+" VNĐ");
+//            if(tienmon - arrhd.getGiamGia() <= 0){
+//                tongtien = 0;
+//                lbltongtien.setText("0 VNĐ");
+//            }else{
+//                tongtien = tienmon - arrhd.getGiamGia();
+//                lbltongtien.setText(String.valueOf(chuyentien.format(tongtien))+" VNĐ");
+//            }
+//        }
+//        if(arrhd.getGiamGia() <= 100){
+//            tongtien = tienmon - (tienmon * arrhd.getGiamGia() / 100);
+//            lbltongtien.setText(String.valueOf(chuyentien.format(tongtien))+" VNĐ");
+//            lblgiamgia.setText(String.valueOf(arrhd.getGiamGia())+" %");
+//        }
+//        lbltienmon.setText(String.valueOf(chuyentien.format(tienmon))+" VNĐ");        
+    }
     
-    
+    private void HuyHD(){
+//        
+//        JButton btnhuy = new JButton("Hủy bàn");
+//        btnhuy.setPreferredSize(new Dimension(100, 40));
+//        btnhuy.setBounds(100, 50, 100, 40);
+//        jpDsMon.setLayout(null);
+//        btngoi.setVisible(false);
+//        jpThongTinThanhToan.setVisible(false);
+//        btnhuy.addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mousePressed(MouseEvent e){
+//                Ban b = new Ban();
+//                b.setTrangThai("Trống");
+//                b.setMaBan(MaBan);
+//                ao.UpDateTrangThaiBan(b);
+//
+//                JFbanHang.bh.FillBan();
+//                JFgoiMon.gm.removeAll();
+////                jpBanHang.bh.fillLb();
+//
+//                HoaDon hd = new HoaDon();
+//                hd.setMaHoaDon(MaHD);
+//                dao.delete(hd);
+//            }
+//        });
+//        jpDsMon.add(btnhuy);
+//        jpDsMon.updateUI();        
+    }
     
     private void btngoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btngoiActionPerformed
         

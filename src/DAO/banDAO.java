@@ -23,6 +23,7 @@ public class banDAO extends DAO<Ban, String>{
     String DELETE_SQL = "delete from ban where MaBan = ?";
     String SELECT_ALL_SQL = "select * from ban";
     String SELECT_BY_ID_SQL = "select * from ban where MaBan = ?";
+//    String SELECT_trng_thai ="UPDATE ban SET TrangThai = ? WHERE MaBan = ?";
     
     @Override
     public void insert(Ban entity) {
@@ -34,8 +35,13 @@ public class banDAO extends DAO<Ban, String>{
     public void update(Ban entity) {
         JDBC.update(UPDATE_SQL, 
                 entity.getTenBan(), entity.getTrangThai(), entity.getMaBan());
-    }
-
+    }    
+    
+//    public void updateTT(Ban entity) {
+//        JDBC.update(SELECT_trng_thai, 
+//                entity.getTrangThai(), entity.getMaBan());
+//    }
+    
     @Override
     public void delete(String id) {
         JDBC.update(DELETE_SQL, id);
@@ -74,5 +80,5 @@ public class banDAO extends DAO<Ban, String>{
         }
     }
 
-        
+ 
 }
