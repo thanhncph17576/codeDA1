@@ -5,6 +5,8 @@
  */
 package UI;
 
+import DAO.banDAO;
+import Entity.Ban;
 import Helper.Messages;
 import java.awt.Color;
 import java.io.BufferedInputStream;
@@ -13,6 +15,7 @@ import java.io.FileNotFoundException;
 import static java.lang.Thread.sleep;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javazoom.jl.decoder.JavaLayerException;
@@ -41,13 +44,25 @@ public final class JFmain extends javax.swing.JFrame {
        }
     }
              
-    
+    banDAO banDao = new banDAO();
     SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss_a");
     public class Clock extends Thread{ 
     public Clock(){    } 
     @Override
     public void run(){ 
-        while(true){           
+        while(true){    
+            int banDat=0, banPhucVu=0;
+            List<Ban> list = banDao.selectAll();
+            for(int i = 0;i<list.size();i++){
+                if(list.get(i).getTrangThai().equals("Đang phục vụ")){
+                    banPhucVu++;
+                }
+                if(list.get(i).getTrangThai().equals("Đã đặt trước")){
+                    banDat++;
+                }            
+            } 
+            lblpv.setText(+banPhucVu+" bàn đang phục vụ");
+            lbldat.setText(+banDat+" bàn đặt trước");
             Calendar calendar = Calendar.getInstance();                
             String str;  
             str= sdf.format(calendar.getTime()); 
