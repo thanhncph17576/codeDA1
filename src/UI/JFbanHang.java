@@ -28,6 +28,9 @@ public final class JFbanHang extends javax.swing.JPanel {
     public JFbanHang() {
         initComponents();
         FillBan();
+        jButton2.setBackground(Color.decode("#8080ff"));
+        jButton1.setBackground(Color.decode("#66ff66"));
+        jButton3.setBackground(Color.decode("#ff6699"));
         
     }
     

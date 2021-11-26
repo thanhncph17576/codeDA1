@@ -18,7 +18,7 @@ import java.util.List;
 public class hoaDonDAO extends DAO<HoaDon, String> {
     
     String INSERT_SQL = "insert into hoadon (MaHoaDon, GiamGia, MaBan, GioDen, TongTien, TrangThai) values (?,?,?,?,?,?)";
-    String UPDATE_SQL = "update hoadon set GiamGia = ? , MaBan = ? , GioDen = ? , TongTien = ?, TrangThai = ? where MaHoaDon = ?";
+    String UPDATE_SQL = "update hoadon set GiamGia = ? where MaHoaDon = ?";
     String DELETE_SQL = "delete from hoadon where MaHoaDon = ?";
     String SELECT_ALL_SQL = "select * from hoadon";
     String SELECT_BY_ID_SQL = "select * from hoadon where MaHoaDon = ?";
