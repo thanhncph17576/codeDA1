@@ -5,7 +5,12 @@
  */
 package UI;
 
+import DAO.loaiSanPhamDAO;
+import DAO.sanphamDAO;
 import Entity.SanPham;
+import Entity.loaiSanPham;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 
@@ -23,7 +28,19 @@ public class JFquanLy_SP_them extends javax.swing.JDialog {
         cbbNhomMon.addItem("Chó");
     }
     
-
+sanphamDAO daoSP = new sanphamDAO();
+    loaiSanPhamDAO daoLoai =new loaiSanPhamDAO();
+      public void fillCbb(){
+        DefaultComboBoxModel model = (DefaultComboBoxModel) cbbNhomMon.getModel();
+        model.removeAllElements();
+//        List<loaiSanPham> list = daoLoai.selectTen();
+        List<loaiSanPham> list = daoLoai.selectAll();
+        System.out.println(list);
+        for(loaiSanPham x : list){
+            model.addElement(x.getTenLoaiSP());
+        }
+        //fillTable();
+    }  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -184,7 +201,7 @@ public class JFquanLy_SP_them extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       if(txtTenMon.getText().isEmpty()){
+             if(txtTenMon.getText().isEmpty()){
         JOptionPane.showMessageDialog(null, "Tên món không được để trống ?");
             txtTenMon.requestFocus();
             return;
@@ -198,16 +215,38 @@ public class JFquanLy_SP_them extends javax.swing.JDialog {
         JOptionPane.showMessageDialog(null, "DVT không được để trống!");
             txtTenMon.requestFocus();
             return;
-       }
-        SanPham SP =new SanPham();
-        SP.setTenMon(txtTenMon.getText());
-        
-        SP.setDonGia(Integer.parseInt(txtGia.getText()));
-        SP.setDVT(txtdvt.getText());
+       }     
+        SanPham spp = new SanPham();
+        spp.setTenMon(txtTenMon.getText());
+        spp.setDonGia(Integer.parseInt(txtGia.getText()));
+        spp.setDVT(txtdvt.getText());
+        int MaNhom = cbbNhomMon.getSelectedIndex()+1;
+        spp.setMaLoai(MaNhom);      
+          
+//         daoSP.insert(sp);
+//        JFquanLy_SP.sp.fillTable();
+//        JFquanLy_SP.sp.updateUI();
+//        JOptionPane.showMessageDialog(null, "Thêm thành công");
+//        this.dispose();
+ 
+        try {
+            daoSP.insert(spp);
+            JOptionPane.showMessageDialog(null, "Thêm thành công !");           
+            
+            JFquanLy_SP.sp.fillTable();
+            JFquanLy_SP.sp.updateUI();
+              this.dispose();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Thêm thất bại !");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtGiaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGiaKeyReleased
-        // TODO add your handling code here:
+         try{
+            Integer.parseInt(txtGia.getText());
+        }catch(Exception ex){
+            txtGia.setText("");
+        }
     }//GEN-LAST:event_txtGiaKeyReleased
 
 
