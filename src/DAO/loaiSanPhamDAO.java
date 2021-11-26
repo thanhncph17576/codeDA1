@@ -77,6 +77,9 @@ public class loaiSanPhamDAO extends DAO<loaiSanPham, String>{
         }
     }
 
-   
+   public List<loaiSanPham> selectTheoLoai(int maLoai){
+       String sql = "select * from loaiSP where MaLoai = ?";
+       return this.selectBySQL(sql, maLoai);
+   }
 
 }

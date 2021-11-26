@@ -75,9 +75,9 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="176" max="-2" attributes="0"/>
-                          <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnXacNhan" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                          <Component id="jButton1" min="-2" pref="85" max="-2" attributes="0"/>
+                          <Component id="btnHuyBo" min="-2" pref="85" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
@@ -106,8 +106,8 @@
                   </Group>
                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jButton1" alignment="0" min="-2" pref="32" max="-2" attributes="0"/>
-                      <Component id="jButton2" min="-2" pref="32" max="-2" attributes="0"/>
+                      <Component id="btnHuyBo" alignment="0" min="-2" pref="32" max="-2" attributes="0"/>
+                      <Component id="btnXacNhan" min="-2" pref="32" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -134,7 +134,7 @@
             <Property name="text" type="java.lang.String" value="S&#x1eed;a nh&#xf3;m"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="btnHuyBo">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="11" style="1"/>
@@ -145,12 +145,12 @@
             <Property name="text" type="java.lang.String" value="H&#x1ee7;y b&#x1ecf;"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHuyBoActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtten">
         </Component>
-        <Component class="javax.swing.JButton" name="jButton2">
+        <Component class="javax.swing.JButton" name="btnXacNhan">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="11" style="1"/>
@@ -161,7 +161,7 @@
             <Property name="text" type="java.lang.String" value="X&#xe1;c nh&#x1ead;n"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXacNhanActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JColorChooser" name="chonmau">
