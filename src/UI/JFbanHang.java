@@ -24,7 +24,7 @@ public final class JFbanHang extends javax.swing.JPanel {
     /**
      * Creates new form jpBanHang
      */
-    
+    public static JFbanHang bh;
     public JFbanHang() {
         initComponents();
         FillBan();

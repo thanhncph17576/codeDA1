@@ -5,15 +5,23 @@
  */
 package UI;
 
-
+import Entity.HoaDon;
+import DAO.hoaDonDAO;
 
 
 public class JFgiamGia extends javax.swing.JDialog {
 
-
- 
+    private final int mahd;
+    int TienMon;
+    hoaDonDAO dao =new hoaDonDAO();
+    
     public JFgiamGia(java.awt.Frame parent, boolean modal, int mahd, String tenban, int tienmon) {
+        super(parent, modal);
+        initComponents();
+        TienMon = tienmon;
+        this.mahd = mahd;
         
+        jLabel1.setText(tenban+" - Giảm giá");
     }
 
     /**
@@ -149,7 +157,21 @@ public class JFgiamGia extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-      
+       try{
+            int gia = Integer.parseInt(jComboBox1.getSelectedItem().toString());
+            if(gia > TienMon){
+                gia = TienMon;   
+            }
+            HoaDon hd = new HoaDon();
+            hd.setMaHoaDon(mahd);
+            hd.setGiamGia(gia);
+            dao.update(hd);
+            this.dispose();
+            JFgoiMon.gm.fillThongTin();
+            JFgoiMon.gm.updateUI();
+        }catch(Exception e){
+            jComboBox1.setSelectedIndex(0);
+        }    
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
