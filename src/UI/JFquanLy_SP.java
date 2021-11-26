@@ -5,6 +5,16 @@
  */
 package UI;
 
+import DAO.loaiSanPhamDAO;
+import DAO.sanphamDAO;
+import Entity.SanPham;
+import Entity.loaiSanPham;
+import java.util.List;
+import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 
 
 /**
@@ -12,11 +22,97 @@ package UI;
  * @author ThangIKCU
  */
 public class JFquanLy_SP extends javax.swing.JPanel {
-    
+    public static JFquanLy_SP sp;
     public JFquanLy_SP() {
-        initComponents();       
+        initComponents();
+        sp =this;
+        fillCbb();
+        fillTable();
     }
-    
+    sanphamDAO daosp =new sanphamDAO();
+//    public void Fillcbb() {
+//         
+//        Vector Vcbb = (Vector) daosp.selectAll();
+//
+//        if (Vcbb != null) {
+//            DefaultComboBoxModel cbbmodel = new DefaultComboBoxModel(Vcbb);
+//            cbbNhomMon.setModel(cbbmodel);
+//        } else {
+//            JOptionPane.showMessageDialog(null, "Không có nhóm nào !");
+//        }
+//
+//    }  loaiSanPhamDAO daoLoai = new loaiSanPhamDAO();
+    sanphamDAO daoSP = new sanphamDAO();
+    loaiSanPhamDAO daoLoai =new loaiSanPhamDAO();
+    public void fillCbb(){
+        DefaultComboBoxModel model = (DefaultComboBoxModel) cbbNhomMon.getModel();
+        model.removeAllElements();
+//        List<loaiSanPham> list = daoLoai.selectTen();
+        List<loaiSanPham> list = daoLoai.selectAll();
+        System.out.println(list);
+        for(loaiSanPham x : list){
+            model.addElement(x.getTenLoaiSP());
+        }
+        //fillTable();
+    }  
+//    public void fillTable(){
+//        DefaultTableModel mol =(DefaultTableModel)tbBan.getModel();
+//        mol.setRowCount(0);
+//        mol.setColumnCount(0);
+//        List<SanPham> arrTable = daosp.selectAll();
+//        DefaultTableModel tbmodel =new DefaultTableModel();
+//        tbmodel.addColumn("Mã món");
+//        tbmodel.addColumn("Tên món");
+//        tbmodel.addColumn("Mã loại ");
+//        tbmodel.addColumn("Đơn giá");
+//        tbmodel.addColumn("Đơn Vị tính");
+//        if(arrTable != null){
+//           int somon =0;
+//           for(SanPham x : arrTable){
+//            somon ++;
+//            tbmodel.addRow(new Object[]{
+//                x.getMaMon(),
+//                x.getTenMon(),
+//                x.getMaLoai(),
+//                x.getDonGia(),
+//                x.getDVT(),                       
+//            });
+//           }
+//          lblthongtin.setText(String.valueOf(somon)+" sản phẩm");
+//        }else {
+//       JOptionPane.showMessageDialog(null, "Không có sản phẩm ?");
+//        }
+//        tbBan.setModel(tbmodel);
+//        for(int i=0; i < tbBan.getColumnCount(); i++){
+//            Class<?> col = tbBan.getColumnClass(i);
+//            tbBan.setDefaultEditor(col, null);
+//        }
+//    }
+    public void fillTable(){
+        DefaultTableModel model = (DefaultTableModel) tbBan.getModel();
+        model.setColumnCount(0);
+        model.setRowCount(0);
+        model.addColumn("Mã món");
+        model.addColumn("Tên món");
+        model.addColumn("Mã loại");
+        model.addColumn("Đơn giá");
+        model.addColumn("ĐVT");
+        
+        int tenLoai = cbbNhomMon.getSelectedIndex()+1;
+        int soMon = 0;
+        List<SanPham> list = daoSP.selectTheoLoai(tenLoai);
+        for (SanPham x : list){
+            soMon++;
+            model.addRow(new Object[]{
+                x.getMaMon(),
+                x.getTenMon(),
+                x.getMaLoai(),
+                x.getDonGia(),
+                x.getDVT(), 
+            });
+        }
+        lblthongtin.setText(soMon+"");
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -100,6 +196,11 @@ public class JFquanLy_SP extends javax.swing.JPanel {
         cbbNhomMon.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbbNhomMonItemStateChanged(evt);
+            }
+        });
+        cbbNhomMon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbNhomMonActionPerformed(evt);
             }
         });
 
@@ -215,7 +316,8 @@ public class JFquanLy_SP extends javax.swing.JPanel {
     }//GEN-LAST:event_tbBanMouseClicked
 
     private void bntThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntThemActionPerformed
-        
+         JFquanLy_SP_them SP = new JFquanLy_SP_them(RUN.QLTS, true);
+        SP.setVisible(true);
     }//GEN-LAST:event_bntThemActionPerformed
 
     private void bntSuaMonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSuaMonActionPerformed
@@ -227,12 +329,16 @@ public class JFquanLy_SP extends javax.swing.JPanel {
     }//GEN-LAST:event_bntXoaActionPerformed
 
     private void cbbNhomMonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbNhomMonItemStateChanged
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_cbbNhomMonItemStateChanged
 
     private void txttimKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttimKeyReleased
         
     }//GEN-LAST:event_txttimKeyReleased
+
+    private void cbbNhomMonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbNhomMonActionPerformed
+       fillTable();
+    }//GEN-LAST:event_cbbNhomMonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

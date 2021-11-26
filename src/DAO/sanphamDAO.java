@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class sanphamDAO extends DAO<SanPham, String> {
 
-    String INSERT_SQL = "insert into SanPham(MaMon,MaLoai,TenMon,DonGia,DVT) values (?,?,?,?,?)";
+    String INSERT_SQL = "insert into SanPham(MaMon,TenMon,MaLoai,DonGia,DVT) values (?,?,?,?,?)";
     String UPDATE_SQL = "update SanPham set TenMon = ? , MaLoai = ? , DonGia = ? , DVT = ? where MaMon = ?";
     String DELETE_SQL = "delete from SanPham where MaMon = ?";
     String SELECT_ALL_SQL = "select * from SanPham ";
@@ -26,22 +26,22 @@ public class sanphamDAO extends DAO<SanPham, String> {
     @Override
     public void insert(SanPham entity) {
         JDBC.update(INSERT_SQL,
-                entity.getMaSanPham(),
-                entity.getMaLoaiSanPham(),
-                entity.getTenSanPham(),
-                entity.getDonVi(),
-                entity.getDonViTinh()
+                entity.getMaMon(),
+                entity.getTenMon(),
+                entity.getMaLoai(),
+                entity.getDonGia(),
+                entity.getDVT()
         );
     }
 
     @Override
     public void update(SanPham entity) {
         JDBC.update(UPDATE_SQL,                              
-                entity.getTenSanPham(),
-                entity.getMaLoaiSanPham(),
-                entity.getDonVi(),
-                entity.getDonViTinh(),
-                entity.getMaSanPham()
+                entity.getTenMon(),
+                entity.getMaLoai(),
+                entity.getDonGia(),
+                entity.getDVT(),
+                entity.getMaMon()
         );
     }
 
@@ -71,11 +71,11 @@ public class sanphamDAO extends DAO<SanPham, String> {
             ResultSet rs = JDBC.query(sql, args);
             while(rs.next()){
                 SanPham sp = new SanPham();
-                sp.setMaSanPham(rs.getInt("MaSanPham"));
-                sp.setMaLoaiSanPham(rs.getInt("MaLoaiSanPham"));
-                sp.setTenSanPham(rs.getString("TenSanPham"));
-                sp.setDonVi(rs.getInt("DonVi"));
-                sp.setDonViTinh(rs.getString("DonViTinh"));
+                sp.setMaMon(rs.getInt("MaMon"));
+                sp.setTenMon(rs.getString("TenMon"));
+                sp.setMaLoai(rs.getInt("MaLoai"));
+                sp.setDonGia(rs.getInt("DonGia"));
+                sp.setDVT(rs.getString("DVT"));
                 list.add(sp);
             }
             rs.getStatement().getConnection().close();
@@ -84,4 +84,8 @@ public class sanphamDAO extends DAO<SanPham, String> {
             throw new RuntimeException(e);
         }
     }
+    public List<SanPham> selectTheoLoai(int maLoai){
+       String sql = "select * from SanPham  where MaLoai = ?";
+       return this.selectBySQL(sql,maLoai);
+   } 
 }

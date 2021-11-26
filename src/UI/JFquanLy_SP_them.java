@@ -5,6 +5,9 @@
  */
 package UI;
 
+import Entity.SanPham;
+import javax.swing.JOptionPane;
+
 
 
 
@@ -13,6 +16,11 @@ public class JFquanLy_SP_them extends javax.swing.JDialog {
     public JFquanLy_SP_them(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        cbbNhomMon.removeAllItems();
+        cbbNhomMon.addItem("GÀ");
+        cbbNhomMon.addItem("Vịt");
+        cbbNhomMon.addItem("Thịt");
+        cbbNhomMon.addItem("Chó");
     }
     
 
@@ -172,11 +180,30 @@ public class JFquanLy_SP_them extends javax.swing.JDialog {
     }//GEN-LAST:event_cbbNhomMonItemStateChanged
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+ this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+       if(txtTenMon.getText().isEmpty()){
+        JOptionPane.showMessageDialog(null, "Tên món không được để trống ?");
+            txtTenMon.requestFocus();
+            return;
+       }
+        if(txtGia.getText().isEmpty()){
+        JOptionPane.showMessageDialog(null, " Đơn Giá không được để trống!");
+            txtGia.requestFocus();
+            return;
+       }
+         if(txtdvt.getText().isEmpty()){
+        JOptionPane.showMessageDialog(null, "DVT không được để trống!");
+            txtTenMon.requestFocus();
+            return;
+       }
+        SanPham SP =new SanPham();
+        SP.setTenMon(txtTenMon.getText());
+        
+        SP.setDonGia(Integer.parseInt(txtGia.getText()));
+        SP.setDVT(txtdvt.getText());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtGiaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGiaKeyReleased
