@@ -5,11 +5,18 @@
  */
 package UI;
 
+import DAO.banDAO;
+import Entity.Ban;
+import javax.swing.JOptionPane;
 
 public class JFquanLy_ban_sua extends javax.swing.JDialog {
-    
+
+    banDAO dao = new banDAO();
+    int maban;
+    String trangthai, tenban;
+
     public JFquanLy_ban_sua(java.awt.Frame parent, boolean modal, int ma) {
-        initComponents();       
+        initComponents();
     }
 
     /**
@@ -26,7 +33,7 @@ public class JFquanLy_ban_sua extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         txttenban = new javax.swing.JTextField();
         lblten = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnXacNhan = new javax.swing.JButton();
         btnhuy = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -47,12 +54,12 @@ public class JFquanLy_ban_sua extends javax.swing.JDialog {
         lblten.setForeground(new java.awt.Color(51, 0, 51));
         lblten.setText("Sửa bàn 19");
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(102, 51, 0));
-        jButton1.setText("Xác nhận");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnXacNhan.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnXacNhan.setForeground(new java.awt.Color(102, 51, 0));
+        btnXacNhan.setText("Xác nhận");
+        btnXacNhan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnXacNhanActionPerformed(evt);
             }
         });
 
@@ -83,7 +90,7 @@ public class JFquanLy_ban_sua extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txttenban, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton1)
+                                .addComponent(btnXacNhan)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnhuy)))))
                 .addContainerGap())
@@ -102,7 +109,7 @@ public class JFquanLy_ban_sua extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnhuy)
-                    .addComponent(jButton1))
+                    .addComponent(btnXacNhan))
                 .addContainerGap())
         );
 
@@ -123,27 +130,48 @@ public class JFquanLy_ban_sua extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanActionPerformed
+        if (txttenban.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Tên bàn không được để trống !");
+            return;
+        }
+        Ban b = new Ban();
+        b.setTenBan("Bàn " + txttenban.getText());
+        b.setMaBan(maban);
+        b.setTrangThai(trangthai);
+        dao.update(b);
+
+        JFquanLy_ban.B.FillTable();
+        JFquanLy_ban.B.updateUI();
+        try {
+            JFbanHang.bh.FillBan();
+            JFbanHang.bh.updateUI();
+        } catch (Exception e) {
+
+        }
+        this.dispose();
+    }//GEN-LAST:event_btnXacNhanActionPerformed
 
     private void btnhuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhuyActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_btnhuyActionPerformed
 
     private void txttenbanKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttenbanKeyReleased
-        // TODO add your handling code here:
+        try{
+            Integer.parseInt(txttenban.getText());
+        }catch(Exception e){
+            txttenban.setText(tenban);
+        }  
     }//GEN-LAST:event_txttenbanKeyReleased
 
     /**
      * @param args the command line arguments
      */
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnXacNhan;
     private javax.swing.JButton btnhuy;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblten;

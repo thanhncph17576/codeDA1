@@ -5,6 +5,10 @@
  */
 package UI;
 
+import DAO.banDAO;
+import Entity.Ban;
+import javax.swing.JOptionPane;
+
 
 
 
@@ -13,9 +17,7 @@ package UI;
  * @author ThangIKCU
  */
 public class JFquanLy_ban_them extends javax.swing.JDialog {
-    /**
-     * Creates new form DLQl_Ban
-     */
+    banDAO dao = new banDAO();
     public JFquanLy_ban_them(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -33,9 +35,9 @@ public class JFquanLy_ban_them extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnHuy = new javax.swing.JButton();
         txtTenBan = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        btnXacNhan = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -49,12 +51,12 @@ public class JFquanLy_ban_them extends javax.swing.JDialog {
         jLabel2.setForeground(new java.awt.Color(51, 0, 51));
         jLabel2.setText("Thêm bàn mới");
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(51, 0, 51));
-        jButton1.setText("Hủy bỏ");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnHuy.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnHuy.setForeground(new java.awt.Color(51, 0, 51));
+        btnHuy.setText("Hủy bỏ");
+        btnHuy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnHuyActionPerformed(evt);
             }
         });
 
@@ -64,12 +66,12 @@ public class JFquanLy_ban_them extends javax.swing.JDialog {
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(51, 0, 51));
-        jButton2.setText("Xác nhận");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnXacNhan.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnXacNhan.setForeground(new java.awt.Color(51, 0, 51));
+        btnXacNhan.setText("Xác nhận");
+        btnXacNhan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnXacNhanActionPerformed(evt);
             }
         });
 
@@ -81,9 +83,9 @@ public class JFquanLy_ban_them extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap(66, Short.MAX_VALUE)
-                        .addComponent(jButton2)
+                        .addComponent(btnXacNhan)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1))
+                        .addComponent(btnHuy))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel2)
@@ -108,8 +110,8 @@ public class JFquanLy_ban_them extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(btnHuy)
+                    .addComponent(btnXacNhan))
                 .addContainerGap())
         );
 
@@ -128,16 +130,37 @@ public class JFquanLy_ban_them extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-// TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
+        this.dispose(); 
+    }//GEN-LAST:event_btnHuyActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanActionPerformed
+        if(txtTenBan.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Tên bàn không được để trống !");
+            return;
+        }
+        Ban b = new Ban();
+        b.setTenBan("Bàn "+txtTenBan.getText());
+        b.setTrangThai("Trống");
+        dao.insert(b);
         
-    }//GEN-LAST:event_jButton2ActionPerformed
+        JFquanLy_ban.B.FillTable();
+        JFquanLy_ban.B.updateUI();
+        try{
+            JFbanHang.bh.FillBan();
+            JFbanHang.bh.updateUI();
+        }catch(Exception e){
+
+        }
+        this.dispose();
+    }//GEN-LAST:event_btnXacNhanActionPerformed
 
     private void txtTenBanKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTenBanKeyReleased
-        
+        try{
+            Integer.parseInt(txtTenBan.getText());
+        }catch(Exception e){
+            txtTenBan.setText(null);
+        }
     }//GEN-LAST:event_txtTenBanKeyReleased
 
     /**
@@ -146,8 +169,8 @@ public class JFquanLy_ban_them extends javax.swing.JDialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnHuy;
+    private javax.swing.JButton btnXacNhan;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
