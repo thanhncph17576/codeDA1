@@ -16,18 +16,25 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import javax.swing.JButton;
 import Entity.Ban;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 
 public final class JFgoiMon extends javax.swing.JPanel {
     
-    hoaDonDAO dao = new hoaDonDAO();
-    banDAO ao = new banDAO();
-    
+    String TenBan;
     int MaBan;
     HoaDon arrhd;
     int MaHD, tienmon = 0, tongtien = 0;
     NumberFormat chuyentien = new DecimalFormat("#,###,###");
+    
+    
+    
+    hoaDonDAO dao = new hoaDonDAO();
+    banDAO ao = new banDAO();
+    
+    
     public JFgoiMon(String trangthai, String tenban, int maban) {
         initComponents();               
     }
@@ -361,7 +368,6 @@ public final class JFgoiMon extends javax.swing.JPanel {
     }
     
     private void HuyHD(){
-//        
 //        JButton btnhuy = new JButton("Hủy bàn");
 //        btnhuy.setPreferredSize(new Dimension(100, 40));
 //        btnhuy.setBounds(100, 50, 100, 40);
@@ -382,23 +388,42 @@ public final class JFgoiMon extends javax.swing.JPanel {
 //
 //                HoaDon hd = new HoaDon();
 //                hd.setMaHoaDon(MaHD);
-//                dao.delete(hd);
+//                cn.HuyHD(hd);
 //            }
 //        });
 //        jpDsMon.add(btnhuy);
-//        jpDsMon.updateUI();        
+//        jpDsMon.updateUI();       
     }
     
     private void btngoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btngoiActionPerformed
-        
+ 
     }//GEN-LAST:event_btngoiActionPerformed
 
     private void btndatbanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndatbanActionPerformed
+//            if(lbltrangthai.getText().equals("Đã đặt trước")){
+//            lbltrangthai.setText("Trống");
+//            btndatban.setText("Đặt chỗ");           
+//            String TrangThai = "Trống";
+//            Ban b = new Ban(MaBan, TrangThai, TrangThai);
+//            int Update = ao.UpdateBan(b);
+//            JFbanHang.bh.FillBan();
+//            JFbanHang.bh.updateUI();
+//        }else{
+//            lbltrangthai.setText("Đã đặt trước");
+//            btndatban.setText("Hủy đặt");
+//            String TrangThai = "Đã đặt trước";
+//            Ban b = new Ban(MaBan, TrangThai, TrangThai);
+//            int Update = ao.UpdateBan(b);
+//            JFbanHang.bh.FillBan();
+//            JFbanHang.bh.updateUI();      
+            
+          JFmain.main.reloadPanel(5);
         
     }//GEN-LAST:event_btndatbanActionPerformed
 
     private void jpThongTinThanhToanMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpThongTinThanhToanMousePressed
-        
+        JFgiamGia giam = new JFgiamGia(RUN.QLTS, true, MaHD, TenBan, tienmon);
+        giam.setVisible(true);
     }//GEN-LAST:event_jpThongTinThanhToanMousePressed
 
     private void btnthugonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthugonActionPerformed

@@ -29,7 +29,8 @@ public final class JFmain extends javax.swing.JFrame {
     /**
      * Creates new form frmMain
      */   
-
+    public static JFmain main;
+    
     public JFmain() {
         initComponents();
 
@@ -42,6 +43,7 @@ public final class JFmain extends javax.swing.JFrame {
             btnQuanLy.setEnabled(false);
             btnThongKe.setEnabled(false);
        }
+        main=this;
     }
              
     banDAO banDao = new banDAO();

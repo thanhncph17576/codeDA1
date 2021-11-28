@@ -10,16 +10,16 @@ package Entity;
  * @author conan
  */
 public class Ban {
-        private String  TenBan, TrangThai;
+    private String  TenBan, TrangThai;
     private int MaBan;
 
     public Ban() {
     }
 
-    public Ban(String TenBan, String TrangThai, int MaBan) {
-        this.TenBan = TenBan;
-        this.TrangThai = TrangThai;
-        this.MaBan = MaBan;
+    public Ban( int MaBan, String TenBan, String TrangThai) {
+        this.MaBan =MaBan;
+        this.TenBan =TenBan;
+        this.TrangThai =TrangThai;
     }
 
     public void setTenBan(String TenBan) {
@@ -48,8 +48,7 @@ public class Ban {
 
     @Override
     public String toString() {
-        return TenBan ;
+        return this.TenBan;
     }
-    
-    
+   
 }

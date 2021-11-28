@@ -6,14 +6,92 @@
 package UI;
 
 import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 
 public class JFthucDon extends javax.swing.JPanel {
-    
+    public String gioden, tenban;
+    public int maban;
+//    public ArrayList<ThucDon> arrdsmon;
+    NumberFormat chuyentien = new DecimalFormat("#,###,###");
+    public static JFthucDon td;
     public JFthucDon() {
         initComponents();
+//        td = this;
+//        FillLoai();
         
     }
+    
+//        public void FillLoai(){
+//        ArrayList<Loai> arrLoai = cn.GetLoai();
+//        if(arrLoai != null){
+//            JButton btn;
+//            jpLoai.setLayout(new BoxLayout(jpLoai, BoxLayout.PAGE_AXIS));
+//            jpLoai.removeAll();
+//            jpChonMon.setLayout(new  FlowLayout(FlowLayout.CENTER));
+//            for(Loai l : arrLoai){
+//                    btn = new JButton(l.GetTenLoai());
+//                    btn.setName(l.GetMaLoai());
+//                    btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+//                    btn.setMaximumSize(new Dimension(140, 40));
+//                    btn.setForeground(Color.decode("#331a00"));
+//                    btn.setBackground(Color.decode(l.GetMauSac()));
+//                    btn.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+//                    btn.addMouseListener(new MouseAdapter() {
+//                        @Override
+//                        public void mousePressed(MouseEvent e) {
+//                            lblNhom.setText("    Nhóm "+l.GetTenLoai());
+//                            lblNhom.setBackground(Color.decode(l.GetMauSac()));
+//                            ArrayList<ThucDon> arrThucDon = cn.GetThucDon(l.GetMaLoai());
+//                            jpChonMon.removeAll();
+//                            jpChonMon.updateUI();
+//                            if(arrThucDon != null){
+//                                JPanel[] pn = new JPanel[arrThucDon.size()];
+//                                //jPanel4.setLayout(new BoxLayout(jPanel4, BoxLayout.PAGE_AXIS));
+//                                for(int i=0;i<arrThucDon.size();i++){
+//                                    pn[i] = new JPanel();
+//                                    pn[i].setName(arrThucDon.get(i).GetMaMon());
+//                                    pn[i].setCursor(new Cursor(Cursor.HAND_CURSOR));
+//                                    pn[i].setBackground(Color.decode("#dfff80"));
+//                                    pn[i].setBorder(BorderFactory.createLineBorder(Color.decode("#a3a375"), 2));
+//                                    pn[i].setPreferredSize(new Dimension(128, 60));
+//                                    pn[i].add(new JLabel(arrThucDon.get(i).GetTenMon())).setFont(new java.awt.Font("Tahoma", 1, 12));
+//                                    pn[i].add(new JLabel(String.valueOf(chuyentien.format(arrThucDon.get(i).GetDonGia()))+" VNĐ/ "+arrThucDon.get(i).GetDVT())).setForeground(Color.decode("#ff0000"));
+//                                    pn[i].addMouseListener(new MouseAdapter() {
+//                                        @Override
+//                                        public void mousePressed(MouseEvent e){
+//
+//                                            DLSoLuong sl = new DLSoLuong(Run.Qltrasua, true, e.getComponent().getName(), tenban, maban);
+//                                            sl.gioden = gioden;
+//                                            sl.setVisible(true);
+//                                        }
+//                                    });                                     
+//                                    jpChonMon.add(pn[i]);
+//                                    jpChonMon.updateUI();
+//                                }
+//                            }
+//
+//                        }
+//                    });
+//                    jpLoai.add(btn);
+//                    jpLoai.updateUI();
+//            }
+//            
+//        }
+
+//    }
 
 
     /**
@@ -50,7 +128,7 @@ public class JFthucDon extends javax.swing.JPanel {
 
         jPanel2.setBackground(Color.decode("#e6e6e6"));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interface/Images/yw_circle_food.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/yw_circle_food.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -99,7 +177,7 @@ public class JFthucDon extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(lblNhom, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jpChonMon, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+                .addComponent(jpChonMon, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );

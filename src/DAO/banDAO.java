@@ -24,7 +24,6 @@ public class banDAO extends DAO<Ban, String>{
     String SELECT_ALL_SQL = "select * from ban";
     String SELECT_BY_ID_SQL = "select * from ban where MaBan = ?";
 //    String SELECT_trng_thai ="UPDATE ban SET TrangThai = ? WHERE MaBan = ?";
-    
     @Override
     public void insert(Ban entity) {
         JDBC.update(INSERT_SQL, 
@@ -80,7 +79,11 @@ public class banDAO extends DAO<Ban, String>{
         }
     }
 
-    
 
+    public int UpdateBan(Ban b){
+       int updateb = 0;
+       String sql = "select * from SanPham  where MaLoai = ?";
+        return updateb;
+   } 
  
 }
