@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class banDAO extends DAO<Ban, String>{
 
     
-    String INSERT_SQL = "insert into ban (MaBan, TenBan, TrangThai) values (?,?,?)";
+    String INSERT_SQL = "insert into ban (TenBan, TrangThai) values (?,?)";
     String UPDATE_SQL = "update ban set TenBan = ? , TrangThai = ? where MaBan = ?";
     String DELETE_SQL = "delete from ban where MaBan = ?";
     String SELECT_ALL_SQL = "select * from ban";
@@ -28,7 +28,7 @@ public class banDAO extends DAO<Ban, String>{
     @Override
     public void insert(Ban entity) {
         JDBC.update(INSERT_SQL, 
-                entity.getMaBan(), entity.getTenBan(), entity.getTrangThai());
+                 entity.getTenBan(), entity.getTrangThai());
     }
 
     @Override

@@ -8,6 +8,7 @@ package UI;
 import DAO.banDAO;
 import Entity.Ban;
 import javax.swing.JOptionPane;
+import Helper.Messages;
 
 
 
@@ -143,6 +144,7 @@ public class JFquanLy_ban_them extends javax.swing.JDialog {
         b.setTenBan("Bàn "+txtTenBan.getText());
         b.setTrangThai("Trống");
         dao.insert(b);
+        Messages.alert(null, "Thêm thành công!");
         
         JFquanLy_ban.B.FillTable();
         JFquanLy_ban.B.updateUI();
