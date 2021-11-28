@@ -80,7 +80,10 @@ public class banDAO extends DAO<Ban, String>{
         }
     }
 
-    
+    public int UpdateBan(Ban b){
+       int updateb = 0;
+       String sql = "select * from SanPham  where MaLoai = ?";
+        return updateb;}
 
  
 }

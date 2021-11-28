@@ -16,11 +16,12 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import javax.swing.JButton;
 import Entity.Ban;
-
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public final class JFgoiMon extends javax.swing.JPanel {
-    
+    String TenBan;
     hoaDonDAO dao = new hoaDonDAO();
     banDAO ao = new banDAO();
     
@@ -390,6 +391,31 @@ public final class JFgoiMon extends javax.swing.JPanel {
     }
     
     private void btngoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btngoiActionPerformed
+            if(btngoi.getText().equals("Hủy bàn")){
+            
+            jpthucdon.removeAll();
+            jpthucdon.add(jLabel1);
+            jpthucdon.updateUI();
+            jpThongTinThanhToan.setVisible(false);
+            btnthugon.setVisible(true);
+            lblgioden.setText("......");
+            lbltrangthai.setText("Trống");
+            String TrangThai = "Trống";
+            Ban b = new Ban(MaBan, lblTenBan.getText(), TrangThai);
+            int Update = ao.UpdateBan(b);
+            JFbanHang.bh.FillBan();
+            btngoi.setText("Gọi món");
+            btndatban.setVisible(true);
+            btndatban.setText("Đặt bàn");
+            return;
+            
+        }if(btngoi.getText().equals("Thanh toán")){
+            JFthanhToan thanhtoan = new JFthanhToan(RUN.QLTS, true, tongtien, TenBan, MaBan, MaHD);//tongtien trang thai ban ten ban
+            thanhtoan.setVisible(true);
+            return;         
+        }  
+
+        
         
     }//GEN-LAST:event_btngoiActionPerformed
 

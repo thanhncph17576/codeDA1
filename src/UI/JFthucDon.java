@@ -9,7 +9,8 @@ import java.awt.Color;
 
 
 public class JFthucDon extends javax.swing.JPanel {
-    
+    public String gioden, tenban;
+    public int maban;
     public JFthucDon() {
         initComponents();
         
@@ -50,7 +51,7 @@ public class JFthucDon extends javax.swing.JPanel {
 
         jPanel2.setBackground(Color.decode("#e6e6e6"));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interface/Images/yw_circle_food.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/yw_circle_food.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -99,7 +100,7 @@ public class JFthucDon extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(lblNhom, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jpChonMon, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+                .addComponent(jpChonMon, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );

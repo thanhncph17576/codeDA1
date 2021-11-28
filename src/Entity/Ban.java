@@ -10,16 +10,16 @@ package Entity;
  * @author conan
  */
 public class Ban {
-        private String  TenBan, TrangThai;
+    private String  TenBan, TrangThai;
     private int MaBan;
 
     public Ban() {
     }
 
-    public Ban(String TenBan, String TrangThai, int MaBan) {
-        this.TenBan = TenBan;
-        this.TrangThai = TrangThai;
-        this.MaBan = MaBan;
+    public Ban(int ma, String ten, String trangthai){
+        this.MaBan =ma;
+        this.TenBan =ten;
+        this.TrangThai =trangthai;
     }
 
     public void setTenBan(String TenBan) {
