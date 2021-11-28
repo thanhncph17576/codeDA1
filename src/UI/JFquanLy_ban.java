@@ -7,6 +7,7 @@ package UI;
 
 import DAO.banDAO;
 import Entity.Ban;
+import Helper.Messages;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
@@ -146,6 +147,11 @@ public class JFquanLy_ban extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setText("Tìm bàn:");
 
+        txttim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txttimActionPerformed(evt);
+            }
+        });
         txttim.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txttimKeyReleased(evt);
@@ -231,7 +237,7 @@ public class JFquanLy_ban extends javax.swing.JPanel {
         int[] selectedRows = tbBan.getSelectedRows();
 
         if (selectedRows.length <= 0) {
-            JOptionPane.showMessageDialog(null, "Bạn chưa chọn bàn nào !");
+            Messages.alert(this, "Bạn chưa chọn bàn ?");
         } else {
             ArrayList<Integer> ListMaBan = new ArrayList<Integer>();
             String sp = "";
@@ -242,22 +248,20 @@ public class JFquanLy_ban extends javax.swing.JPanel {
 
                 sp += tenban + "\n";
             }
-        int nutbam = JOptionPane.showConfirmDialog(new JFrame(), "bạn chắc chắn xóa?", "xóA", JOptionPane.YES_NO_OPTION);
+        int nutbam = JOptionPane.showConfirmDialog(new JFrame(), "bạn chắc chắn xóa?", "Trà sữa Goky", JOptionPane.YES_NO_OPTION);
         if (nutbam == JOptionPane.YES_OPTION) {
             int cacdong[] = tbBan.getSelectedRows();
             for (int i = 0; i < cacdong.length; i++) {
                 String MaPhong = tbBan.getValueAt(cacdong[i], 0).toString();
                     dao.delete(MaPhong);
-                    FillTable();
-                
-
+                    FillTable();     
             }
         }
         }
     }//GEN-LAST:event_bntXoaActionPerformed
 
     private void txttimKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttimKeyReleased
-//        List<Ban> arrTable = dao.selectByKeyword(txttim.getText());
+//          List<Ban> arrTable = dao.selectByKeyword(txttim.getText());
 //        if(arrTable != null){
 //            DefaultTableModel tbmodel = new DefaultTableModel();
 //
@@ -278,6 +282,10 @@ public class JFquanLy_ban extends javax.swing.JPanel {
 //            }
 //        }
     }//GEN-LAST:event_txttimKeyReleased
+
+    private void txttimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttimActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txttimActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

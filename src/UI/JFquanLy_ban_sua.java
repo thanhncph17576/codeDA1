@@ -7,6 +7,7 @@ package UI;
 
 import DAO.banDAO;
 import Entity.Ban;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class JFquanLy_ban_sua extends javax.swing.JDialog {
@@ -17,6 +18,12 @@ public class JFquanLy_ban_sua extends javax.swing.JDialog {
 
     public JFquanLy_ban_sua(java.awt.Frame parent, boolean modal, int ma) {
         initComponents();
+        maban = ma;
+        List<Ban> l = dao.selectAll();
+        Ban b = dao.selectByID(maban+"");
+        //txttenban.setText(b.getTenBan());
+        lblten.setText("Sửa bàn - " +b.getTenBan());
+        trangthai = "Trống";
     }
 
     /**
@@ -52,7 +59,7 @@ public class JFquanLy_ban_sua extends javax.swing.JDialog {
 
         lblten.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblten.setForeground(new java.awt.Color(51, 0, 51));
-        lblten.setText("Sửa bàn 19");
+        lblten.setText("Sửa bàn ");
 
         btnXacNhan.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnXacNhan.setForeground(new java.awt.Color(102, 51, 0));
@@ -143,12 +150,12 @@ public class JFquanLy_ban_sua extends javax.swing.JDialog {
 
         JFquanLy_ban.B.FillTable();
         JFquanLy_ban.B.updateUI();
-        try {
-            JFbanHang.bh.FillBan();
-            JFbanHang.bh.updateUI();
-        } catch (Exception e) {
-
-        }
+//        try {
+//            JFbanHang.bh.FillBan();
+//            JFbanHang.bh.updateUI();
+//        } catch (Exception e) {
+//
+//        }
         this.dispose();
     }//GEN-LAST:event_btnXacNhanActionPerformed
 
