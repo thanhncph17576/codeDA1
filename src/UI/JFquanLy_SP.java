@@ -9,9 +9,11 @@ import DAO.loaiSanPhamDAO;
 import DAO.sanphamDAO;
 import Entity.SanPham;
 import Entity.loaiSanPham;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -55,39 +57,7 @@ public class JFquanLy_SP extends javax.swing.JPanel {
         }
         //fillTable();
     }  
-//    public void fillTable(){
-//        DefaultTableModel mol =(DefaultTableModel)tbBan.getModel();
-//        mol.setRowCount(0);
-//        mol.setColumnCount(0);
-//        List<SanPham> arrTable = daosp.selectAll();
-//        DefaultTableModel tbmodel =new DefaultTableModel();
-//        tbmodel.addColumn("Mã món");
-//        tbmodel.addColumn("Tên món");
-//        tbmodel.addColumn("Mã loại ");
-//        tbmodel.addColumn("Đơn giá");
-//        tbmodel.addColumn("Đơn Vị tính");
-//        if(arrTable != null){
-//           int somon =0;
-//           for(SanPham x : arrTable){
-//            somon ++;
-//            tbmodel.addRow(new Object[]{
-//                x.getMaMon(),
-//                x.getTenMon(),
-//                x.getMaLoai(),
-//                x.getDonGia(),
-//                x.getDVT(),                       
-//            });
-//           }
-//          lblthongtin.setText(String.valueOf(somon)+" sản phẩm");
-//        }else {
-//       JOptionPane.showMessageDialog(null, "Không có sản phẩm ?");
-//        }
-//        tbBan.setModel(tbmodel);
-//        for(int i=0; i < tbBan.getColumnCount(); i++){
-//            Class<?> col = tbBan.getColumnClass(i);
-//            tbBan.setDefaultEditor(col, null);
-//        }
-//    }
+
     public void fillTable(){
         DefaultTableModel model = (DefaultTableModel) tbBan.getModel();
         model.setColumnCount(0);
@@ -325,7 +295,32 @@ public class JFquanLy_SP extends javax.swing.JPanel {
     }//GEN-LAST:event_bntSuaMonActionPerformed
 
     private void bntXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntXoaActionPerformed
-        
+        int[] selectedRows = tbBan.getSelectedRows();
+
+        if (selectedRows.length <= 0) {
+            JOptionPane.showMessageDialog(null, "Bạn chưa chọn mục cần xóa  !");
+        } else {
+            ArrayList<Integer> ListMaMon = new ArrayList<Integer>();
+            String sp = "";
+            for (int i : selectedRows) {
+                int ma = (int) tbBan.getValueAt(i, 0);
+                ListMaMon.add(ma);
+                String tenmon = (String) tbBan.getValueAt(i, 1);              
+                sp += tenmon + "\n";
+            }                    
+         int qs;
+            qs = JOptionPane.showConfirmDialog(null, "Xóa món: \n " + sp, "Xóa món", JOptionPane.YES_NO_OPTION);
+            if (qs == JOptionPane.YES_OPTION) {
+                try {                    
+                      daoLoai.delete(sp);
+                     fillTable();
+                     JFquanLy_SP.sp.fillTable();
+                     JFquanLy_SP.sp.updateUI();
+                } catch (Exception e) {
+                     JOptionPane.showMessageDialog(null, "Xóa thất bại !");
+                }
+            }
+        }
     }//GEN-LAST:event_bntXoaActionPerformed
 
     private void cbbNhomMonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbNhomMonItemStateChanged

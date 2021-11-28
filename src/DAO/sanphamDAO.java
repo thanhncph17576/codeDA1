@@ -87,4 +87,6 @@ public class sanphamDAO extends DAO<SanPham, String> {
        String sql = "select * from SanPham  where MaLoai = ?";
        return this.selectBySQL(sql,maLoai);
    } 
+
+    
 }

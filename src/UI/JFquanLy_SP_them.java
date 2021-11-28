@@ -21,11 +21,7 @@ public class JFquanLy_SP_them extends javax.swing.JDialog {
     public JFquanLy_SP_them(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        cbbNhomMon.removeAllItems();
-        cbbNhomMon.addItem("GÀ");
-        cbbNhomMon.addItem("Vịt");
-        cbbNhomMon.addItem("Thịt");
-        cbbNhomMon.addItem("Chó");
+        fillCbb();
     }
     
 sanphamDAO daoSP = new sanphamDAO();
