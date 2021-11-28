@@ -6,15 +6,20 @@
 package UI;
 
 
+
 /**
  *
  * @author ThangIKCU
  */
 public class JFquanLy_SP_sua extends javax.swing.JDialog {
     
-    public JFquanLy_SP_sua(java.awt.Frame parent, boolean modal, String mamon) {
+    
+    int ID;
+    
+    public JFquanLy_SP_sua(java.awt.Frame parent, boolean modal, String mamon, int id ) {
         super(parent, modal);
-        initComponents();      
+        initComponents();   
+        ID=id;
     }
     
     /**
