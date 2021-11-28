@@ -9,29 +9,28 @@ import DAO.loaiSanPhamDAO;
 import DAO.sanphamDAO;
 import Entity.loaiSanPham;
 import java.util.*;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
-
 
 /**
  *
  * @author ThangIKCU
  */
 public class JFquanLy_loaiSP extends javax.swing.JPanel {
-    
-         
+
     public static JFquanLy_loaiSP loaisp;
+
     public JFquanLy_loaiSP() {
-        initComponents();     
+        initComponents();
         loaisp = this;
         fillTable();
     }
-    
+
     loaiSanPhamDAO daoLoai = new loaiSanPhamDAO();
     sanphamDAO daosp = new sanphamDAO();
-        
-    public void fillTable(){
+
+    public void fillTable() {
         DefaultTableModel mol = (DefaultTableModel) tbNhomMon.getModel();
         mol.setColumnCount(0);
         mol.setRowCount(0);
@@ -40,30 +39,28 @@ public class JFquanLy_loaiSP extends javax.swing.JPanel {
         tbmodel.addColumn("Mã loại sản phẩm");
         tbmodel.addColumn("Tên loại sản phẩm");
         tbmodel.addColumn("Màu sắc");
-        
-        
-        if(arrTable != null){
+
+        if (arrTable != null) {
             int soLoai = 0;
-            for(loaiSanPham x : arrTable){
-                soLoai ++;
+            for (loaiSanPham x : arrTable) {
+                soLoai++;
                 tbmodel.addRow(new Object[]{
                     x.getMaLoaiSP(),
                     x.getTenLoaiSP(),
                     x.getMauSac()
                 });
             }
-            lblthongtin.setText(String.valueOf(soLoai)+" loại");
-        }
-        else{
+            lblthongtin.setText(String.valueOf(soLoai) + " loại");
+        } else {
             JOptionPane.showMessageDialog(null, "Không có loại nào");
         }
         tbNhomMon.setModel(tbmodel);
-        for(int i=0; i < tbNhomMon.getColumnCount(); i++){
+        for (int i = 0; i < tbNhomMon.getColumnCount(); i++) {
             Class<?> col = tbNhomMon.getColumnClass(i);
             tbNhomMon.setDefaultEditor(col, null);
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -241,7 +238,36 @@ public class JFquanLy_loaiSP extends javax.swing.JPanel {
     }//GEN-LAST:event_bntSuaActionPerformed
 
     private void bntXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntXoaActionPerformed
-        
+        int[] selectedRows = tbNhomMon.getSelectedRows();
+
+        if (selectedRows.length <= 0) {
+            JOptionPane.showMessageDialog(null, "Bạn chưa chọn loại nào !");
+        } else {
+            ArrayList<Integer> listmamon = new ArrayList<>();
+            String sp = "";
+            for (int i : selectedRows) {
+                int ma = (int) tbNhomMon.getValueAt(i, 0);
+                listmamon.add(ma);
+                String tenNhom = (String) tbNhomMon.getValueAt(i, 1);
+                sp += tenNhom + "\n";
+            }
+//            int qs;
+//            qs = JOptionPane.showConfirmDialog(null, "Xóa nhóm: \n" + sp,"Xóa nhóm",JOptionPane.YES_NO_OPTION);
+//            if(qs == JOptionPane.YES_OPTION){
+//                boolean xoa = daoLoai.delete(sp);
+//            }
+
+            int nutxoa = JOptionPane.showConfirmDialog(new JFrame(), "Bạn có muốn xóa không ?", "Xóa", JOptionPane.YES_NO_OPTION);
+            if (nutxoa == JOptionPane.YES_OPTION) {
+                int dong[] = tbNhomMon.getSelectedRows();
+                for (int i = 0; i < dong.length; i++) {
+                    String maloaisp = tbNhomMon.getValueAt(dong[i], 0).toString();
+                    daoLoai.delete(maloaisp);
+                    fillTable();
+                }
+            }
+        }
+
     }//GEN-LAST:event_bntXoaActionPerformed
 
     private void txttimKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttimKeyReleased
