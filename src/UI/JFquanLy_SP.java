@@ -9,9 +9,11 @@ import DAO.loaiSanPhamDAO;
 import DAO.sanphamDAO;
 import Entity.SanPham;
 import Entity.loaiSanPham;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -325,7 +327,30 @@ public class JFquanLy_SP extends javax.swing.JPanel {
     }//GEN-LAST:event_bntSuaMonActionPerformed
 
     private void bntXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntXoaActionPerformed
-        
+ int[] selectedRows = tbBan.getSelectedRows();
+
+        if (selectedRows.length <= 0) {
+            JOptionPane.showMessageDialog(null, "Bạn chưa chọn mục cần xóa  !");
+        } else {
+            ArrayList<Integer> ListMaMon = new ArrayList<Integer>();
+            String sp = "";
+            for (int i : selectedRows) {
+                int ma = (int) tbBan.getValueAt(i, 0);
+                ListMaMon.add(ma);
+                String tenmon = (String) tbBan.getValueAt(i, 1);              
+                sp += tenmon + "\n";
+            }                    
+          int nutbam = JOptionPane.showConfirmDialog(new JFrame(), "bạn chắc chắn xóa?", "xóA", JOptionPane.YES_NO_OPTION);
+        if (nutbam == JOptionPane.YES_OPTION) {
+            int cacdong[] = tbBan.getSelectedRows();
+            for (int i = 0; i < cacdong.length; i++) {
+                String MaPhong = tbBan.getValueAt(cacdong[i], 0).toString();
+                    daoSP.delete(MaPhong);
+                    fillTable();
+                
+            }
+        }
+        }                
     }//GEN-LAST:event_bntXoaActionPerformed
 
     private void cbbNhomMonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbNhomMonItemStateChanged
