@@ -103,6 +103,12 @@ public class JFquanLy_loaiSP_sua extends javax.swing.JDialog {
             }
         });
 
+        txtten.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txttenActionPerformed(evt);
+            }
+        });
+
         btnXacNhan.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnXacNhan.setForeground(new java.awt.Color(51, 0, 51));
         btnXacNhan.setText("Xác nhận");
@@ -243,6 +249,10 @@ public class JFquanLy_loaiSP_sua extends javax.swing.JDialog {
     private void chonmauPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_chonmauPropertyChange
         // TODO add your handling code here:
     }//GEN-LAST:event_chonmauPropertyChange
+
+    private void txttenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txttenActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHuyBo;

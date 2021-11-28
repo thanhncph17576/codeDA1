@@ -116,6 +116,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txttenban">
           <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txttenbanActionPerformed"/>
             <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txttenbanKeyReleased"/>
           </Events>
         </Component>
@@ -127,7 +128,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="33" green="0" red="33" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="S&#x1eed;a b&#xe0;n 19"/>
+            <Property name="text" type="java.lang.String" value="S&#x1eed;a b&#xe0;n "/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnXacNhan">

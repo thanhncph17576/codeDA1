@@ -7,6 +7,8 @@ package UI;
 
 import DAO.banDAO;
 import Entity.Ban;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class JFquanLy_ban_sua extends javax.swing.JDialog {
@@ -17,6 +19,14 @@ public class JFquanLy_ban_sua extends javax.swing.JDialog {
 
     public JFquanLy_ban_sua(java.awt.Frame parent, boolean modal, int ma) {
         initComponents();
+        maban = ma;
+        List<Ban> l = dao.selectAll();
+        Ban b = dao.selectByID(maban+"");
+        //txttenban.setText(b.getTenBan());
+        lblten.setText("Sửa bàn - " +b.getTenBan());
+        trangthai = "Trống";
+        
+        
     }
 
     /**
@@ -44,6 +54,11 @@ public class JFquanLy_ban_sua extends javax.swing.JDialog {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Tên bàn: ");
 
+        txttenban.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txttenbanActionPerformed(evt);
+            }
+        });
         txttenban.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txttenbanKeyReleased(evt);
@@ -52,7 +67,7 @@ public class JFquanLy_ban_sua extends javax.swing.JDialog {
 
         lblten.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblten.setForeground(new java.awt.Color(51, 0, 51));
-        lblten.setText("Sửa bàn 19");
+        lblten.setText("Sửa bàn ");
 
         btnXacNhan.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnXacNhan.setForeground(new java.awt.Color(102, 51, 0));
@@ -133,6 +148,7 @@ public class JFquanLy_ban_sua extends javax.swing.JDialog {
     private void btnXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanActionPerformed
         if (txttenban.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Tên bàn không được để trống !");
+            txttenban.requestFocus();
             return;
         }
         Ban b = new Ban();
@@ -143,12 +159,12 @@ public class JFquanLy_ban_sua extends javax.swing.JDialog {
 
         JFquanLy_ban.B.FillTable();
         JFquanLy_ban.B.updateUI();
-        try {
-            JFbanHang.bh.FillBan();
-            JFbanHang.bh.updateUI();
-        } catch (Exception e) {
-
-        }
+//        try {
+//            JFbanHang.bh.FillBan();
+//            JFbanHang.bh.updateUI();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         this.dispose();
     }//GEN-LAST:event_btnXacNhanActionPerformed
 
@@ -163,6 +179,10 @@ public class JFquanLy_ban_sua extends javax.swing.JDialog {
             txttenban.setText(tenban);
         }  
     }//GEN-LAST:event_txttenbanKeyReleased
+
+    private void txttenbanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttenbanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txttenbanActionPerformed
 
     /**
      * @param args the command line arguments

@@ -79,6 +79,12 @@ public class JFquanLy_loaiSP_them extends javax.swing.JDialog {
             }
         });
 
+        txtTenLoai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTenLoaiActionPerformed(evt);
+            }
+        });
+
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton2.setForeground(new java.awt.Color(51, 0, 51));
         jButton2.setText("Xác nhận");
@@ -216,6 +222,10 @@ public class JFquanLy_loaiSP_them extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Thêm thất bại !");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void txtTenLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTenLoaiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTenLoaiActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -61,6 +61,11 @@ public class JFquanLy_ban_them extends javax.swing.JDialog {
             }
         });
 
+        txtTenBan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTenBanActionPerformed(evt);
+            }
+        });
         txtTenBan.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtTenBanKeyReleased(evt);
@@ -138,6 +143,7 @@ public class JFquanLy_ban_them extends javax.swing.JDialog {
     private void btnXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanActionPerformed
         if(txtTenBan.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Tên bàn không được để trống !");
+            txtTenBan.requestFocus();
             return;
         }
         Ban b = new Ban();
@@ -164,6 +170,10 @@ public class JFquanLy_ban_them extends javax.swing.JDialog {
             txtTenBan.setText(null);
         }
     }//GEN-LAST:event_txtTenBanKeyReleased
+
+    private void txtTenBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTenBanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTenBanActionPerformed
 
     /**
      * @param args the command line arguments
