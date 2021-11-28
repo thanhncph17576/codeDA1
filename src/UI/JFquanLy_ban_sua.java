@@ -7,6 +7,7 @@ package UI;
 
 import DAO.banDAO;
 import Entity.Ban;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class JFquanLy_ban_sua extends javax.swing.JDialog {
@@ -17,6 +18,12 @@ public class JFquanLy_ban_sua extends javax.swing.JDialog {
 
     public JFquanLy_ban_sua(java.awt.Frame parent, boolean modal, int ma) {
         initComponents();
+        maban = ma;
+        List<Ban> l = dao.selectAll();
+        Ban b = dao.selectByID(maban+"");
+        //txttenban.setText(b.getTenBan());
+        lblten.setText("Sửa bàn - " +b.getTenBan());
+        trangthai = "Trống";
     }
 
     /**
@@ -143,12 +150,12 @@ public class JFquanLy_ban_sua extends javax.swing.JDialog {
 
         JFquanLy_ban.B.FillTable();
         JFquanLy_ban.B.updateUI();
-        try {
-            JFbanHang.bh.FillBan();
-            JFbanHang.bh.updateUI();
-        } catch (Exception e) {
-
-        }
+//        try {
+//            JFbanHang.bh.FillBan();
+//            JFbanHang.bh.updateUI();
+//        } catch (Exception e) {
+//
+//        }
         this.dispose();
     }//GEN-LAST:event_btnXacNhanActionPerformed
 
