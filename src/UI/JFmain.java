@@ -29,13 +29,13 @@ public final class JFmain extends javax.swing.JFrame {
     /**
      * Creates new form frmMain
      */   
-
+    public static JFmain main;
     public JFmain() {
         initComponents();
 
         Clock clock= new Clock(); 
         clock.start(); 
-        
+        main= this;
         txtqtv.setText(RUN.nv.getUserName());
         if(RUN.nv.getLoai()!= 1)
         {

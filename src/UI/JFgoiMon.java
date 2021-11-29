@@ -30,7 +30,27 @@ public final class JFgoiMon extends javax.swing.JPanel {
     int MaHD, tienmon = 0, tongtien = 0;
     NumberFormat chuyentien = new DecimalFormat("#,###,###");
     public JFgoiMon(String trangthai, String tenban, int maban) {
-        initComponents();               
+        initComponents(); 
+        gm = this;
+    lbltrangthai.setText(trangthai);  
+    lblTenBan.setText(tenban);
+    if(lbltrangthai.getText().equals("Trống")){
+            btndatban.setText("Đặt chỗ");
+            return;
+            
+        }if(lbltrangthai.getText().equals("Đã đặt trước")){
+            btndatban.setText("Hủy đặt");
+            return;
+        }if(lbltrangthai.getText().equals("Đang phục vụ")){
+            btndatban.setVisible(false);
+            btnthugon.setVisible(false);
+            JFthucDon thucdon = new JFthucDon();
+            thucdon.tenban = TenBan;
+            thucdon.maban = maban;
+            jpthucdon.removeAll();
+            jpthucdon.add(thucdon);
+            jpthucdon.updateUI();
+        }
     }
     public static JFgoiMon gm;
     /**
@@ -317,18 +337,22 @@ public final class JFgoiMon extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jpThongTinBan, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jpthucdon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jpthucdon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpthucdon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jpThongTinBan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
+                .addComponent(jpthucdon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(542, 542, 542))
+            .addComponent(jpThongTinBan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 535, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         getAccessibleContext().setAccessibleParent(this);
@@ -391,8 +415,7 @@ public final class JFgoiMon extends javax.swing.JPanel {
     }
     
     private void btngoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btngoiActionPerformed
-            if(btngoi.getText().equals("Hủy bàn")){
-            
+        if (btngoi.getText().equals("Hủy bàn")) {
             jpthucdon.removeAll();
             jpthucdon.add(jLabel1);
             jpthucdon.updateUI();
@@ -408,19 +431,41 @@ public final class JFgoiMon extends javax.swing.JPanel {
             btndatban.setVisible(true);
             btndatban.setText("Đặt bàn");
             return;
-            
-        }if(btngoi.getText().equals("Thanh toán")){
+
+        }
+        if (btngoi.getText().equals("Thanh toán")) {
             JFthanhToan thanhtoan = new JFthanhToan(RUN.QLTS, true, tongtien, TenBan, MaBan, MaHD);//tongtien trang thai ban ten ban
             thanhtoan.setVisible(true);
-            return;         
-        }  
+            return;
+        }
+        if(btngoi.getText().equals("Gọi món")){
+            jpthucdon.setVisible(true);
+            Date date = new Date();
+            SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm a");
+            SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            lblgioden.setText(df.format(date));
+            lbltrangthai.setText("Đang phục vụ");
+            btndatban.setVisible(false);
+            btnthugon.setVisible(false);
+            btngoi.setText("Hủy bàn");
 
-        
-        
+            JFthucDon thucdon;
+            thucdon = new JFthucDon();
+            thucdon.maban = MaBan;
+            thucdon.tenban = TenBan;
+            
+            thucdon.gioden = sf.format(date);
+            jpthucdon.removeAll();
+            jpthucdon.add(thucdon);
+            jpthucdon.revalidate();
+            jpthucdon.updateUI();
+        }
+
+
     }//GEN-LAST:event_btngoiActionPerformed
 
     private void btndatbanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndatbanActionPerformed
-        
+        JFmain.main.reloadPanel(5);
     }//GEN-LAST:event_btndatbanActionPerformed
 
     private void jpThongTinThanhToanMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpThongTinThanhToanMousePressed

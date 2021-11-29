@@ -82,11 +82,13 @@ public final class JFbanHang extends javax.swing.JPanel {
                         public void mousePressed(MouseEvent e) {
                             JFgoiMon goimon;
                             moJF = dao.selectByID(e.getComponent().getName());
-                            if(ban != null){                            
-                                goimon = new JFgoiMon(ban.get(0).getTrangThai(),ban.get(0).getTenBan(),ban.get(0).getMaBan());
+                            if(moJF != null){                            
+                                goimon = new JFgoiMon(moJF.getTrangThai(),moJF.getTenBan(),moJF.getMaBan());
                                 jPanel2.removeAll();
                                 jPanel2.add(goimon);
                                 jPanel2.updateUI();
+                                System.out.println(e.getComponent().getName());
+                                System.out.println(moJF.getTrangThai());
                             }
                         }                    
                 });
