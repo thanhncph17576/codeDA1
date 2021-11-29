@@ -242,15 +242,13 @@ public class JFquanLy_ban extends javax.swing.JPanel {
 
                 sp += tenban + "\n";
             }
-        int nutbam = JOptionPane.showConfirmDialog(new JFrame(), "bạn chắc chắn xóa?", "xóA", JOptionPane.YES_NO_OPTION);
+        int nutbam = JOptionPane.showConfirmDialog(new JFrame(), "bạn chắc chắn xóa?", "Trà sữa Goky", JOptionPane.YES_NO_OPTION);
         if (nutbam == JOptionPane.YES_OPTION) {
             int cacdong[] = tbBan.getSelectedRows();
             for (int i = 0; i < cacdong.length; i++) {
                 String MaPhong = tbBan.getValueAt(cacdong[i], 0).toString();
                     dao.delete(MaPhong);
-                    FillTable();
-                
-
+                    FillTable();   
             }
         }
         }

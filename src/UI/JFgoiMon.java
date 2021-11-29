@@ -16,6 +16,8 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import javax.swing.JButton;
 import Entity.Ban;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 
 
@@ -25,6 +27,7 @@ public final class JFgoiMon extends javax.swing.JPanel {
     banDAO ao = new banDAO();
     
     int MaBan;
+    String tenban;
     HoaDon arrhd;
     int MaHD, tienmon = 0, tongtien = 0;
     NumberFormat chuyentien = new DecimalFormat("#,###,###");
@@ -390,7 +393,27 @@ public final class JFgoiMon extends javax.swing.JPanel {
     }
     
     private void btngoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btngoiActionPerformed
-        
+//    if(btngoi.getText().equals("Gọi món")){
+//            jpthucdon.setVisible(true);
+//            Date date = new Date();
+//            SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm a");
+//            SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//            lblgioden.setText(df.format(date));
+//            lbltrangthai.setText("Đang phục vụ");
+//            btndatban.setVisible(false);
+//            btnthugon.setVisible(false);
+//            btngoi.setText("Hủy bàn");
+//
+//            JFthucDon thucdon;
+//            thucdon = new JFthucDon();
+//            thucdon.maban = MaBan;
+//            thucdon.tenban = TenBan;
+//            
+//            thucdon.gioden = sf.format(date);
+//            jpthucdon.removeAll();
+//            jpthucdon.add(thucdon);
+//            jpthucdon.revalidate();
+//    }
     }//GEN-LAST:event_btngoiActionPerformed
 
     private void btndatbanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndatbanActionPerformed
