@@ -8,8 +8,10 @@ package UI;
 
 public class JFsoLuongSP extends javax.swing.JDialog {
     
+    public String gioden;
     public JFsoLuongSP(java.awt.Frame parent, boolean modal, String MaMon, String tenban, int MaBan) {
-        
+        super(parent, modal);
+        initComponents();
     }
     
     /**
