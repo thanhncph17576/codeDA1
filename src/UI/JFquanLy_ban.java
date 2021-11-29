@@ -7,6 +7,7 @@ package UI;
 
 import DAO.banDAO;
 import Entity.Ban;
+import Helper.Messages;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
@@ -231,7 +232,7 @@ public class JFquanLy_ban extends javax.swing.JPanel {
         int[] selectedRows = tbBan.getSelectedRows();
 
         if (selectedRows.length <= 0) {
-            JOptionPane.showMessageDialog(null, "Bạn chưa chọn bàn nào !");
+            Messages.alert(this, "Bạn chưa chọn bàn ");
         } else {
             ArrayList<Integer> ListMaBan = new ArrayList<Integer>();
             String sp = "";
@@ -242,7 +243,7 @@ public class JFquanLy_ban extends javax.swing.JPanel {
 
                 sp += tenban + "\n";
             }
-        int nutbam = JOptionPane.showConfirmDialog(new JFrame(), "bạn chắc chắn xóa?", "xóA", JOptionPane.YES_NO_OPTION);
+        int nutbam = JOptionPane.showConfirmDialog(new JFrame(), "bạn chắc chắn xóa?", "Trà sữa Goky", JOptionPane.YES_NO_OPTION);
         if (nutbam == JOptionPane.YES_OPTION) {
             int cacdong[] = tbBan.getSelectedRows();
             for (int i = 0; i < cacdong.length; i++) {
