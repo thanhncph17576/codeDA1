@@ -20,7 +20,7 @@ public class JDBC {
     static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     static String dburl = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyTraSua2";
     static String user = "sa";
-    static String pass = "123";
+    static String pass = "123456";
 
     //Nap Driver
 //    static {
