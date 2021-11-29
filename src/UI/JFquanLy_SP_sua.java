@@ -5,17 +5,61 @@
  */
 package UI;
 
+import DAO.loaiSanPhamDAO;
+import DAO.sanphamDAO;
+import Entity.SanPham;
+import Entity.loaiSanPham;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+
 
 /**
  *
  * @author ThangIKCU
  */
 public class JFquanLy_SP_sua extends javax.swing.JDialog {
-    
+    ArrayList<SanPham> td = new ArrayList<>();
+      int Mamon;    
+      sanphamDAO daoSP = new sanphamDAO();
+     loaiSanPhamDAO daoLoai =new loaiSanPhamDAO();
     public JFquanLy_SP_sua(java.awt.Frame parent, boolean modal, String mamon) {
-        super(parent, modal);
-        initComponents();      
+         super(parent, modal);      
+        initComponents(); 
+        fillCbb();
+//        Mamon=mamon;
+//        List<SanPham> l = daoSP.selectTheoLoai(mamon);
+//        SanPham spp = daoSP.selectByID(mamon+"");
+//       
+//        txtTenMon.setText(spp.getTenMon());
+//        txtGia.setText(String.valueOf(l.get(0).getDonGia()));
+//        txtdvt.setText(spp.getDVT());  
+//        lblten.setText("Sửa sp - "+spp.getTenMon());  
     }
+      public void fillCbb(){
+        DefaultComboBoxModel model = (DefaultComboBoxModel) cbbNhomMon.getModel();
+        model.removeAllElements();
+//        List<loaiSanPham> list = daoLoai.selectTen();
+        List<loaiSanPham> list = daoLoai.selectAll();
+        System.out.println(list);
+        for(loaiSanPham x : list){
+            model.addElement(x.getTenLoaiSP());
+        }
+    }  
+       public void update(){
+        SanPham sp = new SanPham();
+        sp.setTenMon(txtTenMon.getText());
+        sp.setDonGia(Integer.parseInt(txtGia.getText()));
+        sp.setDVT(txtdvt.getText());
+        String MaNhom = cbbNhomMon.getSelectedItem()+"";
+        sp.setMaLoai(Mamon);
+        daoSP.update(sp);
+        JFquanLy_SP.sp.fillTable();
+        JFquanLy_SP.sp.updateUI();
+        this.dispose();
+        
+    }   
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,7 +72,7 @@ public class JFquanLy_SP_sua extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         txtGia = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnxacnhan = new javax.swing.JButton();
         txtdvt = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -51,12 +95,12 @@ public class JFquanLy_SP_sua extends javax.swing.JDialog {
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(153, 51, 0));
-        jButton1.setText("Xác nhận");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnxacnhan.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnxacnhan.setForeground(new java.awt.Color(153, 51, 0));
+        btnxacnhan.setText("Xác nhận");
+        btnxacnhan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnxacnhanActionPerformed(evt);
             }
         });
 
@@ -108,7 +152,7 @@ public class JFquanLy_SP_sua extends javax.swing.JDialog {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGap(88, 88, 88)
-                                .addComponent(jButton1)
+                                .addComponent(btnxacnhan)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton2))
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -152,7 +196,7 @@ public class JFquanLy_SP_sua extends javax.swing.JDialog {
                     .addComponent(txtdvt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btnxacnhan)
                     .addComponent(jButton2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -176,12 +220,27 @@ public class JFquanLy_SP_sua extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbbNhomMonItemStateChanged
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnxacnhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxacnhanActionPerformed
+         if(txtTenMon.getText().isEmpty()){
+        JOptionPane.showMessageDialog(null, "Tên món không được để trống ?");
+            txtTenMon.requestFocus();
+            return;
+       }
+        if(txtGia.getText().isEmpty()){
+        JOptionPane.showMessageDialog(null, " Đơn Giá không được để trống!");
+            txtGia.requestFocus();
+            return;
+       }
+         if(txtdvt.getText().isEmpty()){
+        JOptionPane.showMessageDialog(null, "DVT không được để trống!");
+            txtTenMon.requestFocus();
+            return;        
+       }  
+         update();
+    }//GEN-LAST:event_btnxacnhanActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+       this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void txtGiaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGiaKeyReleased
@@ -190,8 +249,8 @@ public class JFquanLy_SP_sua extends javax.swing.JDialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnxacnhan;
     private javax.swing.JComboBox<Object> cbbNhomMon;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
