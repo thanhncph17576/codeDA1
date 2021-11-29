@@ -8,8 +8,10 @@ package UI;
 
 public class JFsoLuongSP extends javax.swing.JDialog {
     
+    public String gioden;
     public JFsoLuongSP(java.awt.Frame parent, boolean modal, String MaMon, String tenban, int MaBan) {
-        
+        super(parent, modal);
+        initComponents();
     }
     
     /**
@@ -202,6 +204,7 @@ public class JFsoLuongSP extends javax.swing.JDialog {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

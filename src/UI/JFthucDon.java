@@ -5,15 +5,93 @@
  */
 package UI;
 
+import DAO.loaiSanPhamDAO;
+import DAO.sanphamDAO;
+import Entity.SanPham;
+import Entity.loaiSanPham;
 import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.List;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 
 public class JFthucDon extends javax.swing.JPanel {
     public String gioden, tenban;
     public int maban;
+    loaiSanPhamDAO loaiDAO = new loaiSanPhamDAO();
+    sanphamDAO spDAO = new sanphamDAO();
+    List<loaiSanPham> listLoai;
+    NumberFormat chuyentien = new DecimalFormat("#,###,###");
     public JFthucDon() {
         initComponents();
-        
+        fillLoai();
+    }
+    public void fillLoai(){
+        listLoai = loaiDAO.selectAll();
+        if(listLoai != null){
+            JButton btn;
+            jpLoai.setLayout(new BoxLayout(jpLoai, BoxLayout.PAGE_AXIS));
+            jpLoai.removeAll();
+            jpChonMon.setLayout(new  FlowLayout(FlowLayout.CENTER));
+            for(loaiSanPham l : listLoai){
+                    btn = new JButton(l.getTenLoaiSP());
+                    btn.setName(l.getMaLoaiSP()+"");
+                    btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                    btn.setMaximumSize(new Dimension(140, 40));
+                    btn.setForeground(Color.decode("#331a00"));
+                    btn.setBackground(Color.decode(l.getMauSac()));
+                    btn.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+                    btn.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                            lblNhom.setText("    Nhóm "+l.getTenLoaiSP());
+                            lblNhom.setBackground(Color.decode(l.getMauSac()));
+                            List<SanPham> sanPham = spDAO.selectTheoLoai(l.getMaLoaiSP());
+                            jpChonMon.removeAll();
+                            jpChonMon.updateUI();
+                            if(sanPham != null){
+                                JPanel[] pn = new JPanel[sanPham.size()];
+                                //jPanel4.setLayout(new BoxLayout(jPanel4, BoxLayout.PAGE_AXIS));
+                                for(int i=0;i<sanPham.size();i++){
+                                    pn[i] = new JPanel();
+                                    pn[i].setName(sanPham.get(i).getMaMon()+"");
+                                    pn[i].setCursor(new Cursor(Cursor.HAND_CURSOR));
+                                    pn[i].setBackground(Color.decode("#dfff80"));
+                                    pn[i].setBorder(BorderFactory.createLineBorder(Color.decode("#a3a375"), 2));
+                                    pn[i].setPreferredSize(new Dimension(128, 60));
+                                    pn[i].add(new JLabel(sanPham.get(i).getTenMon())).setFont(new java.awt.Font("Tahoma", 1, 12));
+                                    pn[i].add(new JLabel(String.valueOf(chuyentien.format(sanPham.get(i).getDonGia()))+" VNĐ/ "+sanPham.get(i).getDVT())).setForeground(Color.decode("#ff0000"));
+                                    pn[i].addMouseListener(new MouseAdapter() {
+                                        @Override
+                                        public void mousePressed(MouseEvent e){
+
+                                            JFsoLuongSP sl = new JFsoLuongSP(RUN.QLTS, true, e.getComponent().getName(), tenban, maban);
+                                            sl.gioden = gioden;
+                                            sl.setVisible(true);
+                                        }
+                                    });                                     
+                                    jpChonMon.add(pn[i]);
+                                    jpChonMon.updateUI();
+                                }
+                            }
+
+                        }
+                    });
+                    jpLoai.add(btn);
+                    jpLoai.updateUI();
+            }
+
+        }
     }
 
 

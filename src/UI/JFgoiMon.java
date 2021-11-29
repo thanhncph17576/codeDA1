@@ -23,14 +23,41 @@ import java.util.Date;
 public final class JFgoiMon extends javax.swing.JPanel {
     String TenBan;
     hoaDonDAO dao = new hoaDonDAO();
-    banDAO ao = new banDAO();
+    banDAO banDao = new banDAO();
     
     int MaBan;
     HoaDon arrhd;
     int MaHD, tienmon = 0, tongtien = 0;
     NumberFormat chuyentien = new DecimalFormat("#,###,###");
     public JFgoiMon(String trangthai, String tenban, int maban) {
-        initComponents();               
+        initComponents();
+        gm = this;
+        MaBan=maban;
+        TenBan = tenban;
+        lbltrangthai.setText(trangthai);
+        lblTenBan.setText(tenban);
+        if (lbltrangthai.getText().equals("Trống")) {
+            //jpthucdon.removeAll();
+            btndatban.setText("Đặt chỗ");
+            return;
+
+        }
+        if (lbltrangthai.getText().equals("Đã đặt trước")) {
+            //jpthucdon.removeAll();
+            btndatban.setText("Hủy đặt");
+            return;
+        }
+        if (lbltrangthai.getText().equals("Đang phục vụ")) {
+            //jpthucdon.removeAll();
+            btndatban.setVisible(false);
+            btnthugon.setVisible(false);
+            JFthucDon thucdon = new JFthucDon();
+            thucdon.tenban = TenBan;
+            thucdon.maban = maban;
+            jpthucdon.removeAll();
+            jpthucdon.add(jLabel1);
+            jpthucdon.updateUI();
+        }
     }
     public static JFgoiMon gm;
     /**
@@ -391,8 +418,8 @@ public final class JFgoiMon extends javax.swing.JPanel {
     }
     
     private void btngoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btngoiActionPerformed
-            if(btngoi.getText().equals("Hủy bàn")){
-            
+            if (btngoi.getText().equals("Hủy bàn")) {
+
             jpthucdon.removeAll();
             jpthucdon.add(jLabel1);
             jpthucdon.updateUI();
@@ -401,26 +428,67 @@ public final class JFgoiMon extends javax.swing.JPanel {
             lblgioden.setText("......");
             lbltrangthai.setText("Trống");
             String TrangThai = "Trống";
-            Ban b = new Ban(MaBan, lblTenBan.getText(), TrangThai);
-            int Update = ao.UpdateBan(b);
+            
+            Ban b = new Ban();
+            b.setTenBan(lblTenBan.getText());
+            b.setMaBan(MaBan);
+            b.setTrangThai(TrangThai);
+            banDao.update(b);
+            
             JFbanHang.bh.FillBan();
             btngoi.setText("Gọi món");
             btndatban.setVisible(true);
             btndatban.setText("Đặt bàn");
             return;
-            
+
         }if(btngoi.getText().equals("Thanh toán")){
             JFthanhToan thanhtoan = new JFthanhToan(RUN.QLTS, true, tongtien, TenBan, MaBan, MaHD);//tongtien trang thai ban ten ban
             thanhtoan.setVisible(true);
             return;         
         }  
-
-        
+        if(btngoi.getText().equals("Gọi món")){
+            jpthucdon.removeAll();
+            //jpthucdon.setVisible(true);
+            Date date = new Date();
+            SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm a");
+            SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            lblgioden.setText(df.format(date));
+            lbltrangthai.setText("Đang phục vụ");
+            btndatban.setVisible(false);
+            btnthugon.setVisible(false);
+            btngoi.setText("Hủy bàn");
+            
+            String TrangThai = "Đang phục vụ";
+            
+            Ban c = new Ban();
+            c.setTenBan(lblTenBan.getText());
+            c.setMaBan(MaBan);
+            c.setTrangThai(TrangThai);
+            banDao.update(c);
+            
+            JFthucDon thucdon;
+            thucdon = new JFthucDon();
+            thucdon.maban = MaBan;
+            thucdon.tenban = TenBan;
+            
+            thucdon.gioden = sf.format(date);
+            jpthucdon.removeAll();
+            jpthucdon.add(thucdon);
+            jpthucdon.revalidate();
+            jpthucdon.updateUI();
+            
+        }
+        try {
+            JFbanHang.bh.FillBan();
+            JFbanHang.bh.updateUI();
+        } catch (Exception e) {
+        }
+  
         
     }//GEN-LAST:event_btngoiActionPerformed
 
     private void btndatbanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndatbanActionPerformed
-        
+        JFmain.main.reloadPanel(5);
     }//GEN-LAST:event_btndatbanActionPerformed
 
     private void jpThongTinThanhToanMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpThongTinThanhToanMousePressed

@@ -29,10 +29,10 @@ public final class JFmain extends javax.swing.JFrame {
     /**
      * Creates new form frmMain
      */   
-
+    public static JFmain main;
     public JFmain() {
         initComponents();
-
+        main = this;
         Clock clock= new Clock(); 
         clock.start(); 
         
