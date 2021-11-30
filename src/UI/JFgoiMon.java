@@ -488,6 +488,24 @@ public final class JFgoiMon extends javax.swing.JPanel {
     }//GEN-LAST:event_btngoiActionPerformed
 
     private void btndatbanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndatbanActionPerformed
+//        if(lbltrangthai.getText().equals("Đã đặt trước")){
+//            lbltrangthai.setText("Trống");
+//            btndatban.setText("Đặt chỗ");           
+//            String TrangThai = "Trống";
+//            Ban b = new Ban(MaBan, TenBan, TrangThai);
+//            int Update = cn.UpdateBan(b);
+//            JFbanHang.bh.FillBan();
+//            JFbanHang.bh.updateUI();
+//        }else{
+//            lbltrangthai.setText("Đã đặt trước");
+//            btndatban.setText("Hủy đặt");
+//            String TrangThai = "Đã đặt trước";
+//            Ban b = new Ban(MaBan, TenBan, TrangThai);
+//            int Update = cn.UpdateBan(b);
+//            JFbanHang.bh.FillBan();
+//            JFbanHang.bh.updateUI()
+//        }
+
         JFmain.main.reloadPanel(5);
     }//GEN-LAST:event_btndatbanActionPerformed
 
