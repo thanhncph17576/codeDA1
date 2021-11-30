@@ -98,7 +98,11 @@ public class hoaDonDAO extends DAO<HoaDon, String> {
         return mahd;        
     } 
     
-    
+    public List<HoaDon> thongKeHD(){
+        String sql = "select * from hoadon where TrangThai = '1'";
+        List<HoaDon> list = this.selectBySQL(sql);
+        return list;
+    }
     
     
 }
