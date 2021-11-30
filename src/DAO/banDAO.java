@@ -84,6 +84,4 @@ public class banDAO extends DAO<Ban, String>{
        int updateb = 0;
        String sql = "select * from SanPham  where MaLoai = ?";
         return updateb;}
-
- 
 }
