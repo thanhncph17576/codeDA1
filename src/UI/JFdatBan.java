@@ -5,10 +5,13 @@
  */
 package UI;
 
+import DAO.banDAO;
 import DAO.datBanDAO;
+import Entity.Ban;
 import Entity.datBan;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -17,13 +20,21 @@ import javax.swing.table.DefaultTableModel;
  */
 public class JFdatBan extends javax.swing.JPanel {
     public static JFdatBan datBan;
-    /**
-     * Creates new form NewJPanel
-     */
+    int index;
+    banDAO daoB = new banDAO();
     public JFdatBan() {
         initComponents();
         datBan = this;
         fillTable();
+        for (int i = 7; i <= 22; i++) {
+            String t = i + "";
+            cbxHours.addItem(t);
+        }
+        for (int i = 0; i <= 59; i++) {
+            String t = i + "";
+            cbxMinute.addItem(t);
+        }
+        fillCbb();
     }
 
     datBanDAO daodatBan = new datBanDAO();
@@ -450,4 +461,14 @@ public class JFdatBan extends javax.swing.JPanel {
     private javax.swing.JTextField tfSDT;
     private javax.swing.JTextField tfTenkhach;
     // End of variables declaration//GEN-END:variables
+
+    private void fillCbb() {
+        DefaultComboBoxModel model = (DefaultComboBoxModel) cboSoban.getModel();
+        model.removeAllElements();
+        List<Ban> list = daoB.selectAll();
+        System.out.println(list);
+        for(Ban x : list){
+            model.addElement(x.getMaBan());
+        }
+    }
 }
