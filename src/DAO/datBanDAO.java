@@ -17,21 +17,30 @@ import java.util.List;
  * @author ADMIN
  */
 public class datBanDAO extends DAO<datBan, String>{
-    String INSERT_SQL = "insert into banDat (MaBanDat, MaBan, TenKhach, SDT, GioDat) values (?,?,?,?,?,?)";
-    String UPDATE_SQL = "update banDat set MaBan = ? , TenKhach = ? , SDT = ? , GioDat , where MaBanDat = ?";
+    String INSERT_SQL = "insert into banDat (MaBan,TenKhach,SDT,GioDat,ThoiGian) values (?,?,?,?,?)";
+    String UPDATE_SQL = "update banDat set MaBan = ?, TenKhach = ?, SDT = ?, GioDat = ?, ThoiGian = ? where MaBanDat = ?";
     String DELETE_SQL = "delete from banDat where MaBanDat = ?";
     String SELECT_ALL_SQL = "select * from banDat";
     String SELECT_BY_ID_SQL = "select * from banDat where MaBanDat = ?";
     @Override
     public void insert(datBan entity) {
         JDBC.update(INSERT_SQL, 
-                entity.getMaDatBan(), entity.getMaBan(), entity.getTenKhach(),entity.getSDT(),entity.getGiodat());
+                entity.getMaBan(),
+                entity.getTenKhach(),
+                entity.getSDT(),
+                entity.getGiodat(),
+                entity.getThoiGian());
     }
 
     @Override
     public void update(datBan entity) {
         JDBC.update(UPDATE_SQL, 
-                 entity.getMaBan(), entity.getTenKhach(),entity.getSDT(),entity.getGiodat(),entity.getMaDatBan());
+                 entity.getMaBan(),
+                 entity.getTenKhach(),
+                 entity.getSDT(),
+                 entity.getGiodat(),
+                 entity.getThoiGian(),
+                 entity.getMaDatBan());
     }
 
     @Override
@@ -64,6 +73,7 @@ public class datBanDAO extends DAO<datBan, String>{
                 b.setTenKhach(rs.getString("TenKhach"));
                 b.setSDT(rs.getString("SDT"));
                 b.setGiodat(rs.getDate("GioDat"));
+                b.setThoiGian(rs.getTime("ThoiGian"));
                 list.add(b);
             }
             rs.getStatement().getConnection().close();
