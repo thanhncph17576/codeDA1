@@ -5,13 +5,49 @@
  */
 package UI;
 
+import DAO.banDAO;
+import java.util.ArrayList;
+import Entity.SanPham;
+import Entity.hoaDonCT;
+import Entity.HoaDon;
+import Entity.Ban;
+import DAO.hoaDonCTDAO;
+import DAO.sanphamDAO;
+import DAO.hoaDonDAO;
+import java.util.List;
+
 
 public class JFsoLuongSP extends javax.swing.JDialog {
     
-    public String gioden;
+    //DAO
+    hoaDonCTDAO HDCT = new hoaDonCTDAO();
+    sanphamDAO SP = new sanphamDAO();
+    hoaDonDAO HD = new hoaDonDAO();
+    banDAO ban =new banDAO();
+    
+    
+    
+    //khai bao
+    int sl = 0;
+    List<SanPham> arrSanPham;
+    public String gioden, mamon, TenBan;
+    public int maban;
+    hoaDonCT mon;
+    
+    
+    
     public JFsoLuongSP(java.awt.Frame parent, boolean modal, String MaMon, String tenban, int MaBan) {
         super(parent, modal);
         initComponents();
+        mamon = MaMon;
+        TenBan = tenban;
+        maban = MaBan;
+        Fill();
+        mon = HDCT.LayDSHDCT(MaMon, MaBan);
+        if(mon != null){
+            txtgia.setText(String.valueOf(mon.getGia()));
+            txtSl.setText(String.valueOf(mon.getSoLuong()));
+        }
     }
     
     /**
@@ -192,14 +228,35 @@ public class JFsoLuongSP extends javax.swing.JDialog {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    private void Fill(){
+        SanPham e = SP.selectByID(mamon);
+        txtSl.setText("1");
+        lblban.setText(TenBan + " ");
+        
+        lblTenMon.setText(e.getTenMon());
+        lblDVT.setText(e.getDVT());
+        txtgia.setText(String.valueOf(e.getDonGia()));
+    }
+    
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-
+            sl = Integer.parseInt(txtSl.getText());
+            if(sl < 30){
+                sl++;
+                txtSl.setText(String.valueOf(sl));
+            }
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        
+        try{
+            sl = Integer.parseInt(txtSl.getText());
+            if(sl != 1 && sl != 0){
+                sl--;
+                txtSl.setText(String.valueOf(sl));
+            }
+        }catch(Exception e){
+                txtSl.setText("1");
+        }        
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -208,16 +265,65 @@ public class JFsoLuongSP extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+        if(HD.GetMaHD(maban) == 0){
+            HoaDon hd = new HoaDon();
+            hd.setMaBan(maban);
+            
+            hd.setTrangThai(0);
+            //JOptionPane.showMessageDialog(null, gioden);
+            int insertHd = HD.InsertHoaDon(hd, gioden);
+        }
+
+        if(mon != null){
+            hoaDonCT ct = new hoaDonCT();
+            ct.setGia(Integer.parseInt(txtgia.getText()));
+            ct.setSoLuong(Integer.parseInt(txtSl.getText()));
+            ct.setMaHoaDonCT(mon.getMaHoaDonCT());
+            int updatect = HDCT.UpdateChiTiet(ct);
+        }if(mon == null){
+            hoaDonCT cthd = new hoaDonCT();
+            cthd.setGia(Integer.parseInt(txtgia.getText()));
+            cthd.setMaHoaDon(HD.LayMaHD(maban));
+            cthd.setMaMon(mamon);
+            cthd.setSoLuong(Integer.parseInt(txtSl.getText()));
+            int isertCtHD = HDCT.InsertChiTietHD(cthd);
+        }
+
+        Ban b = new Ban();
+        b.setTrangThai("Đang phục vụ");
+        b.setTenBan(TenBan);
+        b.setMaBan(maban);
+        int updateban = ban.UpdateBan1(b);
+
+        JFbanHang.bh.FillBan();
+        JFbanHang.bh.updateUI();
+        JFgoiMon.gm.fillDsMon(HD.LayMaHD(maban));
+        JFgoiMon.gm.updateUI();
+
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtSlKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSlKeyReleased
-       
+        try{
+            sl = Integer.parseInt(txtSl.getText());
+            if(txtSl.getText().equals("0") || sl > 30)
+                txtSl.setText("1");
+        }catch(Exception e){
+           txtSl.setText("1");
+        }       
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSlKeyReleased
 
     private void txtgiaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtgiaKeyReleased
-        // TODO add your handling code here:
+        try{
+            Integer.parseInt(txtgia.getText());
+
+        }catch(Exception e){
+            txtgia.setText(String.valueOf(arrSanPham.get(0).getDonGia()));
+        }
+        if(txtgia.getText().equals("0")){
+            txtgia.setText(String.valueOf(arrSanPham.get(0).getDonGia()));
+        }  
     }//GEN-LAST:event_txtgiaKeyReleased
 
     /**
