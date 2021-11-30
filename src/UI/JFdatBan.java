@@ -5,19 +5,63 @@
  */
 package UI;
 
+import DAO.datBanDAO;
+import Entity.datBan;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author nguye
  */
 public class JFdatBan extends javax.swing.JPanel {
-
+    public static JFdatBan datBan;
     /**
      * Creates new form NewJPanel
      */
     public JFdatBan() {
         initComponents();
+        datBan = this;
+        fillTable();
     }
 
+    datBanDAO daodatBan = new datBanDAO();
+    SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    
+    public void fillTable(){
+        DefaultTableModel mol = (DefaultTableModel) tbldatBan.getModel();
+        mol.setColumnCount(0);
+        mol.setRowCount(0);
+        List<datBan> arrTale = daodatBan.selectAll();
+        DefaultTableModel tbmodel = new DefaultTableModel();
+        tbmodel.addColumn("Mã bàn đặt");
+        tbmodel.addColumn("Tên khách hàng");
+        tbmodel.addColumn("Số điện thoại");
+        tbmodel.addColumn("Bàn");
+        tbmodel.addColumn("Ngày");
+        tbmodel.addColumn("Thời gian");
+        
+            for (datBan x : arrTale){
+                tbmodel.addRow(new Object[]{
+                    x.getMaDatBan(),
+                    x.getTenKhach(),
+                    x.getSDT(),
+                    x.getMaBan(),
+                    x.getGiodat(),
+                    x.getThoiGian()
+                    
+                });
+            }
+            tbldatBan.setModel(tbmodel);
+            for (int i = 0; i <tbldatBan.getColumnCount();i++){
+                Class<?> col = tbldatBan.getColumnClass(i);
+                tbldatBan.setDefaultEditor(col, null);
+            }
+            System.out.println(sf.format(arrTale.get(0).getMaDatBan()));
+        }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -49,7 +93,7 @@ public class JFdatBan extends javax.swing.JPanel {
         dateChooser3 = new datechooser.beans.DateChooserCombo();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tableDatban = new javax.swing.JTable();
+        tbldatBan = new javax.swing.JTable();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel1.setText("ĐẶT BÀN");
@@ -214,11 +258,10 @@ public class JFdatBan extends javax.swing.JPanel {
                 false,
                 true)));
     dateChooser3.setCalendarBackground(new java.awt.Color(133, 140, 148));
-    dateChooser3.setLocale(new java.util.Locale("vi", "VN", ""));
     dateChooser3.setNavigateFont(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11));
     dateChooser3.setBehavior(datechooser.model.multiple.MultyModelBehavior.SELECT_PERIOD);
 
-    tableDatban.setModel(new javax.swing.table.DefaultTableModel(
+    tbldatBan.setModel(new javax.swing.table.DefaultTableModel(
         new Object [][] {
             {null, null, null, null, null, null},
             {null, null, null, null, null, null},
@@ -229,12 +272,12 @@ public class JFdatBan extends javax.swing.JPanel {
             "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6"
         }
     ));
-    tableDatban.addMouseListener(new java.awt.event.MouseAdapter() {
+    tbldatBan.addMouseListener(new java.awt.event.MouseAdapter() {
         public void mouseClicked(java.awt.event.MouseEvent evt) {
-            tableDatbanMouseClicked(evt);
+            tbldatBanMouseClicked(evt);
         }
     });
-    jScrollPane1.setViewportView(tableDatban);
+    jScrollPane1.setViewportView(tbldatBan);
 
     javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
     jPanel4.setLayout(jPanel4Layout);
@@ -357,9 +400,9 @@ public class JFdatBan extends javax.swing.JPanel {
 
     }//GEN-LAST:event_tfSDTKeyReleased
 
-    private void tableDatbanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableDatbanMouseClicked
+    private void tbldatBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbldatBanMouseClicked
 
-    }//GEN-LAST:event_tableDatbanMouseClicked
+    }//GEN-LAST:event_tbldatBanMouseClicked
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
 
@@ -402,7 +445,7 @@ public class JFdatBan extends javax.swing.JPanel {
     private javax.swing.JLabel lbTenkhach;
     private javax.swing.JLabel lbTime;
     private javax.swing.JLabel lbl2Cham;
-    private javax.swing.JTable tableDatban;
+    private javax.swing.JTable tbldatBan;
     private javax.swing.JTextField tfNote;
     private javax.swing.JTextField tfSDT;
     private javax.swing.JTextField tfTenkhach;
