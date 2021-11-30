@@ -26,14 +26,21 @@ import javax.swing.JPanel;
 
 
 public class JFthucDon extends javax.swing.JPanel {
+
+    sanphamDAO spDAO = new sanphamDAO();
+    
+
     public String gioden, tenban;
     public int maban;
+    public List<SanPham> arrdsmon;
     loaiSanPhamDAO loaiDAO = new loaiSanPhamDAO();
-    sanphamDAO spDAO = new sanphamDAO();
     List<loaiSanPham> listLoai;
     NumberFormat chuyentien = new DecimalFormat("#,###,###");
+    public static JFthucDon td;
+    
     public JFthucDon() {
         initComponents();
+        td = this;
         fillLoai();
     }
     public void fillLoai(){

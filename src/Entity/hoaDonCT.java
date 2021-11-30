@@ -12,14 +12,14 @@ package Entity;
 public class hoaDonCT {
     private int maHoaDonCT;
     private int maHoaDon;
-    private int maMon;
+    private String maMon;
     private int soLuong;
     private  int gia;
 
     public hoaDonCT() {
     }
 
-    public hoaDonCT(int maHoaDonCT, int maHoaDon, int maMon, int soLuong, int gia) {
+    public hoaDonCT(int maHoaDonCT, int maHoaDon, String maMon, int soLuong, int gia) {
         this.maHoaDonCT = maHoaDonCT;
         this.maHoaDon = maHoaDon;
         this.maMon = maMon;
@@ -43,11 +43,11 @@ public class hoaDonCT {
         this.maHoaDon = maHoaDon;
     }
 
-    public int getMaMon() {
+    public String getMaMon() {
         return maMon;
     }
 
-    public void setMaMon(int maMon) {
+    public void setMaMon(String maMon) {
         this.maMon = maMon;
     }
 

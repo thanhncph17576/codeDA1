@@ -63,7 +63,7 @@ public class hoaDonCTDAO extends DAO<hoaDonCT, String>{
                 hoaDonCT b = new hoaDonCT();
                 b.setMaHoaDonCT(rs.getInt("MaHoaDonCT"));
                 b.setMaHoaDon(rs.getInt("MaHoaDon"));
-                b.setMaMon(rs.getInt("MaMon"));
+                b.setMaMon(rs.getString("MaMon"));
                 b.setSoLuong(rs.getInt("SoLuong"));
                 b.setGia(rs.getInt("Gia"));
                 list.add(b);
@@ -73,6 +73,23 @@ public class hoaDonCTDAO extends DAO<hoaDonCT, String>{
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+    
+    public hoaDonCT LayDSHDCT(String ma, int maban){
+        hoaDonCT arrDs = null;
+        String sql;
+            sql = "Select SoLuong, Gia, MaChiTietHD From chitiethd AS ct INNER JOIN hoadon AS hd ON ct.MaHoaDon = hd.MaHoaDon Where MaMon = ? AND MaBan = ? AND hd.TrangThai = 0";
+        return arrDs;  
+    }
+    public int UpdateChiTiet(hoaDonCT ct){
+        int update = 0;
+        String sql = "UPDATE chitiethd SET SoLuong = ?, Gia =? WHERE MaChiTietHD = ?";
+        return update;        
+    }
+    public int InsertChiTietHD(hoaDonCT cthd){
+        int insert = 0;
+        String sql = "Insert into chitiethd (MaHoaDon, MaMon, SoLuong, Gia) values (?, ?, ?,?)";
+        return insert;
     }
     
     

@@ -10,6 +10,7 @@ import Entity.HoaDon;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import Entity.SanPham;
 
 /**
  *
@@ -77,5 +78,27 @@ public class hoaDonDAO extends DAO<HoaDon, String> {
             throw new RuntimeException(e);
         }
     }
+
+    public int GetMaHD(int ma){
+        String sql;
+        int mahd = 0;
+            sql = "Select MaHoaDon From hoadon Where MaBan = ? AND TrangThai = 0";
+        return mahd;        
+    }
+    public int InsertHoaDon(HoaDon hd, String gio){
+        int insert = 0;
+        String sql = "Insert into hoadon (MaBan, GioDen, TrangThai) values (?,?, ?)";
+        return insert;
+    }
+    
+    public int LayMaHD(int ma){
+        String sql;
+        int mahd = 0;
+            sql = "Select MaHoaDon From hoadon Where MaBan = ? AND TrangThai = 0";
+        return mahd;        
+    } 
+    
+    
+    
     
 }
