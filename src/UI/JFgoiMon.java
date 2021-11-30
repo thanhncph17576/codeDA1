@@ -448,6 +448,8 @@ public final class JFgoiMon extends javax.swing.JPanel {
         }  
         if(btngoi.getText().equals("Gọi món")){
             jpthucdon.removeAll();
+            jpthucdon.add(jLabel1);
+            jpthucdon.updateUI();
             //jpthucdon.setVisible(true);
             Date date = new Date();
             SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm a");
