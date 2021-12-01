@@ -3,7 +3,7 @@
 <Form version="1.9" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
-    <Property name="title" type="java.lang.String" value="Trung H&#xf2;a Coffee Music"/>
+    <Property name="title" type="java.lang.String" value="Tr&#xe0; s&#x1eef;a Goky"/>
     <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
       <Connection code="Color.decode(&quot;#e6e6e6&quot;)&#xd;&#xa;" type="code"/>
     </Property>
