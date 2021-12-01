@@ -81,5 +81,10 @@ public class loaiSanPhamDAO extends DAO<loaiSanPham, String>{
        String sql = "select * from loaiSP where MaLoai = ?";
        return this.selectBySQL(sql, maLoai);
    }
-
+   
+   public List<loaiSanPham> searchLoai(String ten){
+       String sql = "select * from loaiSP where TenLoai like ?";
+       return this.selectBySQL(sql, "%" +ten+ "%");
+   }
+   
 }

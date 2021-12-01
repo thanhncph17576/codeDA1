@@ -177,7 +177,7 @@ public final class JFmain extends javax.swing.JFrame {
         btnmute = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Trung Hòa Coffee Music");
+        setTitle("Trà sữa Goky");
         setBackground(Color.decode("#e6e6e6")
         );
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));

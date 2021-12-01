@@ -272,6 +272,24 @@ public class JFquanLy_loaiSP extends javax.swing.JPanel {
 
     private void txttimKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttimKeyReleased
         // TODO add your handling code here:
+        List<loaiSanPham> arrTable = daoLoai.searchLoai(txttim.getText());
+        DefaultTableModel tbmodel = new DefaultTableModel();
+    if(arrTable != null){
+            tbmodel.addColumn("Mã loại");
+            tbmodel.addColumn("Tên loại");
+            tbmodel.addColumn("Màu sắc");
+
+            int soloai = 0;
+            for (loaiSanPham x : arrTable) {
+                soloai++;
+                tbmodel.addRow(new Object[]{x.getMaLoaiSP(), x.getTenLoaiSP(),x.getMauSac()});
+            }
+            tbNhomMon.setModel(tbmodel);
+            for(int i = 0; i < tbNhomMon.getColumnCount();i++){
+                Class<?> col = tbNhomMon.getColumnClass(i);
+                tbNhomMon.setDefaultEditor(col, null);
+            }
+    }
     }//GEN-LAST:event_txttimKeyReleased
 
 
