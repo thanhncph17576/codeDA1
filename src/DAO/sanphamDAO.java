@@ -8,8 +8,11 @@ package DAO;
 import Entity.SanPham;
 import Helper.JDBC;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -64,7 +67,7 @@ public class sanphamDAO extends DAO<SanPham, String> {
     }
 
     @Override
-    protected List<SanPham> selectBySQL(String sql, Object... args) {
+    public List<SanPham> selectBySQL(String sql, Object... args) {
         List<SanPham> list = new ArrayList<SanPham>();
         try {
             ResultSet rs = JDBC.query(sql, args);
@@ -86,5 +89,5 @@ public class sanphamDAO extends DAO<SanPham, String> {
     public List<SanPham> selectTheoLoai(int maLoai){
        String sql = "select * from SanPham  where MaLoai = ?";
        return this.selectBySQL(sql,maLoai);
-   } 
+   }   
 }

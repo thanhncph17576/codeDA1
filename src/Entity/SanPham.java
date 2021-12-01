@@ -72,6 +72,10 @@ public class SanPham {
         return "SanPham{" + "maMon=" + maMon + ", tenMon=" + tenMon + ", maLoai=" + maLoai + ", donGia=" + donGia + ", DVT=" + DVT + '}';
     }
 
+    public void setMaLoai(String MaNhom) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
    
 
    
