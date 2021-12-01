@@ -94,4 +94,8 @@ public class sanphamDAO extends DAO<SanPham, String> {
             sql = "Select * From SanPham Where MaMon = ?";
         return arrSanPham;        
     }
+    public List<SanPham> selectByKeyword(String keyword){
+        String sql = "SELECT * FROM SanPham WHERE TenMon LIKE ?";
+        return this.selectBySQL(sql, "%" + keyword + "%");
+            }
 }

@@ -365,7 +365,26 @@ public class JFquanLy_SP extends javax.swing.JPanel {
     }//GEN-LAST:event_cbbNhomMonItemStateChanged
 
     private void txttimKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttimKeyReleased
-        
+         List<SanPham> arrTable = daoSP.selectByKeyword(txttim.getText());
+          if(arrTable != null){
+            DefaultTableModel tbmodel = new DefaultTableModel();
+            tbmodel.addColumn("Mã món");
+            tbmodel.addColumn("Tên món");
+            tbmodel.addColumn("Mã loại");
+            tbmodel.addColumn("Đơn giá");
+            tbmodel.addColumn("ĐVT");           
+            int somon = 0;
+            for (SanPham td : arrTable) {
+                somon++;
+                tbmodel.addRow(new Object[]{td.getMaMon(), td.getTenMon(), td.getMaLoai(), td.getDonGia(), td.getDVT()});
+                lblthongtin.setText(String.valueOf(somon)+" món");
+            }
+            tbBan.setModel(tbmodel);
+            for(int i = 0; i < tbBan.getColumnCount();i++){
+                Class<?> col = tbBan.getColumnClass(i);
+                tbBan.setDefaultEditor(col, null);
+            }
+        }
     }//GEN-LAST:event_txttimKeyReleased
 
     private void cbbNhomMonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbNhomMonActionPerformed
