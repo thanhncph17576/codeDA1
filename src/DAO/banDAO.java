@@ -88,6 +88,10 @@ public class banDAO extends DAO<Ban, String>{
         int update = 0;
         String sql = "UPDATE ban SET TenBan = ?, TrangThai = ? WHERE MaBan = ?";
         return update;
-    } 
+    }
+    public List<Ban> selectByKeyword(String keyword){
+        String sql = "SELECT * FROM ban WHERE TenBan LIKE ?";
+        return this.selectBySQL(sql, "%" + keyword + "%");
+            }
  
 }
