@@ -258,26 +258,26 @@ public class JFquanLy_ban extends javax.swing.JPanel {
     }//GEN-LAST:event_bntXoaActionPerformed
 
     private void txttimKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttimKeyReleased
-//        List<Ban> arrTable = dao.selectByKeyword(txttim.getText());
-//        if(arrTable != null){
-//            DefaultTableModel tbmodel = new DefaultTableModel();
-//
-//            tbmodel.addColumn("Mã Bàn");
-//            tbmodel.addColumn("Tên bàn");
-//            tbmodel.addColumn("Trạng thái");
-//
-//            int soban = 0;
-//            for (Ban b : arrTable) {
-//                soban++;
-//                tbmodel.addRow(new Object[]{b.getMaBan(), b.getTenBan(), b.getTrangThai()});
-//            }
-//            lblthongtin.setText(String.valueOf(soban)+" bàn");
-//            tbBan.setModel(tbmodel);
-//            for(int i = 0; i < tbBan.getColumnCount();i++){
-//                Class<?> col = tbBan.getColumnClass(i);
-//                tbBan.setDefaultEditor(col, null);
-//            }
-//        }
+        List<Ban> arrTable = dao.selectByKeyword(txttim.getText());
+        if(arrTable != null){
+            DefaultTableModel tbmodel = new DefaultTableModel();
+
+            tbmodel.addColumn("Mã Bàn");
+            tbmodel.addColumn("Tên bàn");
+            tbmodel.addColumn("Trạng thái");
+
+            int soban = 0;
+            for (Ban b : arrTable) {
+                soban++;
+                tbmodel.addRow(new Object[]{b.getMaBan(), b.getTenBan(), b.getTrangThai()});
+            }
+            lblthongtin.setText(String.valueOf(soban)+" bàn");
+            tbBan.setModel(tbmodel);
+            for(int i = 0; i < tbBan.getColumnCount();i++){
+                Class<?> col = tbBan.getColumnClass(i);
+                tbBan.setDefaultEditor(col, null);
+            }
+        }
     }//GEN-LAST:event_txttimKeyReleased
 
 
