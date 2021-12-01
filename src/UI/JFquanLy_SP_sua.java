@@ -20,22 +20,24 @@ import javax.swing.JOptionPane;
  * @author ThangIKCU
  */
 public class JFquanLy_SP_sua extends javax.swing.JDialog {
-    ArrayList<SanPham> td = new ArrayList<>();
-      int Mamon;    
+   ArrayList<SanPham> td ;
+      int Maloai; 
+      int Mamon;
+      String maMon;
       sanphamDAO daoSP = new sanphamDAO();
-     loaiSanPhamDAO daoLoai =new loaiSanPhamDAO();
-    public JFquanLy_SP_sua(java.awt.Frame parent, boolean modal, String mamon) {
+      loaiSanPhamDAO daoLoai =new loaiSanPhamDAO();
+    public JFquanLy_SP_sua(java.awt.Frame parent, boolean modal, int mamon) {
          super(parent, modal);      
         initComponents(); 
-        fillCbb();
-//        Mamon=mamon;
-//        List<SanPham> l = daoSP.selectTheoLoai(mamon);
-//        SanPham spp = daoSP.selectByID(mamon+"");
-//       
-//        txtTenMon.setText(spp.getTenMon());
-//        txtGia.setText(String.valueOf(l.get(0).getDonGia()));
-//        txtdvt.setText(spp.getDVT());  
-//        lblten.setText("Sửa sp - "+spp.getTenMon());  
+        fillCbb();       
+        Mamon=mamon;
+        List<SanPham> sp = daoSP.selectTheoLoai(Mamon);
+        SanPham spp = daoSP.selectByID(Mamon+""); 
+
+        txtTenMon.setText(spp.getTenMon());
+        txtGia.setText(String.valueOf(spp.getDonGia()));
+        txtdvt.setText(spp.getDVT()); 
+        lblten.setText("Sửa món - "+ spp.getTenMon());
     }
       public void fillCbb(){
         DefaultComboBoxModel model = (DefaultComboBoxModel) cbbNhomMon.getModel();
@@ -46,20 +48,7 @@ public class JFquanLy_SP_sua extends javax.swing.JDialog {
         for(loaiSanPham x : list){
             model.addElement(x.getTenLoaiSP());
         }
-    }  
-       public void update(){
-        SanPham sp = new SanPham();
-        sp.setTenMon(txtTenMon.getText());
-        sp.setDonGia(Integer.parseInt(txtGia.getText()));
-        sp.setDVT(txtdvt.getText());
-        String MaNhom = cbbNhomMon.getSelectedItem()+"";
-        sp.setMaLoai(Mamon);
-        daoSP.update(sp);
-        JFquanLy_SP.sp.fillTable();
-        JFquanLy_SP.sp.updateUI();
-        this.dispose();
-        
-    }   
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -236,7 +225,18 @@ public class JFquanLy_SP_sua extends javax.swing.JDialog {
             txtTenMon.requestFocus();
             return;        
        }  
-         update();
+       
+        SanPham sp = new SanPham();
+        sp.setMaMon(Mamon);
+        sp.setTenMon(txtTenMon.getText());
+        sp.setDonGia(Integer.parseInt(txtGia.getText()));
+        sp.setDVT(txtdvt.getText());
+        int maNhom = cbbNhomMon.getSelectedIndex()+1;
+        sp.setMaLoai(maNhom);
+        daoSP.update(sp);        
+        JFquanLy_SP.sp.fillTable();
+        JFquanLy_SP.sp.updateUI();
+        this.dispose();
     }//GEN-LAST:event_btnxacnhanActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -244,7 +244,11 @@ public class JFquanLy_SP_sua extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void txtGiaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGiaKeyReleased
-        // TODO add your handling code here:
+         try{
+            Integer.parseInt(txtGia.getText());
+        }catch(Exception ex){
+            txtGia.setText("");
+        }
     }//GEN-LAST:event_txtGiaKeyReleased
 
 
