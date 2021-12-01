@@ -323,7 +323,14 @@ public class JFquanLy_SP extends javax.swing.JPanel {
     }//GEN-LAST:event_bntThemActionPerformed
 
     private void bntSuaMonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSuaMonActionPerformed
-        // TODO add your handling code here:
+        int select = tbBan.getSelectedRow();
+        if (select < 0) {
+            JOptionPane.showMessageDialog(null, "Bạn chưa chọn sp nào !");
+        } else {
+            int Mamon = (int) tbBan.getValueAt(select, 0);
+            JFquanLy_SP_sua sua = new JFquanLy_SP_sua(RUN.QLTS, true, Mamon);
+            sua.setVisible(true);
+        }
     }//GEN-LAST:event_bntSuaMonActionPerformed
 
     private void bntXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntXoaActionPerformed
