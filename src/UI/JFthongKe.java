@@ -19,6 +19,7 @@ import Entity.nhanVien;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -34,6 +35,7 @@ public final class JFthongKe extends javax.swing.JPanel {
         initComponents();
         fillThongTin();
         fillTableHD();
+        fillTableMon();
         
     }
     banDAO banDAO = new banDAO();
@@ -527,6 +529,42 @@ layout.setHorizontalGroup(
             lbltienthu.setText(chuyentien.format(tongtienmon - tonggiam)+" VNĐ");
             lblhd.setText(String.valueOf(hd)+" hóa đơn");
         }
+    }
+    
+    public void fillTableMon(){
+        List<SanPham> tableSP = spDAO.thongKeMon();
+        
+        DefaultTableModel model = (DefaultTableModel) tbmon.getModel();
+        model.setColumnCount(0);
+        model.setRowCount(0);
+        model.addColumn("Tên món");
+        model.addColumn("DVT");
+        model.addColumn("Số lượng");
+        model.addColumn("Doanh thu");
+        
+        if(tableSP != null){
+            int somon = 0,tienmon=0;
+            for(SanPham sp : tableSP){
+                List<DsOrder> order = hdDAO.getMon(sp.getMaMon());
+                if (order.size()>0) {
+                    int gia =0,soluong =0;
+                    for(DsOrder a : order){
+                        somon += a.getSoLuong();
+                        soluong += a.getSoLuong();
+                        gia += a.getGia() * a.getSoLuong();
+                    }
+                    tienmon += gia;
+                    model.addRow(new Object[]{
+                        sp.getTenMon(),
+                        sp.getDVT(),
+                        soluong,
+                        chuyentien.format(gia)+" VNĐ"
+                    });
+                }
+            }
+            lblmon.setText(String.valueOf(somon)+" món");
+        }
+        
     }
     
      

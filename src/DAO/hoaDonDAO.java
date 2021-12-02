@@ -121,5 +121,21 @@ public class hoaDonDAO extends DAO<HoaDon, String> {
         return list;
     }
     
+    public ArrayList<DsOrder> getMon(int ma) {
+        String sql = "select TenMon, DonGia, SoLuong,DVT from chitiethd inner join hoadon on chitiethd.MaHoaDon=hoadon.MaHoaDon inner join SanPham on SanPham.MaMon=chitiethd.MaMon where hoadon.TrangThai = 1 and chitiethd.MaMon=?";
+        ArrayList<DsOrder> list = null;
+        try {
+            ResultSet rs = JDBC.query(sql, ma);
+            list = new ArrayList<DsOrder>();
+            while (rs.next()) {
+                DsOrder ds = new DsOrder(rs.getString(1), 0, rs.getString(4), rs.getInt(2), rs.getInt(3),0);
+                list.add(ds);
+            }
+            rs.getStatement().getConnection().close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return list;
+    }
     
 }
