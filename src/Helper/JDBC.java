@@ -5,11 +5,15 @@
  */
 package Helper;
 
+import Entity.hoaDonCT;
+import Entity.HoaDon;
+import Entity.Ban;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,9 +22,9 @@ import javax.swing.JOptionPane;
  */
 public class JDBC {
     static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    static String dburl = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyTraSua3";
+    static String dburl = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyTraSuaDuAn";
     static String user = "sa";
-    static String pass = "123456";
+    static String pass = "123";
 
     //Nap Driver
 //    static {
@@ -81,4 +85,102 @@ public class JDBC {
             throw new RuntimeException(e);
         }
     }
+    
+    
+    private Connection cn;
+    
+    public JDBC(){
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyTraSuaDuAn";
+            String s = System.getProperty("os.name");
+            if(s.contains("Windows")){
+                cn = DriverManager.getConnection(url, "sa", "123");
+            }else{
+                cn = DriverManager.getConnection(url, "sa", "123");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }       
+    }
+    
+        public hoaDonCT GetDsChiTiet(String ma, int maban){
+        hoaDonCT arrDs = null;
+        String sql;
+
+            sql = "Select SoLuong, Gia, MaChiTietHD From chitiethd AS ct INNER JOIN hoadon AS hd ON ct.MaHoaDon = hd.MaHoaDon Where MaMon = '"+ma+"' AND MaBan = '"+maban+"' AND hd.TrangThai = 0";
+        try{
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                arrDs = new hoaDonCT();
+                arrDs.setSoLuong(rs.getInt(1));
+                arrDs.setGia(rs.getInt(2));
+                arrDs.setMaHoaDonCT(rs.getInt(3));
+            }
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Không lấy được danh sách Order !");
+        }
+        return arrDs;        
+    } 
+    
+    public int GetMaHD(int ma){
+        String sql;
+        int mahd = 0;
+            sql = "Select MaHoaDon From hoadon Where MaBan = '"+ma+"' AND TrangThai = 0";
+        try{
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                mahd = rs.getInt(1);
+            }
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Không lấy được danh sách thực đơn !");
+        }
+        return mahd;        
+    } 
+        public int InsertHoaDon(HoaDon hd, String gio){
+        int insert = 0;
+        String sql = "Insert into hoadon (MaBan, NgayDen, TrangThai) values ('"+hd.getMaBan()+"', '"+gio+"', '"+hd.getTrangThai()+"')";
+        try{
+            Statement st = cn.createStatement();
+            insert = st.executeUpdate(sql);
+        }catch(SQLException ex){
+        }
+        return insert;
+    }
+    
+    public int UpdateChiTiet(hoaDonCT ct){
+        int update = 0;
+        String sql = "UPDATE chitiethd SET SoLuong = '"+ct.getSoLuong()+"', Gia = '"+ct.getGia()+"' WHERE MaChiTietHD = '"+ct.getMaHoaDonCT()+"'";
+        try{
+            Statement st = cn.createStatement();
+            update = st.executeUpdate(sql);
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Update chi tiết không thành công !");
+        }
+        return update;        
+    }
+    public int InsertChiTietHD(hoaDonCT cthd){
+        int insert = 0;
+        String sql = "Insert into chitiethd (MaHoaDon, MaMon, SoLuong, Gia) values ('"+cthd.getMaHoaDon()+"', '"+cthd.getMaMon()+"', '"+cthd.getSoLuong()+"', '"+cthd.getGia()+"')";
+        try{
+            Statement st = cn.createStatement();
+            insert = st.executeUpdate(sql);
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Thêm chi tiết hóa đơn không thành công !"+ex.toString());
+        }
+        return insert;
+    }
+        public int UpdateBan(Ban b){
+        int update = 0;
+        String sql = "UPDATE ban SET TenBan = '"+b.getTenBan()+"', TrangThai = '"+b.getTrangThai()+"' WHERE MaBan = '"+b.getMaBan()+"'";
+        try{
+            Statement st = cn.createStatement();
+            update = st.executeUpdate(sql);
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Update bàn không thành công !");
+        }
+        return update;
+    } 
 }

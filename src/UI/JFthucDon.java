@@ -30,7 +30,7 @@ public class JFthucDon extends javax.swing.JPanel {
     sanphamDAO spDAO = new sanphamDAO();
     
 
-    public String gioden, tenban;
+    public String ngayden, tenban;
     public int maban;
     public List<SanPham> arrdsmon;
     loaiSanPhamDAO loaiDAO = new loaiSanPhamDAO();
@@ -83,7 +83,7 @@ public class JFthucDon extends javax.swing.JPanel {
                                         public void mousePressed(MouseEvent e){
 
                                             JFsoLuongSP sl = new JFsoLuongSP(RUN.QLTS, true, e.getComponent().getName(), tenban, maban);
-                                            sl.gioden = gioden;
+                                            sl.ngayden = ngayden;
                                             sl.setVisible(true);
                                         }
                                     });                                     
