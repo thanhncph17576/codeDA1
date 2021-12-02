@@ -10,6 +10,7 @@ import Helper.JDBC;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -103,4 +104,23 @@ public class sanphamDAO extends DAO<SanPham, String> {
         String sql = "select TenMon, MaMon, DVT,DonGia,MaLoai from SanPham where MaMon in (select chitiethd.MaMon from chitiethd)";
         return this.selectBySQL(sql);
     }
+        public ArrayList<SanPham> GetThucDonByMa(String ma){
+        ArrayList<SanPham> arrThucDon = null;
+        String sql;
+
+            sql = "Select * From SanPham Where MaMon = ? ";
+        try{
+            ResultSet rs = JDBC.query(sql, ma);
+            arrThucDon = new ArrayList<SanPham>();
+            while(rs.next()){
+                SanPham td = new SanPham(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getString(5));
+                arrThucDon.add(td);
+            }
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Không lấy được danh sách thực đơn !");
+        }
+        return arrThucDon;        
+    }
+       
+   
 }

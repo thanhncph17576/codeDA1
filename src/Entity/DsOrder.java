@@ -2,14 +2,14 @@
 package Entity;
 
 public class DsOrder {
-    private String TenMon,  DVT; 
-    private int MaMon,Gia, SoLuong, MaHoaDon;
+    private String TenMon,  DVT,MaMon; 
+    private int Gia, SoLuong, MaHoaDon;
     
     public DsOrder(){
 
     }
 
-    public DsOrder(String TenMon, int MaMon, String DVT, int Gia, int SoLuong, int MaHoaDon) {
+    public DsOrder(String TenMon, String MaMon, String DVT, int Gia, int SoLuong, int MaHoaDon) {
         this.TenMon = TenMon;
         this.MaMon = MaMon;
         this.DVT = DVT;
@@ -26,13 +26,6 @@ public class DsOrder {
         this.TenMon = TenMon;
     }
 
-    public int getMaMon() {
-        return MaMon;
-    }
-
-    public void setMaMon(int MaMon) {
-        this.MaMon = MaMon;
-    }
 
     public String getDVT() {
         return DVT;
@@ -66,9 +59,14 @@ public class DsOrder {
         this.MaHoaDon = MaHoaDon;
     }
 
-    @Override
-    public String toString() {
-        return "DsOrder{" + "TenMon=" + TenMon + ", MaMon=" + MaMon + ", DVT=" + DVT + ", Gia=" + Gia + ", SoLuong=" + SoLuong + ", MaHoaDon=" + MaHoaDon + '}';
+    public String getMaMon() {
+        return MaMon;
     }
+
+    public void setMaMon(String MaMon) {
+        this.MaMon = MaMon;
+    }
+
+
     
 }

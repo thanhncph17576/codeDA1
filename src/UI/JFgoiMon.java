@@ -8,14 +8,17 @@ package UI;
 import DAO.banDAO;
 import java.awt.Color;
 import DAO.hoaDonDAO;
+import DAO.sanphamDAO;
 import Entity.HoaDon;
+import Entity.DsOrder;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import javax.swing.JButton;
 import Entity.Ban;
+import Entity.SanPham;
+import Helper.JDBC;
 import java.awt.Cursor;
 import java.awt.GridLayout;
 import java.text.SimpleDateFormat;
@@ -31,13 +34,21 @@ import javax.swing.JPanel;
 
 
 public final class JFgoiMon extends javax.swing.JPanel {
-    String TenBan;
+
+    JDBC cn = new JDBC();
     hoaDonDAO dao = new hoaDonDAO();
     banDAO banDao = new banDAO();
+    sanphamDAO sp =new sanphamDAO();
     
+    
+    String TenBan;
     int MaBan;
     HoaDon arrhd;
     int MaHD, tienmon = 0, tongtien = 0;
+    
+    
+    
+    ArrayList<DsOrder> order;
     NumberFormat chuyentien = new DecimalFormat("#,###,###");
     public static JFgoiMon gm;
     
@@ -50,6 +61,13 @@ public final class JFgoiMon extends javax.swing.JPanel {
         gm = this;
         MaBan=maban;
         TenBan = tenban;
+
+        
+        
+        jpDsMon.setVisible(false);
+        jpThongTinThanhToan.setVisible(false);
+        jScrollPane1.setVisible(false);
+        
         lbltrangthai.setText(trangthai);
         lblTenBan.setText(tenban);
         if (lbltrangthai.getText().equals("Trống")) {
@@ -75,6 +93,7 @@ public final class JFgoiMon extends javax.swing.JPanel {
             jpthucdon.updateUI();
         }
     }
+    SanPham td;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -375,9 +394,79 @@ public final class JFgoiMon extends javax.swing.JPanel {
 
         getAccessibleContext().setAccessibleParent(this);
     }// </editor-fold>//GEN-END:initComponents
-       public void fillThongTin(){
-//        arrhd = dao.selectByID(MaBan);
-//        MaHD = arrhd.GetMaHD();
+public void fillDsMon(int mahd){
+        if(mahd != 0){
+            order = cn.GetDsOrder(mahd);
+//            arrhd = cn.GetHDbyMaBan(MaBan);
+            tienmon = 0;
+        }
+        mahd = MaHD;
+        if(order != null){
+            jpDsMon.setVisible(true);
+            jpThongTinThanhToan.setVisible(true);
+            jScrollPane1.setVisible(true);
+            btngoi.setText("Thanh toán");
+                     
+            JPanel[] pn = new JPanel[order.size()];
+            jpDsMon.removeAll();
+            jpDsMon.setLayout(new BoxLayout(jpDsMon, BoxLayout.Y_AXIS));
+            for(int i=0;i<order.size();i++){
+                tienmon += order.get(i).getGia()* order.get(i).getSoLuong();
+                pn[i] = new JPanel();
+                pn[i].setName(order.get(i).getMaMon());
+                pn[i].setCursor(new Cursor(Cursor.HAND_CURSOR));
+                pn[i].setBorder(BorderFactory.createLineBorder(Color.darkGray, 1));
+                pn[i].setBackground(Color.decode("#b3ff99"));
+                pn[i].setLayout(new GridLayout());
+                pn[i].setPreferredSize(new Dimension(270, 50));
+                pn[i].setMaximumSize(new Dimension(270, 50));
+                pn[i].setMinimumSize(new Dimension(270, 50));
+                pn[i].add(new JLabel(order.get(i).getTenMon(),JLabel.CENTER)).setForeground(Color.decode("#001a66"));
+                pn[i].add(new JLabel(String.valueOf(chuyentien.format(order.get(i).getGia()))+" VNĐ",JLabel.CENTER)).setForeground(Color.decode("#ff0000"));
+                pn[i].add(new JLabel(String.valueOf(order.get(i).getSoLuong())+" "+ order.get(i).getDVT(),JLabel.RIGHT)).setForeground(Color.decode("#008000"));
+                Icon ic = new ImageIcon("src/Icons/DeleteRed.png");
+                JLabel lbl = new JLabel("", ic,JLabel.CENTER);
+                lbl.setForeground(Color.decode("#b3ff99"));
+                lbl.setName(order.get(i).getMaMon());
+                pn[i].add(lbl).addMouseListener(new MouseAdapter() {
+                  @Override
+                    public void mouseClicked(MouseEvent e){
+                        int qs;
+                        ArrayList<SanPham> td = sp.GetThucDonByMa(e.getComponent().getName());
+                        
+                        qs = JOptionPane.showConfirmDialog(null, "Hủy món: "+td.get(0).getTenMon()+" ?", "Hủy món", JOptionPane.YES_NO_OPTION);
+                        if (qs == JOptionPane.YES_OPTION) {
+                            int xoa = cn.DeleteMon(e.getComponent().getName(),MaHD, MaBan);
+                            if(xoa == 1){
+                                fillDsMon(MaHD);
+                            }
+                            if(xoa == 2){
+                                fillDsMon(MaHD);
+//                                HuyHD();
+                            }
+                        }
+                    }
+                   
+                });
+                pn[i].addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mousePressed(MouseEvent e){
+                        JFsoLuongSP sl = new JFsoLuongSP(RUN.QLTS, true, e.getComponent().getName(), TenBan, MaBan);
+                        sl.setVisible(true);
+                    }
+                });
+                jpDsMon.add(pn[i]);
+                jpDsMon.updateUI();
+                
+            }
+
+            fillThongTin();
+        }        
+    }
+    
+    public void fillThongTin(){
+//        arrhd = cn.GetHDbyMaBan(MaBan);
+//        MaHD = arrhd.getMaHoaDon();
 //        int ck = cn.CheckDsMon(MaHD, MaBan);
 //        btngoi.setVisible(true);
 //        if(ck == 0){
@@ -403,7 +492,7 @@ public final class JFgoiMon extends javax.swing.JPanel {
 //        lbltienmon.setText(String.valueOf(chuyentien.format(tienmon))+" VNĐ");        
     }
     
-    private void HuyHD(){
+//    private void HuyHD(){
 //        
 //        JButton btnhuy = new JButton("Hủy bàn");
 //        btnhuy.setPreferredSize(new Dimension(100, 40));
@@ -417,88 +506,21 @@ public final class JFgoiMon extends javax.swing.JPanel {
 //                Ban b = new Ban();
 //                b.setTrangThai("Trống");
 //                b.setMaBan(MaBan);
-//                ao.UpDateTrangThaiBan(b);
+//                cn.UpDateTrangThaiBan(b);
 //
 //                JFbanHang.bh.FillBan();
 //                JFgoiMon.gm.removeAll();
-////                jpBanHang.bh.fillLb();
+//                JFbanHang.bh.fillLb();
 //
 //                HoaDon hd = new HoaDon();
 //                hd.setMaHoaDon(MaHD);
-//                dao.delete(hd);
+//                cn.HuyHD(hd);
 //            }
 //        });
 //        jpDsMon.add(btnhuy);
 //        jpDsMon.updateUI();        
-    }
-    public void fillDsMon(int mahd){
-//        if(mahd != 0){
-//            order = cn.GetDsOrder(mahd);
-//            arrhd = cn.GetHDbyMaBan(MaBan);
-//            tienmon = 0;
-//        }
-//        mahd = MaHD;
-//        if(order != null){
-//            jpDsMon.setVisible(true);
-//            jpThongTinThanhToan.setVisible(true);
-//            jScrollPane1.setVisible(true);
-//            btngoi.setText("Thanh toán");
-//                     
-//            JPanel[] pn = new JPanel[order.size()];
-//            jpDsMon.removeAll();
-//            jpDsMon.setLayout(new BoxLayout(jpDsMon, BoxLayout.Y_AXIS));
-//            for(int i=0;i<order.size();i++){
-//                tienmon += order.get(i).GetGia() * order.get(i).GetSoLuong();
-//                pn[i] = new JPanel();
-//                pn[i].setName(order.get(i).GetMaMon());
-//                pn[i].setCursor(new Cursor(Cursor.HAND_CURSOR));
-//                pn[i].setBorder(BorderFactory.createLineBorder(Color.darkGray, 1));
-//                pn[i].setBackground(Color.decode("#b3ff99"));
-//                pn[i].setLayout(new GridLayout());
-//                pn[i].setPreferredSize(new Dimension(270, 50));
-//                pn[i].setMaximumSize(new Dimension(270, 50));
-//                pn[i].setMinimumSize(new Dimension(270, 50));
-//                pn[i].add(new JLabel(order.get(i).GetTenMon(),JLabel.CENTER)).setForeground(Color.decode("#001a66"));
-//                pn[i].add(new JLabel(String.valueOf(chuyentien.format(order.get(i).GetGia()))+" VNĐ",JLabel.CENTER)).setForeground(Color.decode("#ff0000"));
-//                pn[i].add(new JLabel(String.valueOf(order.get(i).GetSoLuong())+" "+ order.get(i).GetDVT(),JLabel.RIGHT)).setForeground(Color.decode("#008000"));
-//                Icon ic = new ImageIcon("src/Icons/DeleteRed.png");
-//                JLabel lbl = new JLabel("", ic,JLabel.CENTER);
-//                lbl.setForeground(Color.decode("#b3ff99"));
-//                lbl.setName(order.get(i).GetMaMon());
-//                pn[i].add(lbl).addMouseListener(new MouseAdapter() {
-//                  @Override
-//                    public void mouseClicked(MouseEvent e){
-//                        int qs;
-//                        ArrayList<ThucDon> td = cn.GetThucDonByMa(e.getComponent().getName());
-//                        
-//                        qs = JOptionPane.showConfirmDialog(null, "Hủy món: "+td.get(0).GetTenMon()+" ?", "Hủy món", JOptionPane.YES_NO_OPTION);
-//                        if (qs == JOptionPane.YES_OPTION) {
-//                            int xoa = cn.DeleteMon(e.getComponent().getName(),MaHD, MaBan);
-//                            if(xoa == 1){
-//                                fillDsMon(MaHD);
-//                            }
-//                            if(xoa == 2){
-//                                fillDsMon(MaHD);
-//                                HuyHD();
-//                            }
-//                        }
-//                    }
-//                });
-//                pn[i].addMouseListener(new MouseAdapter() {
-//                    @Override
-//                    public void mousePressed(MouseEvent e){
-//                        DLSoLuong sl = new DLSoLuong(Run.Qltrasua, true, e.getComponent().getName(), TenBan, MaBan);
-//                        sl.setVisible(true);
-//                    }
-//                });
-//                jpDsMon.add(pn[i]);
-//                jpDsMon.updateUI();
-//                
-//            }
-//
-//            fillThongTin();
-//        }        
-    }
+//    }
+
     private void btngoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btngoiActionPerformed
             if (btngoi.getText().equals("Hủy bàn")) {
 
