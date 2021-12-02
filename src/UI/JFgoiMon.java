@@ -555,7 +555,7 @@ public final class JFgoiMon extends javax.swing.JPanel {
             thucdon.maban = MaBan;
             thucdon.tenban = TenBan;
             
-            thucdon.gioden = sf.format(date);
+            thucdon.ngayden = sf.format(date);
             jpthucdon.removeAll();
             jpthucdon.add(thucdon);
             jpthucdon.revalidate();

@@ -14,6 +14,7 @@ import Entity.Ban;
 import DAO.hoaDonCTDAO;
 import DAO.sanphamDAO;
 import DAO.hoaDonDAO;
+import Helper.JDBC;
 import java.util.List;
 
 
@@ -24,13 +25,13 @@ public class JFsoLuongSP extends javax.swing.JDialog {
     sanphamDAO SP = new sanphamDAO();
     hoaDonDAO HD = new hoaDonDAO();
     banDAO ban =new banDAO();
-    
+    JDBC cn = new JDBC();
     
     
     //khai bao
     int sl = 0;
     List<SanPham> arrSanPham;
-    public String gioden, mamon, TenBan;
+    public String ngayden, mamon, TenBan;
     public int maban;
     hoaDonCT mon;
     
@@ -43,10 +44,11 @@ public class JFsoLuongSP extends javax.swing.JDialog {
         TenBan = tenban;
         maban = MaBan;
         Fill();
-        mon = HDCT.LayDSHDCT(MaMon, MaBan);
+        mon = cn.GetDsChiTiet(MaMon, MaBan);
         if(mon != null){
             txtgia.setText(String.valueOf(mon.getGia()));
             txtSl.setText(String.valueOf(mon.getSoLuong()));
+            
         }
     }
     
@@ -265,13 +267,13 @@ public class JFsoLuongSP extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(HD.GetMaHD(maban) == 0){
+        if(cn.GetMaHD(maban) == 0){
             HoaDon hd = new HoaDon();
             hd.setMaBan(maban);
             
             hd.setTrangThai(0);
-            //JOptionPane.showMessageDialog(null, gioden);
-            int insertHd = HD.InsertHoaDon(hd, gioden);
+//            JOptionPane.showMessageDialog(null, ngayden);
+            int insertHd = cn.InsertHoaDon(hd, ngayden);
         }
 
         if(mon != null){
@@ -279,25 +281,25 @@ public class JFsoLuongSP extends javax.swing.JDialog {
             ct.setGia(Integer.parseInt(txtgia.getText()));
             ct.setSoLuong(Integer.parseInt(txtSl.getText()));
             ct.setMaHoaDonCT(mon.getMaHoaDonCT());
-            int updatect = HDCT.UpdateChiTiet(ct);
+            int updatect = cn.UpdateChiTiet(ct);
         }if(mon == null){
             hoaDonCT cthd = new hoaDonCT();
             cthd.setGia(Integer.parseInt(txtgia.getText()));
-            cthd.setMaHoaDon(HD.LayMaHD(maban));
+            cthd.setMaHoaDon(cn.GetMaHD(maban));
             cthd.setMaMon(mamon);
             cthd.setSoLuong(Integer.parseInt(txtSl.getText()));
-            int isertCtHD = HDCT.InsertChiTietHD(cthd);
+            int isertCtHD = cn.InsertChiTietHD(cthd);
         }
 
         Ban b = new Ban();
         b.setTrangThai("Đang phục vụ");
         b.setTenBan(TenBan);
         b.setMaBan(maban);
-        int updateban = ban.UpdateBan1(b);
+        int updateban = cn.UpdateBan(b);
 
         JFbanHang.bh.FillBan();
         JFbanHang.bh.updateUI();
-        JFgoiMon.gm.fillDsMon(HD.LayMaHD(maban));
+        JFgoiMon.gm.fillDsMon(cn.GetMaHD(maban));
         JFgoiMon.gm.updateUI();
 
         this.dispose();
@@ -310,7 +312,7 @@ public class JFsoLuongSP extends javax.swing.JDialog {
                 txtSl.setText("1");
         }catch(Exception e){
            txtSl.setText("1");
-        }       
+        }     
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSlKeyReleased
 
