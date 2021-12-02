@@ -104,6 +104,15 @@ public class hoaDonDAO extends DAO<HoaDon, String> {
         return this.selectBySQL(sql);       
     }
     
+    public HoaDon goiMon(int id){
+        String sql = "select * from hoadon where MaBan =?  and TrangThai = 0";
+         List<HoaDon> list = this.selectBySQL(sql, id);
+        if(list.isEmpty()){
+            return null;
+        }
+        return list.size() > 0 ? list.get(0) : null;      
+    }
+    
     public ArrayList<DsOrder> getDSOrder(int ma) {
         String sql = "select chitiethd.MaMon, TenMon, DVT, SoLuong, Gia, MaHoaDon from chitiethd inner join SanPham on chitiethd.MaMon = SanPham.MaMon where MaHoaDon = ?";
         ArrayList<DsOrder> list = null;

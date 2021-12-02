@@ -9,25 +9,13 @@ import DAO.banDAO;
 import java.awt.Color;
 import DAO.hoaDonDAO;
 import Entity.HoaDon;
-import java.awt.Dimension;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import javax.swing.JButton;
 import Entity.Ban;
-import java.awt.Cursor;
-import java.awt.GridLayout;
+import Entity.DsOrder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 
 public final class JFgoiMon extends javax.swing.JPanel {
@@ -40,7 +28,8 @@ public final class JFgoiMon extends javax.swing.JPanel {
     int MaHD, tienmon = 0, tongtien = 0;
     NumberFormat chuyentien = new DecimalFormat("#,###,###");
     public static JFgoiMon gm;
-    
+    ArrayList<DsOrder> order;
+    SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm a");
     
     
     
@@ -50,6 +39,15 @@ public final class JFgoiMon extends javax.swing.JPanel {
         gm = this;
         MaBan=maban;
         TenBan = tenban;
+        
+        arrhd = dao.goiMon(maban);
+        if (arrhd != null) {
+            dao.getDSOrder(arrhd.getMaHoaDon());
+            fillDsMon(0);
+            MaHD = arrhd.getMaHoaDon();
+            lblgioden.setText(df.format(arrhd.getGioDen()));
+            System.out.println(arrhd.getGioDen());
+        }
         lbltrangthai.setText(trangthai);
         lblTenBan.setText(tenban);
         if (lbltrangthai.getText().equals("Trống")) {

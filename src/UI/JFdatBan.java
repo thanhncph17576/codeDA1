@@ -9,8 +9,11 @@ import DAO.banDAO;
 import DAO.datBanDAO;
 import Entity.Ban;
 import Entity.datBan;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -39,7 +42,7 @@ public class JFdatBan extends javax.swing.JPanel {
 
     datBanDAO daodatBan = new datBanDAO();
     SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    
+    SimpleDateFormat hf = new SimpleDateFormat("yyyy-MM-dd");
     public void fillTable(){
         DefaultTableModel mol = (DefaultTableModel) tbldatBan.getModel();
         mol.setColumnCount(0);
@@ -63,13 +66,14 @@ public class JFdatBan extends javax.swing.JPanel {
                     x.getThoiGian()
                     
                 });
+                System.out.println(hf.format(x.getThoiGian()));
             }
             tbldatBan.setModel(tbmodel);
             for (int i = 0; i <tbldatBan.getColumnCount();i++){
                 Class<?> col = tbldatBan.getColumnClass(i);
                 tbldatBan.setDefaultEditor(col, null);
             }
-            System.out.println(sf.format(arrTale.get(0).getMaDatBan()));
+            
         }
     
     
@@ -412,7 +416,32 @@ public class JFdatBan extends javax.swing.JPanel {
     }//GEN-LAST:event_tfSDTKeyReleased
 
     private void tbldatBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbldatBanMouseClicked
-
+        int dong = tbldatBan.getSelectedRow();
+        tfTenkhach.setText(tbldatBan.getValueAt(dong, 1)+"");
+        tfSDT.setText(tbldatBan.getValueAt(dong, 2)+"");
+        cboSoban.setSelectedItem(tbldatBan.getValueAt(dong, 3));
+        String date = tbldatBan.getValueAt(dong, 4)+"";
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        try {
+            cal.setTime(sdf.parse(date));
+        } catch (ParseException ex) {
+            Logger.getLogger(JFdatBan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dateChooser3.setSelectedDate(cal);
+        String ngay = tbldatBan.getValueAt(dong, 5)+"";
+        try {
+            Date ngay2 = new SimpleDateFormat("HH:mm:ss").parse(ngay);
+            SimpleDateFormat hf = new SimpleDateFormat("HH");
+            String gio = hf.format(ngay2);
+            SimpleDateFormat mf = new SimpleDateFormat("mm");
+            String phut = mf.format(ngay2);
+            cbxHours.setSelectedItem(gio);
+            cbxMinute.setSelectedItem(phut);
+        } catch (ParseException ex) {
+            Logger.getLogger(JFdatBan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_tbldatBanMouseClicked
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
