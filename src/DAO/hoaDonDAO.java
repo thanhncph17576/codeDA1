@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import Entity.DsOrder;
 import Helper.JDBC;
 import Entity.HoaDon;
 import java.sql.ResultSet;
@@ -67,7 +68,7 @@ public class hoaDonDAO extends DAO<HoaDon, String> {
                 hd.setMaHoaDon(rs.getInt("MaHoaDon"));
                 hd.setGiamGia(rs.getInt("GiamGia"));
                 hd.setMaBan(rs.getInt("MaBan"));
-                hd.setGioDen(rs.getDate("GioDen"));
+                hd.setGioDen(rs.getDate("NgayDen"));
                 hd.setTongTien(rs.getInt("TongTien"));
                 hd.setTrangThai(rs.getInt("TrangThai"));
                 list.add(hd);   
@@ -98,7 +99,27 @@ public class hoaDonDAO extends DAO<HoaDon, String> {
         return mahd;        
     } 
     
+    public List<HoaDon> thongKe(){
+        String sql = "select * from hoadon where TrangThai = 1";
+        return this.selectBySQL(sql);       
+    }
     
+    public ArrayList<DsOrder> getDSOrder(int ma) {
+        String sql = "select chitiethd.MaMon, TenMon, DVT, SoLuong, Gia, MaHoaDon from chitiethd inner join SanPham on chitiethd.MaMon = SanPham.MaMon where MaHoaDon = ?";
+        ArrayList<DsOrder> list = null;
+        try {
+            ResultSet rs = JDBC.query(sql, ma);
+            list = new ArrayList<DsOrder>();
+            while (rs.next()) {
+                DsOrder ds = new DsOrder(rs.getString(2), rs.getInt(1), rs.getString(3), rs.getInt(5), rs.getInt(4), rs.getInt(6));
+                list.add(ds);
+            }
+            rs.getStatement().getConnection().close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return list;
+    }
     
     
 }
