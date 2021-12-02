@@ -5,6 +5,23 @@
  */
 package UI;
 
+import DAO.banDAO;
+import DAO.hoaDonDAO;
+import DAO.loaiSanPhamDAO;
+import DAO.nhanVienDAO;
+import DAO.sanphamDAO;
+import Entity.Ban;
+import Entity.DsOrder;
+import Entity.HoaDon;
+import Entity.SanPham;
+import Entity.loaiSanPham;
+import Entity.nhanVien;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 
 
 /**
@@ -15,8 +32,17 @@ public final class JFthongKe extends javax.swing.JPanel {
     
     public JFthongKe() {
         initComponents();
+        fillThongTin();
+        fillTableHD();
         
     }
+    banDAO banDAO = new banDAO();
+    sanphamDAO spDAO = new sanphamDAO();
+    loaiSanPhamDAO loaiDAO = new loaiSanPhamDAO();
+    nhanVienDAO nvDAO = new nhanVienDAO();
+    hoaDonDAO hdDAO = new hoaDonDAO();
+
+    NumberFormat chuyentien = new DecimalFormat("#,###,###");
    
     /**
      * This method is called from within the constructor to initialize the form.
@@ -30,7 +56,7 @@ public final class JFthongKe extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbmon = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tbaleHD = new javax.swing.JTable();
+        tblHD = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         lblhd = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -74,7 +100,7 @@ public final class JFthongKe extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tbmon);
 
-        tbaleHD.setModel(new javax.swing.table.DefaultTableModel(
+        tblHD.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -85,7 +111,7 @@ public final class JFthongKe extends javax.swing.JPanel {
                 "Mã hóa đơn", "Thời gian", "Tiền món", "Giảm giá", "Thành tiền", "Điểm bán", "Các món"
             }
         ));
-        jScrollPane2.setViewportView(tbaleHD);
+        jScrollPane2.setViewportView(tblHD);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setText("Tổng số hóa đơn thanh toán:");
@@ -404,15 +430,110 @@ layout.setHorizontalGroup(
             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
     }// </editor-fold>//GEN-END:initComponents
+    public void fillThongTin(){
+        List<Ban> listBan = banDAO.selectAll();
+        if (listBan.size()>0) {
+            int soban = 0;
+            for(Ban b : listBan){
+                soban++;
+            }
+            lbltongban.setText(String.valueOf(soban));
+        }
 
+        List<loaiSanPham> listloai = loaiDAO.selectAll();
+        if (listloai.size()>0) {
+            int soLoai = 0;
+            for(loaiSanPham b : listloai){
+                soLoai++;
+            }
+            lbltongloai.setText(String.valueOf(soLoai));
+        }
+
+        List<SanPham> listSP = spDAO.selectAll();
+        if (listSP.size()>0) {
+            int soSP = 0;
+            for(SanPham b : listSP){
+                soSP++;
+            }
+            lbltongmon.setText(String.valueOf(soSP));
+        }
+
+        List<nhanVien> listNV = nvDAO.selectAll();
+        if (listNV.size()>0) {
+            int soNV = 0;
+            for(nhanVien b : listNV){
+                soNV++;
+            }
+            lbltaikhoan.setText(String.valueOf(soNV));
+        }
+    }
+    
+    public void fillTableHD(){
+        List<HoaDon> listHD = hdDAO.thongKe();
+        
+        DefaultTableModel model = (DefaultTableModel) tblHD.getModel();
+        model.setColumnCount(0);
+        model.setRowCount(0);
+        model.addColumn("Mã hóa đơn");
+        model.addColumn("Thời gian");
+        model.addColumn("Tiền món");
+        model.addColumn("Giảm giá");
+        model.addColumn("Thành tiền");
+        model.addColumn("Bàn");
+        model.addColumn("Các món");
+        
+        SimpleDateFormat sf = new SimpleDateFormat("dd/MM/yyyy HH:mm a");
+        if (listHD.size()>0) {
+            int hd = 0, tongtien=0, tongtienmon =0,giam=0, tonggiam =0;
+            for(HoaDon x : listHD){
+              hd++;
+              tongtien += x.getTongTien();
+              Ban ban = banDAO.selectByID(x.getMaBan()+"");
+              String tenBan = ban.getTenBan();
+              List<DsOrder> order = hdDAO.getDSOrder(x.getMaBan());
+              String cacmon = "";
+              int tienmon =0;
+              for(DsOrder ds : order){
+                  tienmon += ds.getGia() * ds.getSoLuong();
+                  cacmon += ds.getTenMon()+"("+ds.getSoLuong()+")"+",";
+              }
+              tongtienmon += tienmon;
+              
+              String dv = "";
+              if(x.getGiamGia()>100){
+                  giam = x.getGiamGia();
+              }
+              if(x.getGiamGia()==0){
+                  giam = 0;
+              }
+              if(x.getGiamGia() <=100 && x.getGiamGia() != 0){
+                        giam = x.getGiamGia() * tienmon / 100;
+                        dv = "("+String.valueOf(x.getGiamGia())+"%)";
+              }
+              tonggiam += giam;
+              
+              model.addRow(new Object[]{
+                  x.getMaHoaDon(),
+                  sf.format(x.getGioDen()),
+                  chuyentien.format(tienmon),
+                  chuyentien.format(giam)+dv ,
+                  chuyentien.format(x.getTongTien()),
+                  tenBan,
+                  cacmon
+              });             
+            }
+            lblgiam.setText(chuyentien.format(tonggiam)+" VNĐ");
+            lbltienmon.setText(chuyentien.format(tongtienmon)+" VNĐ");
+            lbltienthu.setText(chuyentien.format(tongtienmon - tonggiam)+" VNĐ");
+            lblhd.setText(String.valueOf(hd)+" hóa đơn");
+        }
+    }
     
      
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
     }//GEN-LAST:event_jButton1ActionPerformed
-    public void fillbydate2(){
-           
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private datechooser.beans.DateChooserCombo dateChooser1;
@@ -444,7 +565,7 @@ layout.setHorizontalGroup(
     private javax.swing.JLabel lbltongban;
     private javax.swing.JLabel lbltongloai;
     private javax.swing.JLabel lbltongmon;
-    private javax.swing.JTable tbaleHD;
+    private javax.swing.JTable tblHD;
     private javax.swing.JTable tbmon;
     // End of variables declaration//GEN-END:variables
 }
