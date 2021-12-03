@@ -397,31 +397,31 @@ public final class JFgoiMon extends javax.swing.JPanel {
         getAccessibleContext().setAccessibleParent(this);
     }// </editor-fold>//GEN-END:initComponents
        public void fillThongTin(){
-//        arrhd = dao.selectByID(MaBan);
-//        MaHD = arrhd.GetMaHD();
-//        int ck = cn.CheckDsMon(MaHD, MaBan);
-//        btngoi.setVisible(true);
-//        if(ck == 0){
-//            HuyHD();
-//            btngoi.setVisible(false);
-//        }
-//        
-//        if(arrhd.getGiamGia()> 100){
-//            lblgiamgia.setText(chuyentien.format(arrhd.getGiamGia())+" VNĐ");
-//            if(tienmon - arrhd.getGiamGia() <= 0){
-//                tongtien = 0;
-//                lbltongtien.setText("0 VNĐ");
-//            }else{
-//                tongtien = tienmon - arrhd.getGiamGia();
-//                lbltongtien.setText(String.valueOf(chuyentien.format(tongtien))+" VNĐ");
-//            }
-//        }
-//        if(arrhd.getGiamGia() <= 100){
-//            tongtien = tienmon - (tienmon * arrhd.getGiamGia() / 100);
-//            lbltongtien.setText(String.valueOf(chuyentien.format(tongtien))+" VNĐ");
-//            lblgiamgia.setText(String.valueOf(arrhd.getGiamGia())+" %");
-//        }
-//        lbltienmon.setText(String.valueOf(chuyentien.format(tienmon))+" VNĐ");        
+        arrhd = dao.goiMon(MaBan);
+        MaHD = arrhd.getMaHoaDon();
+        int ck = cn.CheckDsMon(MaHD, MaBan);
+        btngoi.setVisible(true);
+        if(ck == 0){
+            HuyHD();
+            btngoi.setVisible(false);
+        }
+        
+        if(arrhd.getGiamGia()> 100){
+            lblgiamgia.setText(chuyentien.format(arrhd.getGiamGia())+" VNĐ");
+            if(tienmon - arrhd.getGiamGia() <= 0){
+                tongtien = 0;
+                lbltongtien.setText("0 VNĐ");
+            }else{
+                tongtien = tienmon - arrhd.getGiamGia();
+                lbltongtien.setText(String.valueOf(chuyentien.format(tongtien))+" VNĐ");
+            }
+        }
+        if(arrhd.getGiamGia() <= 100){
+            tongtien = tienmon - (tienmon * arrhd.getGiamGia() / 100);
+            lbltongtien.setText(String.valueOf(chuyentien.format(tongtien))+" VNĐ");
+            lblgiamgia.setText(String.valueOf(arrhd.getGiamGia())+" %");
+        }
+        lbltienmon.setText(String.valueOf(chuyentien.format(tienmon))+" VNĐ");        
     }
     
     private void HuyHD(){
@@ -448,7 +448,7 @@ public final class JFgoiMon extends javax.swing.JPanel {
 //
 ////                HoaDon hd = new HoaDon();
 ////                hd.setMaHoaDon(MaHD);
-//                //dao.delete(MaHD+"");
+//                dao.delete(MaHD+"");
 //            }
 //        });
 //        jpDsMon.add(btnhuy);
