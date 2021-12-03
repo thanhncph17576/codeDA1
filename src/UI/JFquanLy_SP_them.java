@@ -197,21 +197,31 @@ sanphamDAO daoSP = new sanphamDAO();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-             if(txtTenMon.getText().isEmpty()){
-        JOptionPane.showMessageDialog(null, "Tên món không được để trống ?");
+             String p_hoten= "[a-zA-Z ]+";
+        if (txtTenMon.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Tên món không được để trống ?");
             txtTenMon.requestFocus();
             return;
-       }
-        if(txtGia.getText().isEmpty()){
-        JOptionPane.showMessageDialog(null, " Đơn Giá không được để trống!");
+            }else if(txtTenMon.getText().matches(p_hoten)==false){
+            JOptionPane.showMessageDialog(this, "Tên món không đúng định dạng");
+            txtTenMon.requestFocus();           
+            return;
+        }
+        if (txtGia.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, " Đơn Giá không được để trống!");
             txtGia.requestFocus();
             return;
-       }
-         if(txtdvt.getText().isEmpty()){
-        JOptionPane.showMessageDialog(null, "DVT không được để trống!");
-            txtTenMon.requestFocus();
+        }
+         String p_DVT= "[a-zA-Z ]+";
+        if (txtdvt.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "DVT không được để trống!");
+            txtdvt.requestFocus();
             return;
-       }     
+        }else if(txtdvt.getText().matches(p_DVT)==false){
+            JOptionPane.showMessageDialog(this, "DVT không đúng định dạng");
+            txtdvt.requestFocus();           
+            return;
+        }
         SanPham spp = new SanPham();
         spp.setTenMon(txtTenMon.getText());
         spp.setDonGia(Integer.parseInt(txtGia.getText()));
