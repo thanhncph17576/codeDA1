@@ -20,7 +20,9 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -567,10 +569,118 @@ layout.setHorizontalGroup(
         }
         
     }
-    
+    public  void filldate1(){
+//        
+        List<SanPham> tableSP = spDAO.thongKeMon();
+        Date d1 = dateChooser1.getSelectedDate().getTime();
+        Date d2 = dateChooser2.getSelectedDate().getTime();
+        String s1 = String.format("%1$tY-%1$tm-%1$td", d1);
+        String s2 = String.format("%1$tY-%1$tm-%1$td", d2);
+        DefaultTableModel model = (DefaultTableModel) tbmon.getModel();
+        model.setColumnCount(0);
+        model.setRowCount(0);
+        model.addColumn("Tên món");
+        model.addColumn("DVT");
+        model.addColumn("Số lượng");
+        model.addColumn("Doanh thu");
+        
+        if(tableSP != null){
+            int somon = 0,tienmon=0;
+            for(SanPham sp : tableSP){
+                ArrayList<DsOrder> ct = spDAO.GetHdByDate(s1, s2, sp.getMaMon());
+//                 ArrayList<DsOrder> ct = cn.GetHdByDate(s1, s2, td.GetMaMon());
+                if (ct.size()>0) {
+                    int gia =0,soluong =0;
+                    for(DsOrder a : ct){
+                        somon += a.getSoLuong();
+                        soluong += a.getSoLuong();
+                        gia += a.getGia() * a.getSoLuong();
+                    }
+                    tienmon += gia;
+                    model.addRow(new Object[]{
+                        sp.getTenMon(),
+                        sp.getDVT(),
+                        soluong,
+                        chuyentien.format(gia)+" VNĐ"
+                    });
+                }
+            }
+            lblmon.setText(String.valueOf(somon)+" món");
+        }
+    }
+     public  void filldate2(){
+        Date d1 = dateChooser1.getSelectedDate().getTime();
+        Date d2 = dateChooser2.getSelectedDate().getTime();
+        String s1 = String.format("%1$tY-%1$tm-%1$td", d1);
+        String s2 = String.format("%1$tY-%1$tm-%1$td", d2);
+        List<HoaDon> listHD = hdDAO.thongKe();
+        
+        DefaultTableModel model = (DefaultTableModel) tblHD.getModel();
+        model.setColumnCount(0);
+        model.setRowCount(0);
+        model.addColumn("Mã hóa đơn");
+        model.addColumn("Thời gian");
+        model.addColumn("Tiền món");
+        model.addColumn("Giảm giá");
+        model.addColumn("Thành tiền");
+        model.addColumn("Bàn");
+        model.addColumn("Các món");
+        
+        SimpleDateFormat sf = new SimpleDateFormat("dd/MM/yyyy HH:mm a");
+        if (listHD.size()>0) {
+            int hd = 0, tongtien=0, tongtienmon =0,giam=0, tonggiam =0;
+            for(HoaDon x : listHD){
+              hd++;
+              tongtien += x.getTongTien();
+              Ban ban = banDAO.selectByID(x.getMaBan()+"");
+              String tenBan = ban.getTenBan();
+              List<DsOrder> order = hdDAO.getDSOrder(x.getMaBan());  
+              ArrayList<DsOrder> ct = hdDAO.GetCtHDByDate(x.getMaHoaDon(), s1, s2);
+              String cacmon = "";
+              int tienmon =0;
+              for(DsOrder ds : order){
+            tienmon += ds.getGia() * ds.getSoLuong();
+                  cacmon += ds.getTenMon()+"("+ds.getSoLuong()+")"+",";
+              }
+              tongtienmon += tienmon;
+              
+              String dv = "";
+              if(x.getGiamGia()>100){
+                  giam = x.getGiamGia();
+              }
+              if(x.getGiamGia()==0){
+                  giam = 0;
+              }
+              if(x.getGiamGia() <=100 && x.getGiamGia() != 0){
+                        giam = x.getGiamGia() * tienmon / 100;
+                        dv = "("+String.valueOf(x.getGiamGia())+"%)";
+              }
+              tonggiam += giam;
+              
+              model.addRow(new Object[]{
+                  x.getMaHoaDon(),
+                  sf.format(x.getGioDen()),
+                  chuyentien.format(tienmon),
+                  chuyentien.format(giam)+dv ,
+                  chuyentien.format(x.getTongTien()),
+                  tenBan,
+                  cacmon
+              });             
+            }
+            lblgiam.setText(chuyentien.format(tonggiam)+" VNĐ");
+            lbltienmon.setText(chuyentien.format(tongtienmon)+" VNĐ");
+            lbltienthu.setText(chuyentien.format(tongtienmon - tonggiam)+" VNĐ");
+            lblhd.setText(String.valueOf(hd)+" hóa đơn");
+        }
+    }
      
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+ if(dateChooser1.getText().isEmpty() || dateChooser2.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Bạn cần chọn ngày để thống kê !");
+            return;
+        }
+        filldate1();
+        filldate2();        
     }//GEN-LAST:event_jButton1ActionPerformed
     
 

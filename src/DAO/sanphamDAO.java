@@ -5,11 +5,13 @@
  */
 package DAO;
 
+import Entity.DsOrder;
 import Entity.SanPham;
 import Helper.JDBC;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -102,5 +104,26 @@ public class sanphamDAO extends DAO<SanPham, String> {
     public List<SanPham> thongKeMon(){
         String sql = "select TenMon, MaMon, DVT,DonGia,MaLoai from SanPham where MaMon in (select chitiethd.MaMon from chitiethd)";
         return this.selectBySQL(sql);
+    }
+
+    public ArrayList<DsOrder> GetHdByDate(String d1, String d2, int maMon) {
+        ArrayList<DsOrder> listhdct = null;
+        String sql;
+        String ma = null;
+        if(d1.equals(d2))
+            sql = "Select ct.MaMon, TenMon, DVT, SoLuong, Gia, ct.MaHoaDon From chitiethd AS ct INNER JOIN thucdon AS td ON ct.MaMon = td.MaMon INNER JOIN hoadon AS hd ON hd.MaHoaDon = ct.MaHoaDon Where ct.MaHoaDon = '"+ma+"' AND hd.GioDen >= '"+d1+"'";
+            else
+            sql = "Select ct.MaMon, TenMon, DVT, SoLuong, Gia, ct.MaHoaDon From chitiethd AS ct INNER JOIN thucdon AS td ON ct.MaMon = td.MaMon INNER JOIN hoadon AS hd ON hd.MaHoaDon = ct.MaHoaDon Where ct.MaHoaDon = '"+ma+"' AND hd.GioDen BETWEEN '"+d1+"' AND '"+d2+"'";
+        try{
+            ResultSet rs = JDBC.query(sql, maMon);
+            listhdct = new ArrayList<DsOrder>();
+            while(rs.next()){
+                DsOrder order = new DsOrder(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6));
+                listhdct.add(order);
+            }
+        }catch(Exception ex){
+          JOptionPane.showMessageDialog(null, "Không lấy được danh sách chi tiết hoa đơn !"+ex.toString());
+        }
+        return listhdct; 
     }
 }
