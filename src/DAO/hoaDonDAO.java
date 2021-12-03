@@ -137,7 +137,7 @@ public class hoaDonDAO extends DAO<HoaDon, String> {
             ResultSet rs = JDBC.query(sql, ma);
             list = new ArrayList<DsOrder>();
             while (rs.next()) {
-                DsOrder ds = new DsOrder(rs.getString(1), rs.getString(5), rs.getString(4), rs.getInt(2), rs.getInt(3),0);
+                DsOrder ds = new DsOrder(rs.getString(1), null, rs.getString(4), rs.getInt(2), rs.getInt(3),0);
                 list.add(ds);
             }
             rs.getStatement().getConnection().close();

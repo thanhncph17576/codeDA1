@@ -188,7 +188,7 @@ public class JFthanhToan extends javax.swing.JDialog {
             if(tiendua - tong >= 0)
             lbltienthoi.setText(String.valueOf(chuyentien.format(tiendua - tong))+ " VNĐ");
         }catch(Exception e){
-            txtTienDua.setText("");
+            txtTienDua.setText("Chưa đủ tiền");
 
         }
     }//GEN-LAST:event_txtTienDuaKeyReleased
