@@ -25,9 +25,9 @@ import javax.swing.JOptionPane;
  */
 public class JDBC {
     static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    static String dburl = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyTraSuaDuAn";
+    static String dburl = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyTraSua3";
     static String user = "sa";
-    static String pass = "123";
+    static String pass = "123456";
 
     //Nap Driver
 //    static {
@@ -95,12 +95,12 @@ public class JDBC {
     public JDBC(){
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String url = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyTraSuaDuAn";
+            String url = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyTraSua3";
             String s = System.getProperty("os.name");
             if(s.contains("Windows")){
-                cn = DriverManager.getConnection(url, "sa", "123");
+                cn = DriverManager.getConnection(url, "sa", "123456");
             }else{
-                cn = DriverManager.getConnection(url, "sa", "123");
+                cn = DriverManager.getConnection(url, "sa", "123456");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -138,7 +138,7 @@ public class JDBC {
                 mahd = rs.getInt(1);
             }
         }catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, "Không lấy được danh sách thực đơn !");
+            throw new RuntimeException(ex);
         }
         return mahd;        
     } 
@@ -195,7 +195,7 @@ public class JDBC {
             ResultSet rs = st.executeQuery(sql);
             arrDs = new ArrayList<DsOrder>();
             while(rs.next()){
-                DsOrder order = new DsOrder(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6));
+                DsOrder order = new DsOrder(rs.getString(2), rs.getString(1), rs.getString(3), rs.getInt(5), rs.getInt(4), rs.getInt(6));
                 arrDs.add(order);
             }
         }catch(SQLException ex){
@@ -211,18 +211,18 @@ public class JDBC {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
-                arrhd = new HoaDon(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getTimestamp(6));
+                arrhd = new HoaDon(rs.getInt(1), rs.getInt(3), rs.getInt(2), rs.getInt(5), rs.getInt(6), rs.getTimestamp(4));
             }
         }catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, "Không lấy được danh sách hóa đơn !");
+            throw new RuntimeException(ex);
         }
         return arrhd;        
     }   
-        public ArrayList<SanPham> GetThucDonByMa(String ma){
+        public ArrayList<SanPham> GetThucDonByMa(String ten){
         ArrayList<SanPham> arrThucDon = null;
         String sql;
 
-            sql = "Select * From SanPham Where MaMon = '"+ma+"'";
+            sql = "Select * From SanPham Where MaMon = '"+ten+"'";
         try{
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
