@@ -9,12 +9,15 @@ import DAO.banDAO;
 import DAO.datBanDAO;
 import Entity.Ban;
 import Entity.datBan;
+import Helper.Messages;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -75,6 +78,28 @@ public class JFdatBan extends javax.swing.JPanel {
             }
             
         }
+    public void treckvadidate(){
+         String p_sdt= "0[0-9]{9}";
+         String p_hoten= "[a-zA-Z ]+";
+    if (tfTenkhach.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Tên khách không được để trống ?");
+            tfTenkhach.requestFocus();
+            return;
+        }else if(tfTenkhach.getText().matches(p_hoten)==false){
+            JOptionPane.showMessageDialog(this, "Tên khách sv không đúng định dạng");
+            tfTenkhach.requestFocus();           
+            return;
+        }
+        if (tfSDT.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, " SDT không được để trống!");
+            tfSDT.requestFocus();
+            return;
+        }else if(tfSDT.getText().matches(p_sdt)==false){
+            JOptionPane.showMessageDialog(this, "Sđt không đúng định dạng");
+            tfSDT.requestFocus();        
+            return;
+        } 
+    }
     
     
     /**
@@ -442,6 +467,28 @@ public class JFdatBan extends javax.swing.JPanel {
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
+     int[] selectedRows = tbldatBan.getSelectedRows();
+        if (selectedRows.length <= 0) {
+            Messages.alert(this, "Bạn chưa chọn bàn ");
+        } else {
+            ArrayList<Integer> ListMaBan = new ArrayList<Integer>();
+            String sp = "";
+            for (int i : selectedRows){
+                int ma = (int) tbldatBan.getValueAt(i, 0);
+                ListMaBan.add(ma);
+                String tenban = (String) tbldatBan.getValueAt(i, 1);
+                sp += tenban + "\n";
+            }
+        int nutbam = JOptionPane.showConfirmDialog(new JFrame(), "Bạn chắc chắn xóa?", "Trà sữa Goky", JOptionPane.YES_NO_OPTION);
+        if (nutbam == JOptionPane.YES_OPTION) {
+            int cacdong[] = tbldatBan.getSelectedRows();
+            for (int i = 0; i < cacdong.length; i++) {
+                String maban = tbldatBan.getValueAt(cacdong[i], 0).toString();
+                    daodatBan.delete(maban);
+                    fillTable();
+            }
+         }
+        }
 
     }//GEN-LAST:event_btnDelActionPerformed
 
