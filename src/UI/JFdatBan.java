@@ -8,6 +8,7 @@ package UI;
 import DAO.banDAO;
 import DAO.datBanDAO;
 import Entity.Ban;
+import java.util.Date;
 import Entity.datBan;
 import Helper.Messages;
 import java.text.ParseException;
@@ -25,9 +26,11 @@ import javax.swing.table.DefaultTableModel;
  * @author nguye
  */
 public class JFdatBan extends javax.swing.JPanel {
+
     public static JFdatBan datBan;
     int index;
     banDAO daoB = new banDAO();
+
     public JFdatBan() {
         initComponents();
         datBan = this;
@@ -46,7 +49,8 @@ public class JFdatBan extends javax.swing.JPanel {
     datBanDAO daodatBan = new datBanDAO();
     SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     SimpleDateFormat hf = new SimpleDateFormat("yyyy-MM-dd");
-    public void fillTable(){
+
+    public void fillTable() {
         DefaultTableModel mol = (DefaultTableModel) tbldatBan.getModel();
         mol.setColumnCount(0);
         mol.setRowCount(0);
@@ -58,50 +62,50 @@ public class JFdatBan extends javax.swing.JPanel {
         tbmodel.addColumn("Bàn");
         tbmodel.addColumn("Ngày");
         tbmodel.addColumn("Thời gian");
-        
-            for (datBan x : arrTale){
-                tbmodel.addRow(new Object[]{
-                    x.getMaDatBan(),
-                    x.getTenKhach(),
-                    x.getSDT(),
-                    x.getMaBan(),
-                    x.getGiodat(),
-                    x.getThoiGian()
-                    
-                });
-                System.out.println(hf.format(x.getThoiGian()));
-            }
-            tbldatBan.setModel(tbmodel);
-            for (int i = 0; i <tbldatBan.getColumnCount();i++){
-                Class<?> col = tbldatBan.getColumnClass(i);
-                tbldatBan.setDefaultEditor(col, null);
-            }
-            
+
+        for (datBan x : arrTale) {
+            tbmodel.addRow(new Object[]{
+                x.getMaDatBan(),
+                x.getTenKhach(),
+                x.getSDT(),
+                x.getMaBan(),
+                x.getGiodat(),
+                x.getThoiGian()
+
+            });
+            System.out.println(hf.format(x.getThoiGian()));
         }
-    public void treckvadidate(){
-         String p_sdt= "0[0-9]{9}";
-         String p_hoten= "[a-zA-Z ]+";
-    if (tfTenkhach.getText().isEmpty()) {
+        tbldatBan.setModel(tbmodel);
+        for (int i = 0; i < tbldatBan.getColumnCount(); i++) {
+            Class<?> col = tbldatBan.getColumnClass(i);
+            tbldatBan.setDefaultEditor(col, null);
+        }
+
+    }
+
+    public void treckvadidate() {
+        String p_sdt = "0[0-9]{9}";
+        String p_hoten = "[a-zA-Z ]+";
+        if (tfTenkhach.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Tên khách không được để trống ?");
             tfTenkhach.requestFocus();
             return;
-        }else if(tfTenkhach.getText().matches(p_hoten)==false){
+        } else if (tfTenkhach.getText().matches(p_hoten) == false) {
             JOptionPane.showMessageDialog(this, "Tên khách sv không đúng định dạng");
-            tfTenkhach.requestFocus();           
+            tfTenkhach.requestFocus();
             return;
         }
         if (tfSDT.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, " SDT không được để trống!");
             tfSDT.requestFocus();
             return;
-        }else if(tfSDT.getText().matches(p_sdt)==false){
+        } else if (tfSDT.getText().matches(p_sdt) == false) {
             JOptionPane.showMessageDialog(this, "Sđt không đúng định dạng");
-            tfSDT.requestFocus();        
+            tfSDT.requestFocus();
             return;
-        } 
+        }
     }
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -431,10 +435,10 @@ public class JFdatBan extends javax.swing.JPanel {
 
     private void tbldatBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbldatBanMouseClicked
         int dong = tbldatBan.getSelectedRow();
-        tfTenkhach.setText(tbldatBan.getValueAt(dong, 1)+"");
-        tfSDT.setText(tbldatBan.getValueAt(dong, 2)+"");
+        tfTenkhach.setText(tbldatBan.getValueAt(dong, 1) + "");
+        tfSDT.setText(tbldatBan.getValueAt(dong, 2) + "");
         cboSoban.setSelectedItem(tbldatBan.getValueAt(dong, 3));
-        String date = tbldatBan.getValueAt(dong, 4)+"";
+        String date = tbldatBan.getValueAt(dong, 4) + "";
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
         try {
@@ -443,7 +447,7 @@ public class JFdatBan extends javax.swing.JPanel {
             Logger.getLogger(JFdatBan.class.getName()).log(Level.SEVERE, null, ex);
         }
         dateChooser3.setSelectedDate(cal);
-        String ngay = tbldatBan.getValueAt(dong, 5)+"";
+        String ngay = tbldatBan.getValueAt(dong, 5) + "";
         try {
             Date ngay2 = new SimpleDateFormat("HH:mm:ss").parse(ngay);
             SimpleDateFormat hf = new SimpleDateFormat("HH");
@@ -455,11 +459,40 @@ public class JFdatBan extends javax.swing.JPanel {
         } catch (ParseException ex) {
             Logger.getLogger(JFdatBan.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_tbldatBanMouseClicked
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-
+        if (tfTenkhach.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Tên khách không được để trống !");
+            return;
+        }
+        if (tfSDT.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Số ĐT không được để trống !");
+            return;
+        }
+        Date ngay = dateChooser3.getSelectedDate().getTime();
+        String s1 = String.format("%1$tY-%1$tm-%1$td", ngay);
+        try {
+            //lấy từ string sang date
+            Date ngay2 = new SimpleDateFormat("yyyy-MM-dd").parse(s1);
+            datBan d = new datBan();
+            int MaBan = cboSoban.getSelectedIndex() + 1;
+            d.setMaBan(MaBan);
+            d.setSDT(tfSDT.getText());
+            d.setTenKhach(tfTenkhach.getText());
+            d.setGiodat(ngay2);
+            //lấy từ string sang time
+            String gio = cbxHours.getSelectedItem()+"";
+            String phut = cbxMinute.getSelectedItem()+"";
+            String time = gio + ":" + phut + ":00";
+            d.setThoiGian(java.sql.Time.valueOf(time));
+            daodatBan.insert(d);
+            fillTable();
+            JOptionPane.showMessageDialog(this, "Thêm thành công !");
+        } catch (ParseException ex) {
+            Logger.getLogger(JFdatBan.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
@@ -467,27 +500,27 @@ public class JFdatBan extends javax.swing.JPanel {
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
-     int[] selectedRows = tbldatBan.getSelectedRows();
+        int[] selectedRows = tbldatBan.getSelectedRows();
         if (selectedRows.length <= 0) {
             Messages.alert(this, "Bạn chưa chọn bàn ");
         } else {
             ArrayList<Integer> ListMaBan = new ArrayList<Integer>();
             String sp = "";
-            for (int i : selectedRows){
+            for (int i : selectedRows) {
                 int ma = (int) tbldatBan.getValueAt(i, 0);
                 ListMaBan.add(ma);
                 String tenban = (String) tbldatBan.getValueAt(i, 1);
                 sp += tenban + "\n";
             }
-        int nutbam = JOptionPane.showConfirmDialog(new JFrame(), "Bạn chắc chắn xóa?", "Trà sữa Goky", JOptionPane.YES_NO_OPTION);
-        if (nutbam == JOptionPane.YES_OPTION) {
-            int cacdong[] = tbldatBan.getSelectedRows();
-            for (int i = 0; i < cacdong.length; i++) {
-                String maban = tbldatBan.getValueAt(cacdong[i], 0).toString();
+            int nutbam = JOptionPane.showConfirmDialog(new JFrame(), "Bạn chắc chắn xóa?", "Trà sữa Goky", JOptionPane.YES_NO_OPTION);
+            if (nutbam == JOptionPane.YES_OPTION) {
+                int cacdong[] = tbldatBan.getSelectedRows();
+                for (int i = 0; i < cacdong.length; i++) {
+                    String maban = tbldatBan.getValueAt(cacdong[i], 0).toString();
                     daodatBan.delete(maban);
                     fillTable();
+                }
             }
-         }
         }
 
     }//GEN-LAST:event_btnDelActionPerformed
@@ -501,11 +534,11 @@ public class JFdatBan extends javax.swing.JPanel {
     }//GEN-LAST:event_tfSDTActionPerformed
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
-    tfTenkhach.setText("");
-    tfSDT.setText("");
-    cboSoban.setSelectedItem("1");
-    cbxHours.setSelectedItem("7");
-    cbxMinute.setSelectedItem("0");
+        tfTenkhach.setText("");
+        tfSDT.setText("");
+        cboSoban.setSelectedItem("1");
+        cbxHours.setSelectedItem("7");
+        cbxMinute.setSelectedItem("0");
     }//GEN-LAST:event_btnNewActionPerformed
 
 
@@ -539,7 +572,7 @@ public class JFdatBan extends javax.swing.JPanel {
         model.removeAllElements();
         List<Ban> list = daoB.selectAll();
         System.out.println(list);
-        for(Ban x : list){
+        for (Ban x : list) {
             model.addElement(x.getMaBan());
         }
     }
