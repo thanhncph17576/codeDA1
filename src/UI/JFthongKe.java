@@ -492,10 +492,11 @@ layout.setHorizontalGroup(
               tongtien += x.getTongTien();
               Ban ban = banDAO.selectByID(x.getMaBan()+"");
               String tenBan = ban.getTenBan();
-              List<DsOrder> order = hdDAO.getDSOrder(x.getMaBan());
+              List<DsOrder> order = hdDAO.getDSOrder(x.getMaHoaDon());
               String cacmon = "";
               int tienmon =0;
               for(DsOrder ds : order){
+                  System.out.println(ds.getGia());
                   tienmon += ds.getGia() * ds.getSoLuong();
                   cacmon += ds.getTenMon()+"("+ds.getSoLuong()+")"+",";
               }
