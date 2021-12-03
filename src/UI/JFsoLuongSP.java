@@ -290,15 +290,15 @@ public class JFsoLuongSP extends javax.swing.JDialog {
             cthd.setSoLuong(Integer.parseInt(txtSl.getText()));
             int isertCtHD = cn.InsertChiTietHD(cthd);
         }
-        banDAO banDAO = new banDAO();
-        Ban b = new Ban();
-        b.setTrangThai("Đang phục vụ");
-        b.setTenBan(TenBan);
-        b.setMaBan(maban);
-        banDAO.update(b);
-
-        JFbanHang.bh.FillBan();
-        JFbanHang.bh.updateUI();
+//        banDAO banDAO = new banDAO();
+//        Ban b = new Ban();
+//        b.setTrangThai("Đang phục vụ");
+//        b.setTenBan(TenBan);
+//        b.setMaBan(maban);
+//        banDAO.update(b);
+//
+//        JFbanHang.bh.FillBan();
+//        JFbanHang.bh.updateUI();
         JFgoiMon.gm.fillDsMon(cn.GetMaHD(maban));
         JFgoiMon.gm.updateUI();
 
