@@ -483,8 +483,8 @@ public class JFdatBan extends javax.swing.JPanel {
             d.setTenKhach(tfTenkhach.getText());
             d.setGiodat(ngay2);
             //lấy từ string sang time
-            String gio = cbxHours.getSelectedItem()+"";
-            String phut = cbxMinute.getSelectedItem()+"";
+            String gio = cbxHours.getSelectedItem() + "";
+            String phut = cbxMinute.getSelectedItem() + "";
             String time = gio + ":" + phut + ":00";
             d.setThoiGian(java.sql.Time.valueOf(time));
             daodatBan.insert(d);
@@ -496,7 +496,43 @@ public class JFdatBan extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-
+        if (tfTenkhach.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Tên khách không được để trống !");
+            return;
+        }
+        if (tfSDT.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Số ĐT không được để trống !");
+            return;
+        }
+        int select = tbldatBan.getSelectedRow();
+        if (select < 0) {
+            JOptionPane.showMessageDialog(null, "Bạn chưa chọn bàn đặt nào !");
+        } else {
+            int maBanDat = (int) tbldatBan.getValueAt(select, 0);
+            Date ngay = dateChooser3.getSelectedDate().getTime();
+            String s1 = String.format("%1$tY-%1$tm-%1$td", ngay);
+            try {
+                //lấy từ string sang date
+                Date ngay2 = new SimpleDateFormat("yyyy-MM-dd").parse(s1);
+                datBan d = new datBan();
+                int MaBan = cboSoban.getSelectedIndex() + 1;
+                d.setMaBan(MaBan);
+                d.setSDT(tfSDT.getText());
+                d.setTenKhach(tfTenkhach.getText());
+                d.setGiodat(ngay2);
+                //lấy từ string sang time
+                String gio = cbxHours.getSelectedItem() + "";
+                String phut = cbxMinute.getSelectedItem() + "";
+                String time = gio + ":" + phut + ":00";
+                d.setThoiGian(java.sql.Time.valueOf(time));
+                d.setMaDatBan(maBanDat);
+                daodatBan.update(d);
+                fillTable();
+                JOptionPane.showMessageDialog(this, "Sửa thành công !");
+            } catch (ParseException ex) {
+                Logger.getLogger(JFdatBan.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
