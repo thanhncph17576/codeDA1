@@ -263,6 +263,7 @@ public class JFquanLy_loaiSP extends javax.swing.JPanel {
                 for (int i = 0; i < dong.length; i++) {
                     String maloaisp = tbNhomMon.getValueAt(dong[i], 0).toString();
                     daoLoai.delete(maloaisp);
+                    JOptionPane.showMessageDialog(null, "Xóa thành công <3");
                     fillTable();
                 }
             }
