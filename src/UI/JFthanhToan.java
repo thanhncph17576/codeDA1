@@ -5,10 +5,30 @@
  */
 package UI;
 
+import DAO.banDAO;
+import DAO.hoaDonDAO;
+import Entity.Ban;
+import Entity.HoaDon;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 
 public class JFthanhToan extends javax.swing.JDialog {
+    NumberFormat chuyentien = new DecimalFormat("#,###,###");
+    int tong, MaHD;
+    int MaBan;
+    String tenBanString;
+    banDAO banDao = new banDAO();
+    hoaDonDAO hdDAO = new hoaDonDAO();
     public JFthanhToan(java.awt.Frame parent, boolean modal, int tongtien, String tenban, int maban, int mahd) {
-        
+        super(parent, modal);
+        initComponents();
+         tong = tongtien;
+        MaHD = mahd;
+        MaBan = maban;
+        tenBanString = tenban;
+        jLabel1.setText(tenban + " - Thanh toán");
+        lblTongTien.setText(String.valueOf(chuyentien.format(tongtien) +" VNĐ"));
     }
 
     /**
@@ -163,9 +183,30 @@ public class JFthanhToan extends javax.swing.JDialog {
 
     private void txtTienDuaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTienDuaKeyReleased
         // TODO add your handling code here:
+        try{
+            int tiendua =  Integer.parseInt(txtTienDua.getText());
+            if(tiendua - tong >= 0)
+            lbltienthoi.setText(String.valueOf(chuyentien.format(tiendua - tong))+ " VNĐ");
+        }catch(Exception e){
+            txtTienDua.setText("");
+
+        }
     }//GEN-LAST:event_txtTienDuaKeyReleased
 
     private void btnxacnhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxacnhanActionPerformed
+        Ban b = new Ban();
+        b.setTrangThai("Trống");
+        b.setTenBan(tenBanString);
+        b.setMaBan(MaBan);
+        banDao.update(b);
+        
+        HoaDon hd = new HoaDon();
+        hdDAO.thanhToan(tong, MaHD);
+        
+        JFbanHang.bh.FillBan();
+        JFgoiMon.gm.removeAll();
+        JFbanHang.bh.fillLb();
+        this.dispose();
         
     }//GEN-LAST:event_btnxacnhanActionPerformed
 

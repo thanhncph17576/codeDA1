@@ -147,4 +147,8 @@ public class hoaDonDAO extends DAO<HoaDon, String> {
         return list;
     }
     
+    public void thanhToan(int tong, int ma) {
+        String sql = "UPDATE hoadon SET TongTien = ?, TrangThai = 1 WHERE MaHoaDon = ?";
+        JDBC.update(sql, tong,ma);
+    }
 }
