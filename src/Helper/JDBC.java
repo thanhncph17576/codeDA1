@@ -8,12 +8,15 @@ package Helper;
 import Entity.hoaDonCT;
 import Entity.HoaDon;
 import Entity.Ban;
+import Entity.DsOrder;
+import Entity.SanPham;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -22,9 +25,9 @@ import javax.swing.JOptionPane;
  */
 public class JDBC {
     static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    static String dburl = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyTraSua3";
+    static String dburl = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyTraSuaDuAn";
     static String user = "sa";
-    static String pass = "123456";
+    static String pass = "123";
 
     //Nap Driver
 //    static {
@@ -92,12 +95,12 @@ public class JDBC {
     public JDBC(){
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String url = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyTraSua3";
+            String url = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyTraSuaDuAn";
             String s = System.getProperty("os.name");
             if(s.contains("Windows")){
-                cn = DriverManager.getConnection(url, "sa", "123456");
+                cn = DriverManager.getConnection(url, "sa", "123");
             }else{
-                cn = DriverManager.getConnection(url, "sa", "123456");
+                cn = DriverManager.getConnection(url, "sa", "123");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -183,4 +186,85 @@ public class JDBC {
         }
         return update;
     } 
+    public ArrayList<DsOrder> GetDsOrder(int ma){
+        ArrayList<DsOrder> arrDs = null;
+        String sql;
+            sql = "Select ct.MaMon, TenMon, DVT, SoLuong, Gia, MaHoaDon From chitiethd AS ct INNER JOIN SanPham AS td ON ct.MaMon = td.MaMon Where ct.MaHoaDon = '"+ma+"'";
+        try{
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            arrDs = new ArrayList<DsOrder>();
+            while(rs.next()){
+                DsOrder order = new DsOrder(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6));
+                arrDs.add(order);
+            }
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Không lấy được danh sách Order !");
+        }
+        return arrDs;        
+    }    
+    public HoaDon GetHDbyMaBan(int ma){
+        String sql;
+        HoaDon arrhd = null;
+            sql = "Select * From hoadon Where MaBan = '"+ma+"' AND TrangThai = 0";
+        try{
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                arrhd = new HoaDon(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getTimestamp(6));
+            }
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Không lấy được danh sách hóa đơn !");
+        }
+        return arrhd;        
+    }   
+        public ArrayList<SanPham> GetThucDonByMa(String ma){
+        ArrayList<SanPham> arrThucDon = null;
+        String sql;
+
+            sql = "Select * From SanPham Where MaMon = '"+ma+"'";
+        try{
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            arrThucDon = new ArrayList<SanPham>();
+            while(rs.next()){
+                SanPham td = new SanPham(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getString(5));
+                arrThucDon.add(td);
+            }
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Không lấy được danh sách thực đơn !");
+        }
+        return arrThucDon;        
+    }
+            public int DeleteMon(String mamon, int mahd, int maban){
+        int check = 0;
+        try{
+            String sql;
+            sql = "Delete From chitiethd Where MaMon = '"+mamon+"' AND MaHoaDon = '"+mahd+"'";
+            Statement st = cn.createStatement();
+            st.executeUpdate(sql);
+            check = 1;
+            if(CheckDsMon(mahd, maban) == 0){
+                check = 2;
+            }
+        }catch(SQLException ex){
+            
+        }
+        return check;
+    }
+                public int CheckDsMon(int mahd, int maban){
+        String sql;
+        int dem = 0;
+            sql = "Select * From hoadon AS hd INNER JOIN chitiethd AS ct ON ct.MaHoaDon = hd.MaHoaDon Where MaBan = '"+maban+"' AND ct.MaHoaDon = '"+mahd+"' AND TrangThai = 0";
+        try{
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                dem++;
+            }
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Không lấy được danh sách hóa đơn !");
+        }
+        return dem;        
+    }
 }
