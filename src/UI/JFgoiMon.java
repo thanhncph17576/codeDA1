@@ -27,6 +27,7 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -59,14 +60,16 @@ public final class JFgoiMon extends javax.swing.JPanel {
         jpThongTinThanhToan.setVisible(false);
         jScrollPane1.setVisible(false);
         arrhd = dao.goiMon(maban);
+        //System.out.println(dao.goiMon(maban).getMaHoaDon());
         
         
         if (arrhd != null) {
-            dao.getDSOrder(arrhd.getMaHoaDon());
+            order =  dao.getDSOrder(arrhd.getMaHoaDon());
             fillDsMon(0);
             MaHD = arrhd.getMaHoaDon();
+            System.out.println(MaHD);
             lblgioden.setText(df.format(arrhd.getGioDen()));
-            System.out.println(arrhd.getGioDen());
+            //System.out.println(arrhd.getGioDen());
         }
         lbltrangthai.setText(trangthai);
         lblTenBan.setText(tenban);
@@ -89,7 +92,7 @@ public final class JFgoiMon extends javax.swing.JPanel {
             thucdon.tenban = TenBan;
             thucdon.maban = maban;
             jpthucdon.removeAll();
-            jpthucdon.add(jLabel1);
+            jpthucdon.add(thucdon);
             jpthucdon.updateUI();
         }
     }
@@ -422,7 +425,7 @@ public final class JFgoiMon extends javax.swing.JPanel {
     }
     
     private void HuyHD(){
-//        
+        
 //        JButton btnhuy = new JButton("Hủy bàn");
 //        btnhuy.setPreferredSize(new Dimension(100, 40));
 //        btnhuy.setBounds(100, 50, 100, 40);
@@ -435,15 +438,17 @@ public final class JFgoiMon extends javax.swing.JPanel {
 //                Ban b = new Ban();
 //                b.setTrangThai("Trống");
 //                b.setMaBan(MaBan);
-//                ao.UpDateTrangThaiBan(b);
+//                b.setTenBan(TenBan);
+//                banDao.update(b);
 //
 //                JFbanHang.bh.FillBan();
 //                JFgoiMon.gm.removeAll();
-////                jpBanHang.bh.fillLb();
+//                JFbanHang.bh.fillLb();
+//                System.out.println(MaHD+"");
 //
-//                HoaDon hd = new HoaDon();
-//                hd.setMaHoaDon(MaHD);
-//                dao.delete(hd);
+////                HoaDon hd = new HoaDon();
+////                hd.setMaHoaDon(MaHD);
+//                //dao.delete(MaHD+"");
 //            }
 //        });
 //        jpDsMon.add(btnhuy);
@@ -452,10 +457,11 @@ public final class JFgoiMon extends javax.swing.JPanel {
     public void fillDsMon(int mahd){
         if(mahd != 0){
             order = cn.GetDsOrder(mahd);
-//            arrhd = cn.GetHDbyMaBan(MaBan);
+            arrhd = cn.GetHDbyMaBan(MaBan);
             tienmon = 0;
         }
         mahd = MaHD;
+        //System.out.println(mahd);
         if(order != null){
             jpDsMon.setVisible(true);
             jpThongTinThanhToan.setVisible(true);
@@ -483,6 +489,7 @@ public final class JFgoiMon extends javax.swing.JPanel {
                 JLabel lbl = new JLabel("", ic,JLabel.CENTER);
                 lbl.setForeground(Color.decode("#b3ff99"));
                 lbl.setName(order.get(i).getMaMon());
+                //System.out.println(order.get(i).getMaMon());
                 pn[i].add(lbl).addMouseListener(new MouseAdapter() {
                   @Override
                     public void mouseClicked(MouseEvent e){
