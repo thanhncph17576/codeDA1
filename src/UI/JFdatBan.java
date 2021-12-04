@@ -463,12 +463,17 @@ public class JFdatBan extends javax.swing.JPanel {
     }//GEN-LAST:event_tbldatBanMouseClicked
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        String p_sdt = "0[0-9]{9}";
         if (tfTenkhach.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Tên khách không được để trống !");
             return;
         }
         if (tfSDT.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Số ĐT không được để trống !");
+            return;
+        }if (tfSDT.getText().matches(p_sdt) == false) {
+            JOptionPane.showMessageDialog(this, "Sđt không đúng định dạng");
+            tfSDT.requestFocus();
             return;
         }
         Date ngay = dateChooser3.getSelectedDate().getTime();
