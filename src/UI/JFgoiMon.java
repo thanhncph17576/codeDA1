@@ -619,7 +619,8 @@ public final class JFgoiMon extends javax.swing.JPanel {
     }//GEN-LAST:event_btndatbanActionPerformed
 
     private void jpThongTinThanhToanMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpThongTinThanhToanMousePressed
-        
+        JFgiamGia giam = new JFgiamGia(RUN.QLTS, true, MaHD, TenBan, tienmon);
+        giam.setVisible(true);        
     }//GEN-LAST:event_jpThongTinThanhToanMousePressed
 
     private void btnthugonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthugonActionPerformed
