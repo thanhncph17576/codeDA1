@@ -220,7 +220,7 @@ public class JFquanLy_ban extends javax.swing.JPanel {
     private void bntSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSuaActionPerformed
         int select=tbBan.getSelectedRow();
         if(select<0){
-            JOptionPane.showMessageDialog(null, "Bạn chưa chọn bàn nào !");
+            Messages.alert(this, "Bạn chưa chọn bàn nào?");
         }else{
             int MaBan = (int) tbBan.getValueAt(select, 0);
             JFquanLy_ban_sua sua = new JFquanLy_ban_sua(RUN.QLTS,true, MaBan);
@@ -232,7 +232,7 @@ public class JFquanLy_ban extends javax.swing.JPanel {
         int[] selectedRows = tbBan.getSelectedRows();
 
         if (selectedRows.length <= 0) {
-            Messages.alert(this, "Bạn chưa chọn bàn ");
+            Messages.alert(this, "Bạn chưa chọn bàn nào? ");
         } else {
             ArrayList<Integer> ListMaBan = new ArrayList<Integer>();
             String sp = "";
@@ -243,7 +243,7 @@ public class JFquanLy_ban extends javax.swing.JPanel {
 
                 sp += tenban + "\n";
             }
-        int nutbam = JOptionPane.showConfirmDialog(new JFrame(), "bạn chắc chắn xóa?", "Trà sữa Goky", JOptionPane.YES_NO_OPTION);
+        int nutbam = JOptionPane.showConfirmDialog(new JFrame(), "Bạn chắc chắn xóa?", "Trà sữa Goky", JOptionPane.YES_NO_OPTION);
         if (nutbam == JOptionPane.YES_OPTION) {
             int cacdong[] = tbBan.getSelectedRows();
             for (int i = 0; i < cacdong.length; i++) {
