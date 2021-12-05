@@ -11,38 +11,35 @@ import Helper.JDBC;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JTextField;
 
 /**
  *
  * @author ADMIN
  */
 public class datBanDAO extends DAO<datBan, String>{
-    String INSERT_SQL = "insert into banDat (MaBan,TenKhach,SDT,GioDat,ThoiGian) values (?,?,?,?,?)";
-    String UPDATE_SQL = "update banDat set MaBan = ?, TenKhach = ?, SDT = ?, GioDat = ?, ThoiGian = ? where MaBanDat = ?";
-    String DELETE_SQL = "delete from banDat where MaBanDat = ?";
+    String INSERT_SQL = "insert into banDat (TenKhach,SDT,ghichu) values (?,?,?)";
+    String UPDATE_SQL = "update banDat set TenKhach = ?, SDT = ?, Ghichu = ? where maban = ?";
+    String DELETE_SQL = "delete from banDat where maban = ?";
     String SELECT_ALL_SQL = "select * from banDat";
     String SELECT_BY_ID_SQL = "select * from banDat where MaBanDat = ?";
     @Override
     public void insert(datBan entity) {
         JDBC.update(INSERT_SQL, 
-                entity.getMaBan(),
                 entity.getTenKhach(),
                 entity.getSDT(),
-                entity.getGiodat(),
-                entity.getThoiGian());
+                entity.getGhichu());
+
     }
 
     @Override
     public void update(datBan entity) {
         JDBC.update(UPDATE_SQL, 
-                 entity.getMaBan(),
                  entity.getTenKhach(),
                  entity.getSDT(),
-                 entity.getGiodat(),
-                 entity.getThoiGian(),
-                 entity.getMaDatBan());
+                 entity.getGhichu(),
+                 entity.getMaban());
     }
-
     @Override
     public void delete(String id) {
        JDBC.update(DELETE_SQL, id);
@@ -68,12 +65,10 @@ public class datBanDAO extends DAO<datBan, String>{
             ResultSet rs = JDBC.query(sql, args);
             while(rs.next()){
                 datBan b = new datBan();
-                b.setMaDatBan(rs.getInt("MaBanDat"));
-                b.setMaBan(rs.getInt("MaBan"));
                 b.setTenKhach(rs.getString("TenKhach"));
                 b.setSDT(rs.getString("SDT"));
-                b.setGiodat(rs.getDate("GioDat"));
-                b.setThoiGian(rs.getTime("ThoiGian"));
+                b.setGhichu(rs.getString("ghichu"));
+
                 list.add(b);
             }
             rs.getStatement().getConnection().close();

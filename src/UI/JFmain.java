@@ -48,32 +48,7 @@ public final class JFmain extends javax.swing.JFrame {
     SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss_a");
     public class Clock extends Thread{ 
     public Clock(){    } 
-    @Override
-    public void run(){ 
-        while(true){    
-            int banDat=0, banPhucVu=0;
-            List<Ban> list = banDao.selectAll();
-            for(int i = 0;i<list.size();i++){
-                if(list.get(i).getTrangThai().equals("Đang phục vụ")){
-                    banPhucVu++;
-                }
-                if(list.get(i).getTrangThai().equals("Đã đặt trước")){
-                    banDat++;
-                }            
-            } 
-            lblpv.setText(+banPhucVu+" bàn đang phục vụ");
-            lbldat.setText(+banDat+" bàn đặt trước");
-            Calendar calendar = Calendar.getInstance();                
-            String str;  
-            str= sdf.format(calendar.getTime()); 
-            lbltime.setText(str); 
-        try{ 
-            sleep(1000); 
-          } catch(Exception e){ 
-             System.out.println(e); 
-            } 
-      } 
-    }
+
     }
     JFmain.MP3 mp3;
     JFsetting set;
