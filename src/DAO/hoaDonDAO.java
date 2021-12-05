@@ -36,8 +36,7 @@ public class hoaDonDAO extends DAO<HoaDon, String> {
     @Override
     public void update(HoaDon entity) {
         JDBC.update(UPDATE_SQL, 
-                entity.getGiamGia(), entity.getMaBan(), entity.getGioDen(),
-                entity.getTongTien(), entity.getTrangThai(), entity.getMaHoaDon());
+                entity.getGiamGia(), entity.getMaHoaDon());
     }
 
     @Override
