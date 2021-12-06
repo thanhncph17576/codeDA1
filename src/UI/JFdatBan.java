@@ -495,9 +495,18 @@ public class JFdatBan extends javax.swing.JPanel {
             daodatBan.insert(d);
             fillTable();
             JOptionPane.showMessageDialog(this, "Thêm thành công !");
+            banDAO banDAO = new banDAO();
+            Ban ban = new Ban();
+            ban.setMaBan(MaBan);
+            ban.setTenBan("Bàn " +MaBan );
+            ban.setTrangThai("Đã đặt trước");
+            banDAO.update(ban);
+            JFbanHang b = new JFbanHang();
+            b.updateUI();
         } catch (ParseException ex) {
             Logger.getLogger(JFdatBan.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
