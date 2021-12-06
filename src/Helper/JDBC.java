@@ -25,7 +25,7 @@ import javax.swing.JOptionPane;
  */
 public class JDBC {
     static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    static String dburl = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyTraSua1111";
+    static String dburl = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyTraSua10";
     static String user = "sa";
     static String pass = "123456";
 
@@ -95,7 +95,7 @@ public class JDBC {
     public JDBC(){
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String url = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyTraSua1111";
+            String url = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyTraSua10";
             String s = System.getProperty("os.name");
             if(s.contains("Windows")){
                 cn = DriverManager.getConnection(url, "sa", "123456");
