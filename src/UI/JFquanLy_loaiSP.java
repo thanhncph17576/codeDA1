@@ -265,6 +265,8 @@ public class JFquanLy_loaiSP extends javax.swing.JPanel {
                     daoLoai.delete(maloaisp);
                     JOptionPane.showMessageDialog(null, "Xóa thành công <3");
                     fillTable();
+                    JFquanLy_SP.sp.fillCbb();
+                    JFquanLy_SP.sp.updateUI();
                 }
             }
         }
@@ -275,7 +277,7 @@ public class JFquanLy_loaiSP extends javax.swing.JPanel {
         // TODO add your handling code here:
         List<loaiSanPham> arrTable = daoLoai.searchLoai(txttim.getText());
         DefaultTableModel tbmodel = new DefaultTableModel();
-    if(arrTable != null){
+        if (arrTable != null) {
             tbmodel.addColumn("Mã loại");
             tbmodel.addColumn("Tên loại");
             tbmodel.addColumn("Màu sắc");
@@ -283,14 +285,14 @@ public class JFquanLy_loaiSP extends javax.swing.JPanel {
             int soloai = 0;
             for (loaiSanPham x : arrTable) {
                 soloai++;
-                tbmodel.addRow(new Object[]{x.getMaLoaiSP(), x.getTenLoaiSP(),x.getMauSac()});
+                tbmodel.addRow(new Object[]{x.getMaLoaiSP(), x.getTenLoaiSP(), x.getMauSac()});
             }
             tbNhomMon.setModel(tbmodel);
-            for(int i = 0; i < tbNhomMon.getColumnCount();i++){
+            for (int i = 0; i < tbNhomMon.getColumnCount(); i++) {
                 Class<?> col = tbNhomMon.getColumnClass(i);
                 tbNhomMon.setDefaultEditor(col, null);
             }
-    }
+        }
     }//GEN-LAST:event_txttimKeyReleased
 
 

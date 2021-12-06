@@ -57,6 +57,8 @@ public class JFquanLy_loaiSP_sua extends javax.swing.JDialog {
         daoLoaiSp.update(lsp);
         JFquanLy_loaiSP.loaisp.fillTable();
         JFquanLy_loaiSP.loaisp.updateUI();
+        JFquanLy_SP.sp.fillCbb();
+        JFquanLy_SP.sp.updateUI();
         JOptionPane.showMessageDialog(null, "Sửa thành công !");
         this.dispose();
         

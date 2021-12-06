@@ -361,8 +361,8 @@ public class JFquanLy_SP extends javax.swing.JPanel {
     }//GEN-LAST:event_bntXoaActionPerformed
 
     private void cbbNhomMonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbNhomMonItemStateChanged
-        JFquanLy_loaiSP.loaisp.fillTable();
-        JFquanLy_loaiSP.loaisp.updateUI();
+//        JFquanLy_loaiSP.loaisp.fillTable();
+//        JFquanLy_loaiSP.loaisp.updateUI();
     }//GEN-LAST:event_cbbNhomMonItemStateChanged
 
     private void txttimKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttimKeyReleased
