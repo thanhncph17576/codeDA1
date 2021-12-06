@@ -15,26 +15,27 @@ import javax.swing.colorchooser.ColorSelectionModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-
 /**
  *
  * @author ThangIKCU
  */
 public class JFquanLy_loaiSP_them extends javax.swing.JDialog {
+
     loaiSanPhamDAO daoLoai = new loaiSanPhamDAO();
+
     public JFquanLy_loaiSP_them(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
+
         ColorSelectionModel model = chonmau.getSelectionModel();
         ChangeListener changeListener = new ChangeListener() {
             public void stateChanged(ChangeEvent changeEvent) {
                 Color cl = chonmau.getColor();
                 String hex = String.format("#%06x", cl.getRGB() & 0x00FFFFFF);
-                jpchonmau.setBackground(Color.decode(hex));                
+                jpchonmau.setBackground(Color.decode(hex));
             }
         };
-        model.addChangeListener(changeListener);        
+        model.addChangeListener(changeListener);
     }
 
     /**
@@ -188,30 +189,32 @@ public class JFquanLy_loaiSP_them extends javax.swing.JDialog {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        if(txtTenLoai.getText().isEmpty()){
+        if (txtTenLoai.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Tên loại không được để trống!");
             txtTenLoai.requestFocus();
             return;
         }
-        
+
         Color cl = chonmau.getColor();
         String hex = String.format("#%06x", cl.getRGB() & 0x00FFFFFF);
-        
-        if("#ffffff".equals(hex)){
+
+        if ("#ffffff".equals(hex)) {
             JOptionPane.showMessageDialog(null, "Bạn cần chọn màu sắc hiển thị!");
             return;
         }
         loaiSanPham loaiSP = new loaiSanPham();
         loaiSP.setTenLoaiSP(txtTenLoai.getText());
         loaiSP.setMauSac(hex);
-        
+
         try {
             daoLoai.insert(loaiSP);
             JOptionPane.showMessageDialog(null, "Thêm thành công !");
-            
+
             this.dispose();
             JFquanLy_loaiSP.loaisp.fillTable();
             JFquanLy_loaiSP.loaisp.updateUI();
+            JFquanLy_SP.sp.fillCbb();
+            JFquanLy_SP.sp.updateUI();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Thêm thất bại !");
         }
