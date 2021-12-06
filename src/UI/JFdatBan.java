@@ -505,8 +505,14 @@ public class JFdatBan extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Tên khách không được để trống !");
             return;
         }
+        String p_sdt = "0[0-9]{9}";
         if (tfSDT.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Số ĐT không được để trống !");
+            JOptionPane.showMessageDialog(null, "Số điện thoại không được để trống !");
+            return;
+        }
+        if(tfSDT.getText().matches(p_sdt) == false){
+            JOptionPane.showMessageDialog(null, "Số điện thoại không đúng định dạng !");
+            tfSDT.requestFocus();
             return;
         }
         int select = tbldatBan.getSelectedRow();
