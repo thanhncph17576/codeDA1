@@ -109,20 +109,20 @@ public class sanphamDAO extends DAO<SanPham, String> {
     public ArrayList<DsOrder> GetHdByDate(String d1, String d2, int maMon) {
         ArrayList<DsOrder> listhdct = null;
         String sql;
-        String ma = null;
+        
         if(d1.equals(d2))
-            sql = "Select ct.MaMon, TenMon, DVT, SoLuong, Gia, ct.MaHoaDon From chitiethd AS ct INNER JOIN thucdon AS td ON ct.MaMon = td.MaMon INNER JOIN hoadon AS hd ON hd.MaHoaDon = ct.MaHoaDon Where ct.MaHoaDon = '"+ma+"' AND hd.GioDen >= '"+d1+"'";
+            sql = "Select Gia, SoLuong, TenMon, DVT From chitiethd AS ct INNER JOIN hoadon AS hd ON ct.MaHoaDon = hd.MaHoaDon INNER JOIN SanPham AS td ON td.MaMon = ct.MaMon Where hd.TrangThai = 1 AND hd.NgayDen >= '"+d1+"' AND ct.MaMon ='"+maMon+"'";
             else
-            sql = "Select ct.MaMon, TenMon, DVT, SoLuong, Gia, ct.MaHoaDon From chitiethd AS ct INNER JOIN thucdon AS td ON ct.MaMon = td.MaMon INNER JOIN hoadon AS hd ON hd.MaHoaDon = ct.MaHoaDon Where ct.MaHoaDon = '"+ma+"' AND hd.GioDen BETWEEN '"+d1+"' AND '"+d2+"'";
+            sql = "Select Gia, SoLuong, TenMon, DVT From chitiethd AS ct INNER JOIN hoadon AS hd ON ct.MaHoaDon = hd.MaHoaDon INNER JOIN SanPham AS td ON td.MaMon = ct.MaMon Where hd.TrangThai = 1 AND hd.NgayDen BETWEEN '"+d1+"' AND '"+d2+"' AND ct.MaMon ='"+maMon+"'";
         try{
-            ResultSet rs = JDBC.query(sql, maMon);
+            ResultSet rs = JDBC.query(sql);
             listhdct = new ArrayList<DsOrder>();
             while(rs.next()){
-                DsOrder order = new DsOrder(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6));
+                DsOrder order = new DsOrder(rs.getString(3), null, rs.getString(4), rs.getInt(1), rs.getInt(2), 0);
                 listhdct.add(order);
             }
         }catch(Exception ex){
-          JOptionPane.showMessageDialog(null, "Không lấy được danh sách chi tiết hoa đơn !"+ex.toString());
+          throw new RuntimeException(ex);
         }
         return listhdct; 
     }
