@@ -8,6 +8,7 @@ package UI;
 import DAO.banDAO;
 import Entity.Ban;
 import Helper.Messages;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -21,9 +22,9 @@ public class JFquanLy_ban_sua extends javax.swing.JDialog {
         initComponents();
         maban = ma;
         List<Ban> l = dao.selectAll();
-        Ban b = dao.selectByID(maban+"");
+        Ban b = dao.selectByID(maban + "");
         //txttenban.setText(b.getTenBan());
-        lblten.setText("Sửa bàn - " +b.getTenBan());
+        lblten.setText("Sửa bàn - " + b.getTenBan());
         trangthai = "Trống";
     }
 
@@ -140,23 +141,34 @@ public class JFquanLy_ban_sua extends javax.swing.JDialog {
 
     private void btnXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanActionPerformed
         if (txttenban.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Tên bàn không được để trống !");
+            Messages.alert(this, "Bạn chưa chọn bàn!");
             return;
         }
+//        if (reset == 0) {
+//            for (Ban x : list) {
+//                if (x.getTenBan().equalsIgnoreCase(txttenban.getText())) {
+//                    JOptionPane.showMessageDialog(this, "Mã không được trùng");
+//                    txttenban.requestFocus();
+//                    check = 1;
+//                    return;
+//                }
+//            }
+//        }
         Ban b = new Ban();
         b.setTenBan("Bàn " + txttenban.getText());
         b.setMaBan(maban);
         b.setTrangThai(trangthai);
-        dao.update(b);
-        Messages.alert(this, "Sửa thành công!");
-        JFquanLy_ban.B.FillTable();
-        JFquanLy_ban.B.updateUI();
-//        try {
-//            JFbanHang.bh.FillBan();
-//            JFbanHang.bh.updateUI();
-//        } catch (Exception e) {
-//
-//        }
+        try {
+            dao.update(b);
+            Messages.alert(this, "Sửa thành công!");
+            JFquanLy_ban.B.FillTable();
+            JFquanLy_ban.B.updateUI();
+            JFbanHang.bh.FillBan();
+            JFbanHang.bh.updateUI();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         this.dispose();
     }//GEN-LAST:event_btnXacNhanActionPerformed
 
@@ -165,11 +177,11 @@ public class JFquanLy_ban_sua extends javax.swing.JDialog {
     }//GEN-LAST:event_btnhuyActionPerformed
 
     private void txttenbanKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttenbanKeyReleased
-        try{
+        try {
             Integer.parseInt(txttenban.getText());
-        }catch(Exception e){
+        } catch (Exception e) {
             txttenban.setText(tenban);
-        }  
+        }
     }//GEN-LAST:event_txttenbanKeyReleased
 
     /**

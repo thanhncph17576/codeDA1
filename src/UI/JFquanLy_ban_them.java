@@ -9,6 +9,8 @@ import DAO.banDAO;
 import Entity.Ban;
 import javax.swing.JOptionPane;
 import Helper.Messages;
+import java.util.ArrayList;
+import java.util.List;
 
 
 
@@ -140,6 +142,16 @@ public class JFquanLy_ban_them extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Tên bàn không được để trống !");
             return;
         }
+//        }if (reset == 0) {
+//            for (Ban x : list) {
+//                if (x.getTenBan().equalsIgnoreCase(txtTenBan.getText())) {
+//                    JOptionPane.showMessageDialog(this, "Mã không được trùng");
+//                    txtTenBan.requestFocus();
+//                    check = 1;
+//                    return;
+//                }
+//            }
+//        }
         Ban b = new Ban();
         b.setTenBan("Bàn "+txtTenBan.getText());
         b.setTrangThai("Trống");
