@@ -82,6 +82,13 @@ public class JFdatBan extends javax.swing.JPanel {
         }
 
     }
+    void reset(){
+        tfTenkhach.setText("");
+        tfSDT.setText("");
+        cboSoban.setSelectedItem("1");
+        cbxHours.setSelectedItem("7");
+        cbxMinute.setSelectedItem("0");
+    }
 
     public void treckvadidate() {
         String p_sdt = "0[0-9]{9}";
@@ -471,7 +478,8 @@ public class JFdatBan extends javax.swing.JPanel {
         if (tfSDT.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Số ĐT không được để trống !");
             return;
-        }if (tfSDT.getText().matches(p_sdt) == false) {
+        }
+        if (tfSDT.getText().matches(p_sdt) == false) {
             JOptionPane.showMessageDialog(this, "Sđt không đúng định dạng");
             tfSDT.requestFocus();
             return;
@@ -501,24 +509,25 @@ public class JFdatBan extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        if (tfTenkhach.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Tên khách không được để trống !");
-            return;
-        }
-        String p_sdt = "0[0-9]{9}";
-        if (tfSDT.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Số điện thoại không được để trống !");
-            return;
-        }
-        if(tfSDT.getText().matches(p_sdt) == false){
-            JOptionPane.showMessageDialog(null, "Số điện thoại không đúng định dạng !");
-            tfSDT.requestFocus();
-            return;
-        }
+
         int select = tbldatBan.getSelectedRow();
         if (select < 0) {
             JOptionPane.showMessageDialog(null, "Bạn chưa chọn bàn đặt nào !");
         } else {
+            if (tfTenkhach.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Tên khách không được để trống !");
+                return;
+            }
+            String p_sdt = "0[0-9]{9}";
+            if (tfSDT.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Số điện thoại không được để trống !");
+                return;
+            }
+            if (tfSDT.getText().matches(p_sdt) == false) {
+                JOptionPane.showMessageDialog(null, "Số điện thoại không đúng định dạng !");
+                tfSDT.requestFocus();
+                return;
+            }
             int maBanDat = (int) tbldatBan.getValueAt(select, 0);
             Date ngay = dateChooser3.getSelectedDate().getTime();
             String s1 = String.format("%1$tY-%1$tm-%1$td", ngay);
@@ -540,6 +549,7 @@ public class JFdatBan extends javax.swing.JPanel {
                 daodatBan.update(d);
                 fillTable();
                 JOptionPane.showMessageDialog(this, "Sửa thành công !");
+                reset();
             } catch (ParseException ex) {
                 Logger.getLogger(JFdatBan.class.getName()).log(Level.SEVERE, null, ex);
             }
