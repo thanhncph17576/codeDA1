@@ -502,7 +502,21 @@ public class JFdatBan extends javax.swing.JPanel {
             d.setThoiGian(java.sql.Time.valueOf(time));
             daodatBan.insert(d);
             fillTable();
+            
+            
+            banDAO banDAO = new banDAO();
+            Ban ban = new Ban();
+            //JFmain main = new JFmain();
+
+            ban.setMaBan(MaBan);
+            System.out.println(MaBan);
+            ban.setTenBan("Bàn " +MaBan );
+            ban.setTrangThai("Đã đặt trước");
+            banDAO.update(ban);
+            JFbanHang.bh.FillBan();
+            JFbanHang.bh.updateUI();
             JOptionPane.showMessageDialog(this, "Thêm thành công !");
+            JFmain.main.reloadPanel(2);
         } catch (ParseException ex) {
             Logger.getLogger(JFdatBan.class.getName()).log(Level.SEVERE, null, ex);
         }
