@@ -14,19 +14,19 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
-
-
 public class JFquanLy_ban extends javax.swing.JPanel {
-    banDAO dao =new banDAO();
+
+    banDAO dao = new banDAO();
     public static JFquanLy_ban B;
+
     public JFquanLy_ban() {
         initComponents();
         B = this;
         FillTable();
-        
+
     }
-     public void FillTable() {
+
+    public void FillTable() {
         DefaultTableModel model = (DefaultTableModel) tbBan.getModel();
         model.setRowCount(0);
         List<Ban> arrTable = dao.selectAll();
@@ -42,16 +42,17 @@ public class JFquanLy_ban extends javax.swing.JPanel {
                 soban++;
                 tbmodel.addRow(new Object[]{b.getMaBan(), b.getTenBan(), b.getTrangThai()});
             }
-            lblthongtin.setText(String.valueOf(soban)+" bàn");
+            lblthongtin.setText(String.valueOf(soban) + " bàn");
         } else {
             JOptionPane.showMessageDialog(null, "Không có bàn nào");
         }
         tbBan.setModel(tbmodel);
-        for(int i = 0; i < tbBan.getColumnCount();i++){
+        for (int i = 0; i < tbBan.getColumnCount(); i++) {
             Class<?> col = tbBan.getColumnClass(i);
             tbBan.setDefaultEditor(col, null);
-        }        
+        }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -218,12 +219,12 @@ public class JFquanLy_ban extends javax.swing.JPanel {
     }//GEN-LAST:event_bntThemActionPerformed
 
     private void bntSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSuaActionPerformed
-        int select=tbBan.getSelectedRow();
-        if(select<0){
+        int select = tbBan.getSelectedRow();
+        if (select < 0) {
             Messages.alert(this, "Bạn chưa chọn bàn nào?");
-        }else{
+        } else {
             int MaBan = (int) tbBan.getValueAt(select, 0);
-            JFquanLy_ban_sua sua = new JFquanLy_ban_sua(RUN.QLTS,true, MaBan);
+            JFquanLy_ban_sua sua = new JFquanLy_ban_sua(RUN.QLTS, true, MaBan);
             sua.setVisible(true);
         }
     }//GEN-LAST:event_bntSuaActionPerformed
@@ -243,23 +244,27 @@ public class JFquanLy_ban extends javax.swing.JPanel {
 
                 sp += tenban + "\n";
             }
-        int nutbam = JOptionPane.showConfirmDialog(new JFrame(), "Bạn chắc chắn xóa?", "Trà sữa Goky", JOptionPane.YES_NO_OPTION);
-        if (nutbam == JOptionPane.YES_OPTION) {
-            int cacdong[] = tbBan.getSelectedRows();
-            for (int i = 0; i < cacdong.length; i++) {
-                String MaPhong = tbBan.getValueAt(cacdong[i], 0).toString();
+            int nutbam = JOptionPane.showConfirmDialog(new JFrame(), "Bạn chắc chắn xóa?", "Trà sữa Goky", JOptionPane.YES_NO_OPTION);
+            if (nutbam == JOptionPane.YES_OPTION) {
+                int cacdong[] = tbBan.getSelectedRows();
+                for (int i = 0; i < cacdong.length; i++) {
+                    String MaPhong = tbBan.getValueAt(cacdong[i], 0).toString();
                     dao.delete(MaPhong);
                     FillTable();
-                
 
+                }
             }
+
         }
-        }
+        JFquanLy_ban.B.FillTable();
+        JFquanLy_ban.B.updateUI();
+        JFbanHang.bh.FillBan();
+        JFbanHang.bh.updateUI();
     }//GEN-LAST:event_bntXoaActionPerformed
 
     private void txttimKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttimKeyReleased
         List<Ban> arrTable = dao.selectByKeyword(txttim.getText());
-        if(arrTable != null){
+        if (arrTable != null) {
             DefaultTableModel tbmodel = new DefaultTableModel();
 
             tbmodel.addColumn("Mã Bàn");
@@ -271,9 +276,9 @@ public class JFquanLy_ban extends javax.swing.JPanel {
                 soban++;
                 tbmodel.addRow(new Object[]{b.getMaBan(), b.getTenBan(), b.getTrangThai()});
             }
-            lblthongtin.setText(String.valueOf(soban)+" bàn");
+            lblthongtin.setText(String.valueOf(soban) + " bàn");
             tbBan.setModel(tbmodel);
-            for(int i = 0; i < tbBan.getColumnCount();i++){
+            for (int i = 0; i < tbBan.getColumnCount(); i++) {
                 Class<?> col = tbBan.getColumnClass(i);
                 tbBan.setDefaultEditor(col, null);
             }
