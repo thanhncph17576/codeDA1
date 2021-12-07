@@ -11,6 +11,7 @@ import Helper.Messages;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 public class JFquanLy_ban_sua extends javax.swing.JDialog {
 
@@ -26,6 +27,14 @@ public class JFquanLy_ban_sua extends javax.swing.JDialog {
         //txttenban.setText(b.getTenBan());
         lblten.setText("Sửa bàn - " + b.getTenBan());
         trangthai = "Trống";
+    }
+    private boolean  checkTrungMa(JTextField txt) {
+        if (dao.selectByID(txttenban.getText()) == null) {
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(this, "Bàn "+txttenban.getText()+ " đã tồn tại.");
+            return false;
+        }
     }
 
     /**
@@ -144,16 +153,7 @@ public class JFquanLy_ban_sua extends javax.swing.JDialog {
             Messages.alert(this, "Bạn chưa chọn bàn!");
             return;
         }
-//        if (reset == 0) {
-//            for (Ban x : list) {
-//                if (x.getTenBan().equalsIgnoreCase(txttenban.getText())) {
-//                    JOptionPane.showMessageDialog(this, "Mã không được trùng");
-//                    txttenban.requestFocus();
-//                    check = 1;
-//                    return;
-//                }
-//            }
-//        }
+        if(checkTrungMa(txttenban)){
         Ban b = new Ban();
         b.setTenBan("Bàn " + txttenban.getText());
         b.setMaBan(maban);
@@ -170,6 +170,7 @@ public class JFquanLy_ban_sua extends javax.swing.JDialog {
         }
 
         this.dispose();
+        }
     }//GEN-LAST:event_btnXacNhanActionPerformed
 
     private void btnhuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhuyActionPerformed
@@ -198,3 +199,4 @@ public class JFquanLy_ban_sua extends javax.swing.JDialog {
     private javax.swing.JTextField txttenban;
     // End of variables declaration//GEN-END:variables
 }
+
