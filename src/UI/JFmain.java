@@ -42,6 +42,7 @@ public final class JFmain extends javax.swing.JFrame {
             btnQuanLy.setEnabled(false);
             btnThongKe.setEnabled(false);
        }
+        btnmute.setVisible(false);
     }
              
     banDAO banDao = new banDAO();
