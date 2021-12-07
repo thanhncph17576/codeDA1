@@ -502,7 +502,21 @@ public class JFdatBan extends javax.swing.JPanel {
             d.setThoiGian(java.sql.Time.valueOf(time));
             daodatBan.insert(d);
             fillTable();
+            
+            banDAO banDAO = new banDAO();
+            Ban ban = new Ban();
+            //JFmain main = new JFmain();
+            
+            ban.setMaBan(MaBan);
+            System.out.println(MaBan);
+            ban.setTenBan("Bàn " +MaBan );
+            ban.setTrangThai("Đã đặt trước");
+            banDAO.update(ban);
+            JFbanHang.bh.FillBan();
+            JFbanHang.bh.updateUI();
             JOptionPane.showMessageDialog(this, "Thêm thành công !");
+            JFmain.main.reloadPanel(2);
+            
         } catch (ParseException ex) {
             Logger.getLogger(JFdatBan.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -549,6 +563,21 @@ public class JFdatBan extends javax.swing.JPanel {
                 daodatBan.update(d);
                 fillTable();
                 JOptionPane.showMessageDialog(this, "Sửa thành công !");
+
+                banDAO banDAO = new banDAO();
+                Ban ban = new Ban();
+                //JFmain main = new JFmain();
+
+                ban.setMaBan(MaBan);
+                System.out.println(MaBan);
+                ban.setTenBan("Bàn " +MaBan );
+                ban.setTrangThai("Đã đặt trước");
+                banDAO.update(ban);
+                JFbanHang.bh.FillBan();
+                JFbanHang.bh.updateUI();
+                JOptionPane.showMessageDialog(this, "Sửa thành công !");
+                JFmain.main.reloadPanel(2);
+
                 reset();
             } catch (ParseException ex) {
                 Logger.getLogger(JFdatBan.class.getName()).log(Level.SEVERE, null, ex);
@@ -557,26 +586,42 @@ public class JFdatBan extends javax.swing.JPanel {
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
-        int[] selectedRows = tbldatBan.getSelectedRows();
-        if (selectedRows.length <= 0) {
+        int selectedRows = tbldatBan.getSelectedRow();
+        if (selectedRows <= 0) {
             Messages.alert(this, "Bạn chưa chọn bàn ");
         } else {
             ArrayList<Integer> ListMaBan = new ArrayList<Integer>();
             String sp = "";
-            for (int i : selectedRows) {
-                int ma = (int) tbldatBan.getValueAt(i, 0);
+            //for (int i : selectedRows) {
+                int ma = (int) tbldatBan.getValueAt(selectedRows, 0);
                 ListMaBan.add(ma);
-                String tenban = (String) tbldatBan.getValueAt(i, 1);
+                String tenban = (String) tbldatBan.getValueAt(selectedRows, 1);
                 sp += tenban + "\n";
-            }
+            //}
             int nutbam = JOptionPane.showConfirmDialog(new JFrame(), "Bạn chắc chắn xóa?", "Trà sữa Goky", JOptionPane.YES_NO_OPTION);
             if (nutbam == JOptionPane.YES_OPTION) {
-                int cacdong[] = tbldatBan.getSelectedRows();
-                for (int i = 0; i < cacdong.length; i++) {
-                    String maban = tbldatBan.getValueAt(cacdong[i], 0).toString();
+                //int cacdong[] = tbldatBan.getSelectedRows();
+                //for (int i = 0; i < cacdong.length; i++) {
+                    String maban = tbldatBan.getValueAt(selectedRows, 0).toString();
                     daodatBan.delete(maban);
                     fillTable();
-                }
+//                    banDAO banDAO = new banDAO();
+//                    Ban ban = new Ban();
+//                    //JFmain main = new JFmain();
+//                    String idBan = tbldatBan.getValueAt(selectedRows, 3).toString();
+//                    System.out.println(idBan);
+//                    ban.setMaBan(Integer.parseInt(idBan));
+//                    System.out.println(idBan);
+//                    ban.setTenBan("Bàn " +idBan );
+//                    ban.setTrangThai("Trống");
+//                    banDAO.update(ban);
+//                    JFbanHang.bh.FillBan();
+//                    JFbanHang.bh.updateUI();
+//                    JOptionPane.showMessageDialog(this, "Thêm thành công !");
+//                    JFmain.main.reloadPanel(2);
+
+                //}
+                
             }
         }
 

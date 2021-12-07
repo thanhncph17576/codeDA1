@@ -202,11 +202,12 @@ sanphamDAO daoSP = new sanphamDAO();
             JOptionPane.showMessageDialog(null, "Tên món không được để trống ?");
             txtTenMon.requestFocus();
             return;
-            }else if(txtTenMon.getText().matches(p_hoten)==false){
-            JOptionPane.showMessageDialog(this, "Tên món không đúng định dạng");
-            txtTenMon.requestFocus();           
-            return;
-        }
+            }
+//        else if(txtTenMon.getText().matches(p_hoten)==false){
+//            JOptionPane.showMessageDialog(this, "Tên món không đúng định dạng");
+//            txtTenMon.requestFocus();           
+//            return;
+//        }
         if (txtGia.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, " Đơn Giá không được để trống!");
             txtGia.requestFocus();
@@ -217,11 +218,12 @@ sanphamDAO daoSP = new sanphamDAO();
             JOptionPane.showMessageDialog(null, "DVT không được để trống!");
             txtdvt.requestFocus();
             return;
-        }else if(txtdvt.getText().matches(p_DVT)==false){
-            JOptionPane.showMessageDialog(this, "DVT không đúng định dạng");
-            txtdvt.requestFocus();           
-            return;
         }
+//        else if(txtdvt.getText().matches(p_DVT)==false){
+//            JOptionPane.showMessageDialog(this, "DVT không đúng định dạng");
+//            txtdvt.requestFocus();           
+//            return;
+//        }
         SanPham spp = new SanPham();
         spp.setTenMon(txtTenMon.getText());
         spp.setDonGia(Integer.parseInt(txtGia.getText()));

@@ -68,7 +68,7 @@ public class hoaDonDAO extends DAO<HoaDon, String> {
                 hd.setMaHoaDon(rs.getInt("MaHoaDon"));
                 hd.setGiamGia(rs.getInt("GiamGia"));
                 hd.setMaBan(rs.getInt("MaBan"));
-                hd.setGioDen(rs.getDate("NgayDen"));
+                hd.setGioDen(rs.getTime("NgayDen"));
                 hd.setTongTien(rs.getInt("TongTien"));
                 hd.setTrangThai(rs.getInt("TrangThai"));
                 list.add(hd);   

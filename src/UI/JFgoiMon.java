@@ -46,6 +46,7 @@ public final class JFgoiMon extends javax.swing.JPanel {
     public static JFgoiMon gm;
     ArrayList<DsOrder> order;
     SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm a");
+    SimpleDateFormat hf = new SimpleDateFormat("HH:mm a");
     
     
     
@@ -67,7 +68,10 @@ public final class JFgoiMon extends javax.swing.JPanel {
             order =  dao.getDSOrder(arrhd.getMaHoaDon());
             fillDsMon(0);
             MaHD = arrhd.getMaHoaDon();
-            System.out.println(MaHD);
+            //Date ngay = arrhd.getGioDen();
+//            String ngay = hf.format(arrhd.getGioDen());
+//            java.sql.Time.valueOf(ngay);
+            System.out.println(arrhd.getGioDen());
             lblgioden.setText(df.format(arrhd.getGioDen()));
             //System.out.println(arrhd.getGioDen());
         }
