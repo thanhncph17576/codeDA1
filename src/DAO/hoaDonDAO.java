@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import Entity.SanPham;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -25,6 +27,8 @@ public class hoaDonDAO extends DAO<HoaDon, String> {
     String DELETE_SQL = "delete from hoadon where MaHoaDon = ?";
     String SELECT_ALL_SQL = "select * from hoadon";
     String SELECT_BY_ID_SQL = "select * from hoadon where MaBan = ? and TrangThai = 0";//lay danh sach
+    
+    SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     
     @Override
     public void insert(HoaDon entity) {
@@ -68,7 +72,10 @@ public class hoaDonDAO extends DAO<HoaDon, String> {
                 hd.setMaHoaDon(rs.getInt("MaHoaDon"));
                 hd.setGiamGia(rs.getInt("GiamGia"));
                 hd.setMaBan(rs.getInt("MaBan"));
-                hd.setGioDen(rs.getTime("NgayDen"));
+                //hd.setGioDen(df.parse(rs.getDate("NgayDen") +" "+ rs.getTime("NgayDen")));
+                String gio = rs.getDate("NgayDen") +" "+ rs.getTime("NgayDen");
+                Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(gio);
+                hd.setGioDen(date);
                 hd.setTongTien(rs.getInt("TongTien"));
                 hd.setTrangThai(rs.getInt("TrangThai"));
                 list.add(hd);   

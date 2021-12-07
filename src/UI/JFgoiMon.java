@@ -69,7 +69,7 @@ public final class JFgoiMon extends javax.swing.JPanel {
             MaHD = arrhd.getMaHoaDon();
             System.out.println(MaHD);
             lblgioden.setText(df.format(arrhd.getGioDen()));
-            //System.out.println(arrhd.getGioDen());
+            System.out.println(arrhd.getGioDen());
         }
         lbltrangthai.setText(trangthai);
         lblTenBan.setText(tenban);
