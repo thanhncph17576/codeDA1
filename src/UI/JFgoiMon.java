@@ -22,8 +22,10 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import static java.nio.file.Files.list;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import static java.util.Collections.list;
 import java.util.Date;
 import java.util.List;
 import javax.swing.BorderFactory;
@@ -570,6 +572,28 @@ public final class JFgoiMon extends javax.swing.JPanel {
             btnthugon.setVisible(false);
             btngoi.setText("Hủy bàn");
             
+            List<Ban> ds = banDao.selectAll();
+            datBanDAO datDAO = new datBanDAO();
+            List<datBan> dat = datDAO.selectAll();
+            Ban goi = banDao.selectByID(MaBan + "");
+            //System.out.println(goi.getTrangThai());
+
+            if (goi.getTrangThai().equals("Đã đặt trước")) {
+                System.out.println("co");
+                int maString = 0;
+                for (datBan b : dat) {
+                    int maDat = b.getMaBan();
+                    if (maDat == MaBan) {
+                        maString = b.getMaDatBan();
+                    }
+                }
+                datDAO.delete(maString + "");
+                JFdatBan.datBan.fillTable();
+                JFdatBan.datBan.reset();
+
+            }
+            
+                        
             String TrangThai = "Đang phục vụ";
             
             Ban c = new Ban();
@@ -578,18 +602,10 @@ public final class JFgoiMon extends javax.swing.JPanel {
             c.setTrangThai(TrangThai);
             banDao.update(c);
             
-            datBanDAO datDAO = new datBanDAO();
-            List<datBan> dat = datDAO.selectAll();
-            int maString = 0;
-            for(datBan x : dat){
-                int maDat = x.getMaBan();
-                if (maDat==MaBan) {
-                    maString = x.getMaDatBan();
-                }
-            }
-            datDAO.delete(maString+"");
-            JFdatBan.datBan.fillTable();
-            JFdatBan.datBan.reset();
+            
+            
+            
+            
             
             JFthucDon thucdon;
             thucdon = new JFthucDon();
