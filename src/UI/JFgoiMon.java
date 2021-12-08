@@ -428,34 +428,31 @@ public final class JFgoiMon extends javax.swing.JPanel {
     }
     
     private void HuyHD(){
-        
-//        JButton btnhuy = new JButton("Hủy bàn");
-//        btnhuy.setPreferredSize(new Dimension(100, 40));
-//        btnhuy.setBounds(100, 50, 100, 40);
-//        jpDsMon.setLayout(null);
-//        btngoi.setVisible(false);
-//        jpThongTinThanhToan.setVisible(false);
-//        btnhuy.addMouseListener(new MouseAdapter() {
-//            @Override
-//            public void mousePressed(MouseEvent e){
-//                Ban b = new Ban();
-//                b.setTrangThai("Trống");
-//                b.setMaBan(MaBan);
-//                b.setTenBan(TenBan);
-//                banDao.update(b);
-//
-//                JFbanHang.bh.FillBan();
-//                JFgoiMon.gm.removeAll();
-//                JFbanHang.bh.fillLb();
-//                System.out.println(MaHD+"");
-//
-////                HoaDon hd = new HoaDon();
-////                hd.setMaHoaDon(MaHD);
-//                dao.delete(MaHD+"");
-//            }
-//        });
-//        jpDsMon.add(btnhuy);
-//        jpDsMon.updateUI();        
+        JButton btnhuy = new JButton("Hủy bàn");
+        btnhuy.setPreferredSize(new Dimension(100, 40));
+        btnhuy.setBounds(100, 50, 100, 40);
+        jpDsMon.setLayout(null);
+        btngoi.setVisible(false);
+        jpThongTinThanhToan.setVisible(false);
+        btnhuy.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e){
+                Ban b = new Ban();
+                b.setTrangThai("Trống");
+                b.setMaBan(MaBan);
+                cn.UpDateTrangThaiBan(b);
+
+                JFbanHang.bh.FillBan();
+                JFgoiMon.gm.removeAll();
+//                jpBanHang.bh.fillLb();
+
+                HoaDon hd = new HoaDon();
+                hd.setMaHoaDon(MaHD);
+                cn.HuyHD(hd);
+            }
+        });
+        jpDsMon.add(btnhuy);
+        jpDsMon.updateUI();      
     }
     public void fillDsMon(int mahd){
         if(mahd != 0){

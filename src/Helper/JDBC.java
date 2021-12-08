@@ -274,4 +274,27 @@ public class JDBC {
         }
         return dem;
     }
+    public int UpDateTrangThaiBan(Ban b) {
+        int update = 0;
+        String sql = "UPDATE ban SET TrangThai = '" + b.getTrangThai() + "' WHERE MaBan = '" + b.getMaBan() + "'";
+        try {
+            Statement st = cn.createStatement();
+            update = st.executeUpdate(sql);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Update trạng thái bàn không thành công !");
+        }
+        return update;
+    }
+
+    public int HuyHD(HoaDon hd) {
+        int update = 0;
+        String sql = "Delete From hoadon WHERE MaHoaDon = '" + hd.getMaHoaDon() + "'";
+        try {
+            Statement st = cn.createStatement();
+            update = st.executeUpdate(sql);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Thanh toán không thành công !");
+        }
+        return update;
+    }
 }
