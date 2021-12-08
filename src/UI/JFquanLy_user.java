@@ -7,10 +7,13 @@ package UI;
 
 import DAO.nhanVienDAO;
 import Entity.nhanVien;
+import Helper.Auth;
+import Helper.Messages;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -22,10 +25,13 @@ import javax.swing.table.DefaultTableModel;
 
 public class JFquanLy_user extends javax.swing.JPanel {
     public static JFquanLy_user nv;
+    int ID;
     public JFquanLy_user() {
         initComponents();
         nv = this;
         FillTable();
+
+        
         
     }
         nhanVienDAO dao = new nhanVienDAO();  
@@ -227,10 +233,10 @@ public void FillTable() {
     }//GEN-LAST:event_bntSuaActionPerformed
 
     private void bntXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntXoaActionPerformed
-               int[] selectedRows = tbBan.getSelectedRows();
+        int[] selectedRows = tbBan.getSelectedRows();
 
         if (selectedRows.length <= 0) {
-            JOptionPane.showMessageDialog(null, "Bạn chưa tài khoản !");
+            JOptionPane.showMessageDialog(null, "Bạn chưa chon tài khoản !");
         } else {
             ArrayList<Integer> ListMaBan = new ArrayList<Integer>();
             String sp = "";
@@ -241,32 +247,27 @@ public void FillTable() {
 
                 sp += tenban + "\n";
             }
-//            int qs;
-//            qs = JOptionPane.showConfirmDialog(null, "Xóa tài khoản: \n " + sp, "Xóa tài khoản", JOptionPane.YES_NO_OPTION);
-//            if (qs == JOptionPane.YES_OPTION) {
-//                boolean xoa = dao.DeleteTaiKhoan(ListMaBan);
-//
-//                if (xoa == true) {
-//                    FillTable();
-// 
-//                }else
-//                JOptionPane.showMessageDialog(null, "Không xóa được tài khoản !");
-//
-//            }
-//        }
-//            
-        int nutbam = JOptionPane.showConfirmDialog(new JFrame(), "bạn chắc chắn xóa?", "xóA", JOptionPane.YES_NO_OPTION);
-        if (nutbam == JOptionPane.YES_OPTION) {
-            int cacdong[] = tbBan.getSelectedRows();
-            for (int i = 0; i < cacdong.length; i++) {
-                String MaPhong = tbBan.getValueAt(cacdong[i], 0).toString();
-                    dao.delete(MaPhong);
-                    FillTable();
-                
 
+            int nutbam = JOptionPane.showConfirmDialog(new JFrame(), "bạn chắc chắn xóa?", "xóA", JOptionPane.YES_NO_OPTION);
+
+            if (nutbam == JOptionPane.YES_OPTION) {
+                int cacdong[] = tbBan.getSelectedRows();
+                for (int i = 0; i < cacdong.length; i++) {
+                    String MaPhong = tbBan.getValueAt(cacdong[i], 0).toString();
+                    if (MaPhong.matches(RUN.nv.getID() + "")) {
+                        JOptionPane.showMessageDialog(null, "Bạn không thể xoá chính bạn!");
+                    } else {
+                        dao.delete(MaPhong);
+                        FillTable();
+                    }
+
+                }
             }
         }
-        }
+
+
+ 
+       
     }//GEN-LAST:event_bntXoaActionPerformed
 
 

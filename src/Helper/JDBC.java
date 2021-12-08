@@ -27,7 +27,7 @@ public class JDBC {
     static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     static String dburl = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyTraSua10";
     static String user = "sa";
-    static String pass = "123456";
+    static String pass = "123";
 
     //Nap Driver
 //    static {
@@ -98,9 +98,9 @@ public class JDBC {
             String url = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyTraSua10";
             String s = System.getProperty("os.name");
             if(s.contains("Windows")){
-                cn = DriverManager.getConnection(url, "sa", "123456");
+                cn = DriverManager.getConnection(url, "sa", "123");
             }else{
-                cn = DriverManager.getConnection(url, "sa", "123456");
+                cn = DriverManager.getConnection(url, "sa", "123");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -266,5 +266,27 @@ public class JDBC {
             JOptionPane.showMessageDialog(null, "Không lấy được danh sách hóa đơn !");
         }
         return dem;        
+    }
+                    public int UpDateTrangThaiBan(Ban b){
+         int update = 0;
+        String sql = "UPDATE ban SET TrangThai = '"+b.getTrangThai()+"' WHERE MaBan = '"+b.getMaBan()+"'";
+        try{
+            Statement st = cn.createStatement();
+            update = st.executeUpdate(sql);
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Update trạng thái bàn không thành công !");
+        }
+        return update;        
+    }
+                        public int HuyHD(HoaDon hd){
+        int update = 0;
+        String sql = "Delete From hoadon WHERE MaHoaDon = '"+hd.getMaHoaDon()+"'";
+        try{
+            Statement st = cn.createStatement();
+            update = st.executeUpdate(sql);
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Thanh toán không thành công !");
+        }
+        return update;        
     }
 }

@@ -35,6 +35,7 @@ public final class JFmain extends javax.swing.JFrame {
         main = this;
         Clock clock= new Clock(); 
         clock.start(); 
+        btnmute.setVisible(false);
         
         txtqtv.setText(RUN.nv.getUserName());
         if(RUN.nv.getLoai()!= 1)
