@@ -6,6 +6,7 @@
 package UI;
 
 import DAO.banDAO;
+import DAO.datBanDAO;
 import java.awt.Color;
 import DAO.hoaDonDAO;
 import Entity.HoaDon;
@@ -14,6 +15,7 @@ import java.text.NumberFormat;
 import Entity.Ban;
 import Entity.DsOrder;
 import Entity.SanPham;
+import Entity.datBan;
 import Helper.JDBC;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -23,6 +25,7 @@ import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.Icon;
@@ -574,6 +577,19 @@ public final class JFgoiMon extends javax.swing.JPanel {
             c.setMaBan(MaBan);
             c.setTrangThai(TrangThai);
             banDao.update(c);
+            
+            datBanDAO datDAO = new datBanDAO();
+            List<datBan> dat = datDAO.selectAll();
+            int maString = 0;
+            for(datBan x : dat){
+                int maDat = x.getMaBan();
+                if (maDat==MaBan) {
+                    maString = x.getMaDatBan();
+                }
+            }
+            datDAO.delete(maString+"");
+            JFdatBan.datBan.fillTable();
+            JFdatBan.datBan.reset();
             
             JFthucDon thucdon;
             thucdon = new JFthucDon();

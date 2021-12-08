@@ -64,11 +64,13 @@ public class JFdatBan extends javax.swing.JPanel {
         tbmodel.addColumn("Thời gian");
 
         for (datBan x : arrTale) {
+            Ban ban = daoB.selectByID(x.getMaBan()+"");
+            String ten = ban.getTenBan();
             tbmodel.addRow(new Object[]{
                 x.getMaDatBan(),
                 x.getTenKhach(),
-                x.getSDT(),
-                x.getMaBan(),
+                x.getSDT(),             
+                ten,
                 x.getGiodat(),
                 x.getThoiGian()
 
@@ -82,7 +84,7 @@ public class JFdatBan extends javax.swing.JPanel {
         }
 
     }
-    void reset(){
+    public void reset(){
         tfTenkhach.setText("");
         tfSDT.setText("");
         cboSoban.setSelectedItem("1");
@@ -490,7 +492,15 @@ public class JFdatBan extends javax.swing.JPanel {
             //lấy từ string sang date
             Date ngay2 = new SimpleDateFormat("yyyy-MM-dd").parse(s1);
             datBan d = new datBan();
-            int MaBan = cboSoban.getSelectedIndex() + 1;
+            //int MaBan = cboSoban.getSelectedIndex() + 1;
+            int MaBan = 0;
+            String tenBan = cboSoban.getSelectedItem()+"";
+            List<Ban> list = daoB.selectAll();
+            for (Ban x : list) {
+                if (x.getTenBan().equals(tenBan)) {
+                    MaBan = x.getMaBan();
+                }
+            }
             d.setMaBan(MaBan);
             d.setSDT(tfSDT.getText());
             d.setTenKhach(tfTenkhach.getText());
@@ -509,8 +519,8 @@ public class JFdatBan extends javax.swing.JPanel {
             //JFmain main = new JFmain();
 
             ban.setMaBan(MaBan);
-            System.out.println(MaBan);
-            ban.setTenBan("Bàn " +MaBan );
+            //System.out.println(MaBan);
+            ban.setTenBan(tenBan);
             ban.setTrangThai("Đã đặt trước");
             banDAO.update(ban);
             JFbanHang.bh.FillBan();
@@ -546,10 +556,35 @@ public class JFdatBan extends javax.swing.JPanel {
             Date ngay = dateChooser3.getSelectedDate().getTime();
             String s1 = String.format("%1$tY-%1$tm-%1$td", ngay);
             try {
+                
                 //lấy từ string sang date
                 Date ngay2 = new SimpleDateFormat("yyyy-MM-dd").parse(s1);
                 datBan d = new datBan();
-                int MaBan = cboSoban.getSelectedIndex() + 1;
+                int MaBan = 0;
+                String tenBan = cboSoban.getSelectedItem()+"";
+                List<Ban> list = daoB.selectAll();
+                for (Ban x : list) {
+                    if (x.getTenBan().equals(tenBan)) {
+                        MaBan = x.getMaBan();
+                    }
+                }
+                banDAO banDAO = new banDAO();
+                Ban ban = new Ban();
+                
+                int MaBanX = 0;
+                String tenBanX = tbldatBan.getValueAt(select, 3)+"";
+                List<Ban> listX = daoB.selectAll();
+                for (Ban x : listX) {
+                    if (x.getTenBan().equals(tenBanX)) {
+                        MaBanX = x.getMaBan();
+                    }
+                }
+                System.out.println(MaBanX);
+                ban.setMaBan(MaBanX);
+                //System.out.println(MaBan);
+                ban.setTenBan(tenBanX);
+                ban.setTrangThai("Trống");
+                banDAO.update(ban);
                 d.setMaBan(MaBan);
                 d.setSDT(tfSDT.getText());
                 d.setTenKhach(tfTenkhach.getText());
@@ -562,8 +597,23 @@ public class JFdatBan extends javax.swing.JPanel {
                 d.setMaDatBan(maBanDat);
                 daodatBan.update(d);
                 fillTable();
+                
+                
+//                JFbanHang.bh.FillBan();
+//                JFbanHang.bh.updateUI();
+                
+                
+                //JFmain main = new JFmain();
+
+                ban.setMaBan(MaBan);
+                //System.out.println(MaBan);
+                ban.setTenBan(tenBan);
+                ban.setTrangThai("Đã đặt trước");
+                banDAO.update(ban);
+                JFbanHang.bh.FillBan();
+                JFbanHang.bh.updateUI();
                 JOptionPane.showMessageDialog(this, "Sửa thành công !");
-                reset();
+                JFmain.main.reloadPanel(2);
             } catch (ParseException ex) {
                 Logger.getLogger(JFdatBan.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -590,6 +640,27 @@ public class JFdatBan extends javax.swing.JPanel {
                     String maban = tbldatBan.getValueAt(cacdong[i], 0).toString();
                     daodatBan.delete(maban);
                     fillTable();
+                    
+                    banDAO banDAO = new banDAO();
+                    Ban ban = new Ban();
+                    
+                    int MaBan = 0;
+                    String tenBan = cboSoban.getSelectedItem()+"";
+                    List<Ban> list = daoB.selectAll();
+                    for (Ban x : list) {
+                        if (x.getTenBan().equals(tenBan)) {
+                            MaBan = x.getMaBan();
+                        }
+                    }
+                    ban.setMaBan(MaBan);
+                    //System.out.println(MaBan);
+                    ban.setTenBan(tenBan);
+                    ban.setTrangThai("Trống");
+                    banDAO.update(ban);
+                    JFbanHang.bh.FillBan();
+                    JFbanHang.bh.updateUI();
+                    JOptionPane.showMessageDialog(this, "Xóa thành công !");
+                    JFmain.main.reloadPanel(2);
                 }
             }
         }
@@ -642,9 +713,10 @@ public class JFdatBan extends javax.swing.JPanel {
         DefaultComboBoxModel model = (DefaultComboBoxModel) cboSoban.getModel();
         model.removeAllElements();
         List<Ban> list = daoB.selectAll();
-        System.out.println(list);
+        //System.out.println(list);
         for (Ban x : list) {
-            model.addElement(x.getMaBan());
+            model.addElement(x.getTenBan());
+            //model.addElement(x.getMaBan());
         }
     }
 }
