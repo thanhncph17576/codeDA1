@@ -93,5 +93,11 @@ public class banDAO extends DAO<Ban, String>{
         String sql = "SELECT * FROM ban WHERE TenBan LIKE ?";
         return this.selectBySQL(sql, "%" + keyword + "%");
             }
+    
+    public Ban findById1(String b){
+     String sql="select * from ban where TenBan = ?";
+     List<Ban> list = selectBySQL(sql, b);
+     return list.size() > 0 ? list.get(0) : null;
+     }
  
 }
