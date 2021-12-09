@@ -28,14 +28,14 @@ public class JFquanLy_ban_sua extends javax.swing.JDialog {
         lblten.setText("Sửa bàn - " + b.getTenBan());
         trangthai = "Trống";
     }
-//    private boolean  checkTrungMa(JTextField txt) {
-//        if (dao.selectByID(txttenban.getText()) == null) {
-//            return true;
-//        } else {
-//            JOptionPane.showMessageDialog(this, "Bàn "+txttenban.getText()+ " đã tồn tại.");
-//            return false;
-//        }
-//    }
+    private boolean  checkTenBan(JTextField txt) {
+        if (dao.findById1("Bàn "+txt.getText()) == null) {
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(this, "Bàn đã tồn tại.");
+            return false;
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -153,7 +153,7 @@ public class JFquanLy_ban_sua extends javax.swing.JDialog {
             Messages.alert(this, "Bạn chưa chọn bàn!");
             return;
         }
-        //if(checkTrungMa(txttenban)){
+        if(checkTenBan(txttenban)){
         Ban b = new Ban();
         b.setTenBan("Bàn " + txttenban.getText());
         b.setMaBan(maban);
@@ -170,7 +170,7 @@ public class JFquanLy_ban_sua extends javax.swing.JDialog {
         }
 
         this.dispose();
-        //}
+        }
     }//GEN-LAST:event_btnXacNhanActionPerformed
 
     private void btnhuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhuyActionPerformed

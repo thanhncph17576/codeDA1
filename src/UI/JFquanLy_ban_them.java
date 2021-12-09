@@ -64,6 +64,11 @@ public class JFquanLy_ban_them extends javax.swing.JDialog {
             }
         });
 
+        txtTenBan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTenBanActionPerformed(evt);
+            }
+        });
         txtTenBan.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtTenBanKeyReleased(evt);
@@ -143,7 +148,7 @@ public class JFquanLy_ban_them extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Tên bàn không được để trống !");
             return;
         }
-        if(checkTrungMa(txtTenBan)){
+        if(checkTenBan(txtTenBan)){
         Ban b = new Ban();
         b.setTenBan("Bàn "+txtTenBan.getText());
         b.setTrangThai("Trống");
@@ -170,6 +175,10 @@ public class JFquanLy_ban_them extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_txtTenBanKeyReleased
 
+    private void txtTenBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTenBanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTenBanActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -184,11 +193,11 @@ public class JFquanLy_ban_them extends javax.swing.JDialog {
     private javax.swing.JTextField txtTenBan;
     // End of variables declaration//GEN-END:variables
 
-    private boolean  checkTrungMa(JTextField txt) {
-        if (dao.selectByID(txtTenBan.getText()) == null) {
+    private boolean  checkTenBan(JTextField txt) {
+        if (dao.findById1("Bàn "+txtTenBan.getText()) == null) {
             return true;
         } else {
-            JOptionPane.showMessageDialog(this, "Bàn "+txtTenBan.getText()+ " đã tồn tại.");
+            JOptionPane.showMessageDialog(this, "Bàn đã tồn tại.");
             return false;
         }
     }

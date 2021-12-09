@@ -251,10 +251,8 @@ public class JFquanLy_ban extends javax.swing.JPanel {
                     String MaPhong = tbBan.getValueAt(cacdong[i], 0).toString();
                     dao.delete(MaPhong);
                     FillTable();
-
                 }
             }
-
         }
         JFquanLy_ban.B.FillTable();
         JFquanLy_ban.B.updateUI();

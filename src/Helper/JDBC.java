@@ -28,7 +28,7 @@ public class JDBC {
     static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     static String dburl = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyTraSua10";
     static String user = "sa";
-    static String pass = "123";
+    static String pass = "123456";
 
     //Nap Driver
 //    static {
@@ -97,9 +97,9 @@ public class JDBC {
             String url = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyTraSua10";
             String s = System.getProperty("os.name");
             if (s.contains("Windows")) {
-                cn = DriverManager.getConnection(url, "sa", "123");
+                cn = DriverManager.getConnection(url, "sa", "123456");
             } else {
-                cn = DriverManager.getConnection(url, "sa", "123");
+                cn = DriverManager.getConnection(url, "sa", "123456");
             }
         } catch (Exception e) {
             e.printStackTrace();
