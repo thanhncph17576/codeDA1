@@ -7,8 +7,11 @@ package UI;
 
 import DAO.nhanVienDAO;
 import Entity.nhanVien;
+import static java.awt.Color.pink;
+import static java.awt.Color.white;
 import javax.swing.JOptionPane;
-import Helper.Messages;
+import javax.swing.JTextField;
+
 
 
 
@@ -148,6 +151,16 @@ public class JFquanLy_user_them extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    public boolean checkTrungTen(JTextField txt) {
+        txt.setBackground(white);
+        if (dao.selectByID(txt.getText()) == null) {
+            return true;
+        } else {
+            txt.setBackground(pink);
+            JOptionPane.showMessageDialog(this, "Bàn đã tồn tại.");
+            return false;
+        }
+    }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if(txtten.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Tên tài khoản không được trống !");
@@ -164,19 +177,19 @@ public class JFquanLy_user_them extends javax.swing.JDialog {
             txtlv.requestFocus();
             return;
         }  
+        if(checkTrungTen(txtten)){
         nhanVien nv = new nhanVien();
         nv.setUserName(txtten.getText());
         nv.setPass(txtpass.getText());
         nv.setLoai(Integer.parseInt(txtlv.getText()));
-        
-//        int in = dao.(tk);
-//        if(in > 0){
+    
             dao.insert(nv);
             JFquanLy_user.nv.FillTable();
             JFquanLy_user.nv.updateUI();
             JOptionPane.showMessageDialog(null, "Thêm thành công");
 
             this.dispose(); 
+        }
 
 //        }
 
