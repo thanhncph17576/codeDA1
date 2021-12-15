@@ -79,25 +79,30 @@ public final class JFgoiMon extends javax.swing.JPanel {
         lbltrangthai.setText(trangthai);
         lblTenBan.setText(tenban);
         if (lbltrangthai.getText().equals("Trống")) {
-            //jpthucdon.removeAll();
+            jpthucdon.removeAll();
             btndatban.setText("Đặt chỗ");
             return;
 
         }
         if (lbltrangthai.getText().equals("Đã đặt trước")) {
-            //jpthucdon.removeAll();
+            jpthucdon.removeAll();
             btndatban.setText("Hủy đặt");
             return;
         }
         if (lbltrangthai.getText().equals("Đang phục vụ")) {
             //jpthucdon.removeAll();
+            //jpthucdon.remove(jLabel1);
             btndatban.setVisible(false);
             btnthugon.setVisible(false);
             JFthucDon thucdon = new JFthucDon();
             thucdon.tenban = TenBan;
             thucdon.maban = maban;
+            //jpthucdon.setVisible(true);
             jpthucdon.removeAll();
+           
+            //jpthucdon.add(jLabel1);
             jpthucdon.add(thucdon);
+            jpthucdon.revalidate();
             jpthucdon.updateUI();
         }
     }
