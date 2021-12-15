@@ -179,4 +179,21 @@ public class hoaDonDAO extends DAO<HoaDon, String> {
         }
         return listhdct; 
     }
+    public ArrayList<HoaDon> getDoanhThuTheoNgay(){
+        String sql = "select CONVERT(VARCHAR,NgayDen,105) as NgayDen, sum(TongTien) as TongTien from hoadon group by CONVERT(VARCHAR,NgayDen,105)";
+        ArrayList<HoaDon> list = null;
+        try {
+            ResultSet rs = JDBC.query(sql);
+            list = new ArrayList<HoaDon>();
+            while (rs.next()) {
+                Date date = new SimpleDateFormat("dd-MM-yyyy").parse(rs.getString("NgayDen"));
+                HoaDon hd = new HoaDon(0, 0, 0, rs.getInt("TongTien"), 0, date);
+                list.add(hd);
+            }
+            rs.getStatement().getConnection().close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return list;
+    }
 }

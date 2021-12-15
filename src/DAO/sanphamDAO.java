@@ -126,4 +126,20 @@ public class sanphamDAO extends DAO<SanPham, String> {
         }
         return listhdct; 
     }
+    public ArrayList<DsOrder> bieuDo(int maMon) {
+        ArrayList<DsOrder> listhdct = null;
+        String sql;             
+            sql = "Select Gia, SoLuong, TenMon, DVT From chitiethd AS ct INNER JOIN hoadon AS hd ON ct.MaHoaDon = hd.MaHoaDon INNER JOIN SanPham AS td ON td.MaMon = ct.MaMon Where hd.TrangThai = 1 AND ct.MaMon ='"+maMon+"'";
+        try{
+            ResultSet rs = JDBC.query(sql);
+            listhdct = new ArrayList<DsOrder>();
+            while(rs.next()){
+                DsOrder order = new DsOrder(rs.getString(3), null, rs.getString(4), rs.getInt(1), rs.getInt(2), 0);
+                listhdct.add(order);
+            }
+        }catch(Exception ex){
+          throw new RuntimeException(ex);
+        }
+        return listhdct; 
+    }
 }
