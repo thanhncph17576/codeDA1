@@ -84,6 +84,7 @@ public final class JFmain extends javax.swing.JFrame {
     JFquanLy quanLy;
     JFthongKe tk;
     JFdatBan datBan;
+    JPchart ve;
     
     
     public void reloadPanel(int i) {
@@ -144,7 +145,12 @@ public final class JFmain extends javax.swing.JFrame {
                 mp3 = new JFmain.MP3 ("src/Sound/kasya.MP3");
                 mp3.play();
                 jpLayout.add(set);
-                break;                
+                break;     
+            case 7: 
+                if (ve==null) {
+                    ve = new JPchart();
+                }
+                jpLayout.add(ve);
             default:
                 break;
         }
