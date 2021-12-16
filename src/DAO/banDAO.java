@@ -99,5 +99,10 @@ public class banDAO extends DAO<Ban, String>{
      List<Ban> list = selectBySQL(sql, b);
      return list.size() > 0 ? list.get(0) : null;
      }
+    
+    public List<Ban> dat(){
+        String sql = "select * from ban where TrangThai = N'Trống'";
+        return this.selectBySQL(sql);
+    }
  
 }

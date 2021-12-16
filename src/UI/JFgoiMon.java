@@ -79,7 +79,7 @@ public final class JFgoiMon extends javax.swing.JPanel {
         lbltrangthai.setText(trangthai);
         lblTenBan.setText(tenban);
         if (lbltrangthai.getText().equals("Trống")) {
-            //jpthucdon.removeAll();
+            jpthucdon.removeAll();
             btndatban.setText("Đặt chỗ");
             return;
 
@@ -90,14 +90,26 @@ public final class JFgoiMon extends javax.swing.JPanel {
             return;
         }
         if (lbltrangthai.getText().equals("Đang phục vụ")) {
-            //jpthucdon.removeAll();
+            jLabel1.setVisible(false);
+            jpthucdon.removeAll();
+            jpthucdon.add(jLabel1);
+            jpthucdon.updateUI();
             btndatban.setVisible(false);
             btnthugon.setVisible(false);
-            JFthucDon thucdon = new JFthucDon();
+            
+            jpthucdon.removeAll();
+            jpthucdon.add(jLabel1);
+            jpthucdon.updateUI();
+            
+            JFthucDon thucdon;
+            thucdon = new JFthucDon();
+            thucdon.maban = MaBan;
             thucdon.tenban = TenBan;
-            thucdon.maban = maban;
+            
+            //thucdon.ngayden = sf.format(date);
             jpthucdon.removeAll();
             jpthucdon.add(thucdon);
+            jpthucdon.revalidate();
             jpthucdon.updateUI();
         }
     }

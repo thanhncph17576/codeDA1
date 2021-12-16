@@ -530,6 +530,7 @@ public class JFdatBan extends javax.swing.JPanel {
         } catch (ParseException ex) {
             Logger.getLogger(JFdatBan.class.getName()).log(Level.SEVERE, null, ex);
         }
+        fillCbb();
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
@@ -618,6 +619,7 @@ public class JFdatBan extends javax.swing.JPanel {
                 Logger.getLogger(JFdatBan.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        fillCbb();
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
@@ -664,7 +666,7 @@ public class JFdatBan extends javax.swing.JPanel {
                 }
             }
         }
-
+        fillCbb();
     }//GEN-LAST:event_btnDelActionPerformed
 
     private void cbxHoursActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxHoursActionPerformed
@@ -681,6 +683,7 @@ public class JFdatBan extends javax.swing.JPanel {
         cboSoban.setSelectedItem("1");
         cbxHours.setSelectedItem("7");
         cbxMinute.setSelectedItem("0");
+        fillCbb();
     }//GEN-LAST:event_btnNewActionPerformed
 
 
@@ -712,10 +715,12 @@ public class JFdatBan extends javax.swing.JPanel {
     private void fillCbb() {
         DefaultComboBoxModel model = (DefaultComboBoxModel) cboSoban.getModel();
         model.removeAllElements();
-        List<Ban> list = daoB.selectAll();
+        List<Ban> list = daoB.dat();
+        System.out.println(list.size());
         //System.out.println(list);
         for (Ban x : list) {
             model.addElement(x.getTenBan());
+            
             //model.addElement(x.getMaBan());
         }
     }
