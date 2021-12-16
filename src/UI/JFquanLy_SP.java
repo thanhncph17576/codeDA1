@@ -32,18 +32,6 @@ public class JFquanLy_SP extends javax.swing.JPanel {
         fillTable();
     }
     sanphamDAO daosp =new sanphamDAO();
-//    public void Fillcbb() {
-//         
-//        Vector Vcbb = (Vector) daosp.selectAll();
-//
-//        if (Vcbb != null) {
-//            DefaultComboBoxModel cbbmodel = new DefaultComboBoxModel(Vcbb);
-//            cbbNhomMon.setModel(cbbmodel);
-//        } else {
-//            JOptionPane.showMessageDialog(null, "Không có nhóm nào !");
-//        }
-//
-//    }  loaiSanPhamDAO daoLoai = new loaiSanPhamDAO();
     sanphamDAO daoSP = new sanphamDAO();
     loaiSanPhamDAO daoLoai =new loaiSanPhamDAO();
     public void fillCbb(){
@@ -57,39 +45,7 @@ public class JFquanLy_SP extends javax.swing.JPanel {
         }
         //fillTable();
     }  
-//    public void fillTable(){
-//        DefaultTableModel mol =(DefaultTableModel)tbBan.getModel();
-//        mol.setRowCount(0);
-//        mol.setColumnCount(0);
-//        List<SanPham> arrTable = daosp.selectAll();
-//        DefaultTableModel tbmodel =new DefaultTableModel();
-//        tbmodel.addColumn("Mã món");
-//        tbmodel.addColumn("Tên món");
-//        tbmodel.addColumn("Mã loại ");
-//        tbmodel.addColumn("Đơn giá");
-//        tbmodel.addColumn("Đơn Vị tính");
-//        if(arrTable != null){
-//           int somon =0;
-//           for(SanPham x : arrTable){
-//            somon ++;
-//            tbmodel.addRow(new Object[]{
-//                x.getMaMon(),
-//                x.getTenMon(),
-//                x.getMaLoai(),
-//                x.getDonGia(),
-//                x.getDVT(),                       
-//            });
-//           }
-//          lblthongtin.setText(String.valueOf(somon)+" sản phẩm");
-//        }else {
-//       JOptionPane.showMessageDialog(null, "Không có sản phẩm ?");
-//        }
-//        tbBan.setModel(tbmodel);
-//        for(int i=0; i < tbBan.getColumnCount(); i++){
-//            Class<?> col = tbBan.getColumnClass(i);
-//            tbBan.setDefaultEditor(col, null);
-//        }
-//    }
+
     public void fillTable(){
         DefaultTableModel model = (DefaultTableModel) tbBan.getModel();
         model.setColumnCount(0);
@@ -361,8 +317,7 @@ public class JFquanLy_SP extends javax.swing.JPanel {
     }//GEN-LAST:event_bntXoaActionPerformed
 
     private void cbbNhomMonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbNhomMonItemStateChanged
-//        JFquanLy_loaiSP.loaisp.fillTable();
-//        JFquanLy_loaiSP.loaisp.updateUI();
+fillTable();
     }//GEN-LAST:event_cbbNhomMonItemStateChanged
 
     private void txttimKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttimKeyReleased
