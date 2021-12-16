@@ -265,8 +265,11 @@ public class JFquanLy_loaiSP extends javax.swing.JPanel {
                     daoLoai.delete(maloaisp);
                     JOptionPane.showMessageDialog(null, "Xóa thành công <3");
                     fillTable();
-                    JFquanLy_SP.sp.fillCbb();
-                    JFquanLy_SP.sp.updateUI();
+                    try {
+                        JFquanLy_SP.sp.fillCbb();
+                        JFquanLy_SP.sp.updateUI();
+                    } catch (Exception e) {
+                    }
                 }
             }
         }
