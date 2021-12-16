@@ -91,6 +91,7 @@ public final class JFgoiMon extends javax.swing.JPanel {
         }
         if (lbltrangthai.getText().equals("Đang phục vụ")) {
             //jpthucdon.removeAll();
+            jLabel1.setVisible(false);
             btndatban.setVisible(false);
             btnthugon.setVisible(false);
             JFthucDon thucdon = new JFthucDon();
